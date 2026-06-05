@@ -2,8 +2,10 @@ namespace MusicTeacher.Shared.MusicTheory;
 
 public static class TrebleClef
 {
-    public static readonly IReadOnlyList<Pitch> BeginnerStaffNotes =
+    public static readonly IReadOnlyList<Pitch> BeginnerReadingNotes =
     [
+        new(NoteLetter.C, 4),
+        new(NoteLetter.D, 4),
         new(NoteLetter.E, 4),
         new(NoteLetter.F, 4),
         new(NoteLetter.G, 4),
@@ -12,8 +14,24 @@ public static class TrebleClef
         new(NoteLetter.C, 5),
         new(NoteLetter.D, 5),
         new(NoteLetter.E, 5),
-        new(NoteLetter.F, 5)
+        new(NoteLetter.F, 5),
+        new(NoteLetter.G, 5),
+        new(NoteLetter.A, 5)
     ];
+
+    public static readonly IReadOnlyList<Pitch> BeginnerPlacementNotes =
+    [
+        new(NoteLetter.C, 4),
+        new(NoteLetter.D, 4),
+        new(NoteLetter.E, 4),
+        new(NoteLetter.F, 4),
+        new(NoteLetter.G, 4),
+        new(NoteLetter.A, 4),
+        new(NoteLetter.B, 4),
+        new(NoteLetter.C, 5)
+    ];
+
+    public static readonly IReadOnlyList<Pitch> BeginnerStaffNotes = BeginnerReadingNotes;
 
     public static int GetStaffStep(Pitch pitch)
     {

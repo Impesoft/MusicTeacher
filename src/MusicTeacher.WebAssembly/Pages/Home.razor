@@ -72,19 +72,18 @@
         NoteLetter.B
     ];
 
-    private readonly IReadOnlyList<Pitch> notes = TrebleClef.BeginnerStaffNotes;
-    private readonly IReadOnlyList<int> selectableSteps = TrebleClef.BeginnerStaffNotes
+    private readonly IReadOnlyList<int> selectableSteps = TrebleClef.BeginnerPlacementNotes
         .Select(TrebleClef.GetStaffStep)
         .ToArray();
 
     private LessonDefinition? lesson;
     private LearningProgress progress = LearningProgress.Empty("treble-clef-start");
     private DrillMode mode = DrillMode.NameNote;
-    private Pitch currentPitch = TrebleClef.BeginnerStaffNotes[0];
+    private Pitch currentPitch = TrebleClef.BeginnerReadingNotes[0];
     private int? selectedStep;
     private string feedbackText = "Ready";
     private string feedbackClass = "feedback";
-    private int roundIndex;
+    private int roundIndex = -1;
 
     private bool IsPlacementMode => mode == DrillMode.PlaceNote;
 
@@ -98,7 +97,7 @@
 
     private string PromptText => mode == DrillMode.NameNote
         ? "Which name matches this note?"
-        : $"Put {currentPitch.FixedDoName} on the staff";
+        : $"Put {GetPromptName(currentPitch)} on the staff";
 
     protected override async Task OnInitializedAsync()
     {
@@ -110,6 +109,7 @@
     private void SetMode(DrillMode nextMode)
     {
         mode = nextMode;
+        roundIndex = -1;
         NextRound();
     }
 
@@ -146,18 +146,30 @@
 
     private void NextRound()
     {
-        roundIndex = (roundIndex + 3) % notes.Count;
+        var notes = CurrentNotes;
+        roundIndex = (roundIndex + 1) % notes.Count;
         currentPitch = notes[roundIndex];
         selectedStep = null;
         feedbackText = mode == DrillMode.NameNote ? "Pick a name." : "Pick a line or space.";
         feedbackClass = "feedback";
     }
 
+    private IReadOnlyList<Pitch> CurrentNotes => mode == DrillMode.NameNote
+        ? TrebleClef.BeginnerReadingNotes
+        : TrebleClef.BeginnerPlacementNotes;
+
     private string GetModeClass(DrillMode drillMode)
         => mode == drillMode ? "mode-button is-active" : "mode-button";
 
     private static string GetFixedDoName(NoteLetter letter)
         => new Pitch(letter, 4).FixedDoName;
+
+    private static string GetPromptName(Pitch pitch)
+        => pitch.Letter == NoteLetter.C && pitch.Octave == 4
+            ? "low do"
+            : pitch.Letter == NoteLetter.C && pitch.Octave == 5
+                ? "high do"
+                : pitch.FixedDoName;
 
     private enum DrillMode
     {

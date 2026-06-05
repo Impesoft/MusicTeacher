@@ -251,6 +251,16 @@ h1:focus {
     stroke-width: 3;
 }
 
+.ledger-line {
+    stroke: var(--ink);
+    stroke-linecap: round;
+    stroke-width: 3;
+}
+
+.ledger-line.is-target {
+    opacity: 0.34;
+}
+
 .note-stem {
     stroke: var(--ink);
     stroke-linecap: round;

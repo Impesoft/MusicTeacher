@@ -18,6 +18,11 @@
             var y = StepToY(step);
             var targetClass = SelectedStep == step ? "staff-target is-selected" : "staff-target";
 
+            @if (NeedsLedgerLine(step))
+            {
+                <line class="ledger-line is-target" x1="225" y1="@y" x2="285" y2="@y" />
+            }
+
             <g class="staff-hit-button" role="button" tabindex="0" @onclick="() => SelectStep(step)" aria-label="@GetStepLabel(step)">
                 <circle class="@targetClass" cx="255" cy="@y" r="11" />
             </g>
@@ -26,8 +31,16 @@
 
     @if (DisplayedPitch is not null)
     {
-        var noteY = StepToY(TrebleClef.GetStaffStep(DisplayedPitch.Value));
+        var staffStep = TrebleClef.GetStaffStep(DisplayedPitch.Value);
+        var noteY = StepToY(staffStep);
         var noteTransform = $"rotate(-18 255 {noteY})";
+
+        foreach (var ledgerStep in GetLedgerSteps(staffStep))
+        {
+            var ledgerY = StepToY(ledgerStep);
+            <line class="ledger-line" x1="225" y1="@ledgerY" x2="285" y2="@ledgerY" />
+        }
+
         <ellipse class="note-head" cx="255" cy="@noteY" rx="15" ry="10" transform="@noteTransform" />
         <line class="note-stem" x1="268" y1="@noteY" x2="268" y2="@(noteY - 62)" />
     }
@@ -61,6 +74,28 @@
     private static double StepToY(int staffStep) => BottomLineY - staffStep * (LineGap / 2);
 
     private async Task SelectStep(int step) => await OnStepSelected.InvokeAsync(step);
+
+    private static bool NeedsLedgerLine(int staffStep)
+        => (staffStep is < 0 or > 8) && staffStep % 2 == 0;
+
+    private static IEnumerable<int> GetLedgerSteps(int staffStep)
+    {
+        if (staffStep < 0)
+        {
+            for (var ledgerStep = -2; ledgerStep >= staffStep; ledgerStep -= 2)
+            {
+                yield return ledgerStep;
+            }
+        }
+
+        if (staffStep > 8)
+        {
+            for (var ledgerStep = 10; ledgerStep <= staffStep; ledgerStep += 2)
+            {
+                yield return ledgerStep;
+            }
+        }
+    }
 
     private static string GetStepLabel(int step)
     {

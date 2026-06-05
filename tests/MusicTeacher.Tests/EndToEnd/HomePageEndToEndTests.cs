@@ -21,7 +21,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.ReloadAsync();
 
         await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Treble Clef Start" })).ToBeVisibleAsync();
-        await page.Locator("button.answer-button", new() { HasTextString = "la" }).ClickAsync();
+        await page.Locator("button.answer-button", new() { HasTextString = "do" }).ClickAsync();
 
         await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByText("1 tries")).ToBeVisibleAsync();
