@@ -285,42 +285,78 @@ h1:focus {
     stroke-dasharray: none;
 }
 
-.answer-grid {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    margin-top: 1rem;
-}
-
-.answer-button {
-    aspect-ratio: 1;
-    background: white;
+.piano-keyboard {
+    --black-key-width: min(2.25rem, 5.7vw);
+    background: var(--ink);
     border: 3px solid var(--ink);
     border-radius: 8px;
-    box-shadow: 0 5px 0 var(--ink);
+    margin-top: 1rem;
+    min-height: 8.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.white-key-row {
+    display: grid;
+    grid-template-columns: repeat(14, minmax(0, 1fr));
+    height: 8.5rem;
+}
+
+.piano-white-key {
+    align-items: end;
+    background: linear-gradient(180deg, #fffefa 0%, #f4ead0 100%);
+    border-right: 1px solid rgba(23, 33, 43, 0.42);
     color: var(--ink);
     cursor: pointer;
     display: grid;
     font-weight: 900;
+    gap: 0.15rem;
+    justify-items: center;
     min-width: 0;
-    place-items: center;
-    transition: transform 120ms ease, box-shadow 120ms ease;
+    padding: 0 0.2rem 0.65rem;
+    position: relative;
+    transition: background 120ms ease, transform 120ms ease;
+    z-index: 1;
 }
 
-.answer-button:hover,
-.answer-button:focus-visible {
-    box-shadow: 0 2px 0 var(--ink);
+.piano-white-key:last-child {
+    border-right: 0;
+}
+
+.piano-white-key:hover,
+.piano-white-key:focus-visible {
+    background: linear-gradient(180deg, #fffefa 0%, var(--sun) 100%);
     transform: translateY(3px);
 }
 
-.answer-button span {
-    font-size: clamp(1rem, 2.6vw, 1.45rem);
+.piano-white-key span {
+    font-size: clamp(0.76rem, 1.6vw, 1.1rem);
+    line-height: 1;
 }
 
-.answer-button small {
+.piano-white-key small {
     color: var(--reed);
-    font-size: 0.75rem;
+    font-size: clamp(0.58rem, 1.25vw, 0.78rem);
     font-weight: 900;
+    line-height: 1;
+}
+
+.black-key-row {
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.piano-black-key {
+    background: linear-gradient(180deg, #202833 0%, #050607 100%);
+    border: 2px solid #050607;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.55);
+    height: 4.9rem;
+    position: absolute;
+    top: 0;
+    width: var(--black-key-width);
 }
 
 .feedback {
@@ -416,8 +452,13 @@ h1:focus {
         max-width: none;
     }
 
-    .answer-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+    .piano-keyboard {
+        --black-key-width: min(1.85rem, 6vw);
+        min-height: 7.3rem;
+    }
+
+    .white-key-row {
+        height: 7.3rem;
     }
 }
 
@@ -431,7 +472,28 @@ h1:focus {
         width: 100%;
     }
 
-    .answer-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .piano-keyboard {
+        --black-key-width: 1.25rem;
+        min-height: 6.4rem;
+    }
+
+    .white-key-row {
+        height: 6.4rem;
+    }
+
+    .piano-white-key {
+        padding-bottom: 0.45rem;
+    }
+
+    .piano-white-key span {
+        font-size: 0.62rem;
+    }
+
+    .piano-white-key small {
+        font-size: 0.52rem;
+    }
+
+    .piano-black-key {
+        height: 3.9rem;
     }
 }

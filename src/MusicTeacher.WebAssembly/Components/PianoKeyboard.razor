@@ -1,0 +1,61 @@
+@using MusicTeacher.Shared.MusicTheory
+
+<div class="piano-keyboard" role="group" aria-label="Two octave note keyboard">
+    <div class="white-key-row">
+        @foreach (var pitch in Pitches)
+        {
+            <button type="button"
+                    class="piano-white-key"
+                    data-pitch="@pitch.ScientificName"
+                    @onpointerenter="() => PreviewPitch(pitch)"
+                    @onclick="() => SelectPitch(pitch)">
+                <span>@pitch.FixedDoName</span>
+                <small>@pitch.ScientificName.ToLowerInvariant()</small>
+            </button>
+        }
+    </div>
+
+    <div class="black-key-row" aria-hidden="true">
+        @foreach (var keyIndex in BlackKeyAfterIndexes)
+        {
+            <span class="piano-black-key" style="@GetBlackKeyStyle(keyIndex)"></span>
+        }
+    </div>
+</div>
+
+@code {
+    private static readonly IReadOnlyList<int> BlackKeyAfterIndexes =
+    [
+        0,
+        1,
+        3,
+        4,
+        5,
+        7,
+        8,
+        10,
+        11,
+        12
+    ];
+
+    [Parameter]
+    public IReadOnlyList<Pitch> Pitches { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<Pitch> OnPitchPreviewed { get; set; }
+
+    [Parameter]
+    public EventCallback<Pitch> OnPitchSelected { get; set; }
+
+    private async Task PreviewPitch(Pitch pitch) => await OnPitchPreviewed.InvokeAsync(pitch);
+
+    private async Task SelectPitch(Pitch pitch) => await OnPitchSelected.InvokeAsync(pitch);
+
+    private string GetBlackKeyStyle(int whiteKeyIndex)
+    {
+        var keyCount = Math.Max(Pitches.Count, 1);
+        var left = ((whiteKeyIndex + 1d) / keyCount) * 100d;
+
+        return FormattableString.Invariant($"left: calc({left:0.###}% - var(--black-key-width) / 2);");
+    }
+}

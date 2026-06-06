@@ -47,19 +47,9 @@
 
         @if (mode == DrillMode.NameNote)
         {
-            <div class="answer-grid" aria-label="Note name choices">
-                @foreach (var letter in noteLetters)
-                {
-                    <button type="button"
-                            class="answer-button"
-                            data-note-letter="@letter"
-                            @onpointerenter="() => PreviewName(letter)"
-                            @onclick="() => ChooseName(letter)">
-                        <span>@GetFixedDoName(letter)</span>
-                        <small>@letter</small>
-                    </button>
-                }
-            </div>
+            <PianoKeyboard Pitches="@TrebleClef.BeginnerReadingNotes"
+                           OnPitchPreviewed="PreviewPitch"
+                           OnPitchSelected="ChoosePitch" />
         }
 
         <div class="@feedbackClass" aria-live="polite">@feedbackText</div>
@@ -67,17 +57,6 @@
 </section>
 
 @code {
-    private static readonly IReadOnlyList<NoteLetter> noteLetters =
-    [
-        NoteLetter.C,
-        NoteLetter.D,
-        NoteLetter.E,
-        NoteLetter.F,
-        NoteLetter.G,
-        NoteLetter.A,
-        NoteLetter.B
-    ];
-
     private readonly IReadOnlyList<int> selectableSteps = TrebleClef.BeginnerPlacementNotes
         .Select(TrebleClef.GetStaffStep)
         .ToArray();
@@ -119,16 +98,16 @@
         NextRound();
     }
 
-    private async Task ChooseName(NoteLetter letter)
+    private async Task ChoosePitch(Pitch pitch)
     {
-        var isCorrect = letter == currentPitch.Letter;
+        var isCorrect = pitch == currentPitch;
         await PlayClickCue(isCorrect, currentPitch);
         await RecordAnswer(isCorrect);
     }
 
-    private async Task PreviewName(NoteLetter letter)
+    private async Task PreviewPitch(Pitch pitch)
     {
-        await Audio.PlayNoteAsync(GetAnswerPreviewPitch(letter));
+        await Audio.PlayNoteAsync(pitch);
     }
 
     private async Task PreviewStaffStep(int step)
@@ -197,12 +176,6 @@
     private string GetModeClass(DrillMode drillMode)
         => mode == drillMode ? "mode-button is-active" : "mode-button";
 
-    private static string GetFixedDoName(NoteLetter letter)
-        => new Pitch(letter, 4).FixedDoName;
-
-    private Pitch GetAnswerPreviewPitch(NoteLetter letter)
-        => TrebleClef.GetSolfegeButtonPreviewPitch(letter, currentPitch);
-
     private async Task PlayClickCue(bool isCorrect, Pitch pitch)
     {
         if (isCorrect)
@@ -215,11 +188,7 @@
     }
 
     private static string GetPromptName(Pitch pitch)
-        => pitch.Letter == NoteLetter.C && pitch.Octave == 4
-            ? "low do"
-            : pitch.Letter == NoteLetter.C && pitch.Octave == 5
-                ? "high do"
-                : pitch.FixedDoName;
+        => $"{(pitch.Octave == 4 ? "low" : "high")} {pitch.FixedDoName}";
 
     private enum DrillMode
     {

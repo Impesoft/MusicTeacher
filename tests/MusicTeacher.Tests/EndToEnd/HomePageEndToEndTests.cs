@@ -22,9 +22,8 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
 
         await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Treble Clef Start" })).ToBeVisibleAsync();
         var displayedPitch = await page.Locator(".music-staff").GetAttributeAsync("data-pitch");
-        var displayedLetter = displayedPitch![..1];
 
-        await page.Locator($"button.answer-button[data-note-letter='{displayedLetter}']").ClickAsync();
+        await page.Locator($"button.piano-white-key[data-pitch='{displayedPitch}']").ClickAsync();
 
         await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByText("1 tries")).ToBeVisibleAsync();
