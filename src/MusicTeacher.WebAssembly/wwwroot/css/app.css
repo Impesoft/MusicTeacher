@@ -7,6 +7,7 @@
     --coral: #f36f53;
     --sun: #ffc857;
     --mist: #e8f6f7;
+    --key-label: #1268d6;
     --shadow: 0 20px 44px rgba(33, 40, 47, 0.18);
 }
 
@@ -330,15 +331,18 @@ h1:focus {
 }
 
 .piano-white-key span {
+    color: var(--key-label);
     font-size: clamp(0.76rem, 1.6vw, 1.1rem);
     line-height: 1;
+    text-shadow: 0 1px 0 white, 0 0 6px white;
 }
 
 .piano-white-key small {
-    color: var(--reed);
+    color: var(--key-label);
     font-size: clamp(0.58rem, 1.25vw, 0.78rem);
     font-weight: 900;
     line-height: 1;
+    text-shadow: 0 1px 0 white, 0 0 6px white;
 }
 
 .black-key-row {
