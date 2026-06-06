@@ -201,13 +201,7 @@
         => new Pitch(letter, 4).FixedDoName;
 
     private Pitch GetNearestAnswerPitch(NoteLetter letter)
-    {
-        var currentStep = TrebleClef.GetStaffStep(currentPitch);
-
-        return TrebleClef.BeginnerReadingNotes
-            .Where(pitch => pitch.Letter == letter)
-            .MinBy(pitch => Math.Abs(TrebleClef.GetStaffStep(pitch) - currentStep));
-    }
+        => TrebleClef.GetNearestPitchWithLetter(letter, currentPitch);
 
     private async Task PlayClickCue(bool isCorrect, Pitch pitch)
     {

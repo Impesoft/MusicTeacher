@@ -50,4 +50,22 @@ public sealed class TrebleClefTests
         Assert.Equal(new Pitch(NoteLetter.C, 4), TrebleClef.BeginnerReadingNotes[0]);
         Assert.Equal(new Pitch(NoteLetter.A, 5), TrebleClef.BeginnerReadingNotes[^1]);
     }
+
+    [Theory]
+    [InlineData(NoteLetter.B, NoteLetter.A, 5, NoteLetter.B, 5)]
+    [InlineData(NoteLetter.B, NoteLetter.C, 5, NoteLetter.B, 4)]
+    [InlineData(NoteLetter.C, NoteLetter.B, 4, NoteLetter.C, 5)]
+    public void NearestPitchWithLetterKeepsPreviewInTheCurrentRegister(
+        NoteLetter requestedLetter,
+        NoteLetter referenceLetter,
+        int referenceOctave,
+        NoteLetter expectedLetter,
+        int expectedOctave)
+    {
+        var referencePitch = new Pitch(referenceLetter, referenceOctave);
+
+        Assert.Equal(
+            new Pitch(expectedLetter, expectedOctave),
+            TrebleClef.GetNearestPitchWithLetter(requestedLetter, referencePitch));
+    }
 }

@@ -75,4 +75,23 @@ public static class TrebleClef
 
         return new Pitch(letter, octave);
     }
+
+    public static Pitch GetNearestPitchWithLetter(NoteLetter letter, Pitch referencePitch)
+    {
+        var referenceStep = GetStaffStep(referencePitch);
+        var baseStep = GetStaffStep(new Pitch(letter, referencePitch.Octave));
+        var nearestStep = baseStep;
+
+        while (nearestStep - referenceStep > 3)
+        {
+            nearestStep -= 7;
+        }
+
+        while (referenceStep - nearestStep > 3)
+        {
+            nearestStep += 7;
+        }
+
+        return GetPitchFromStaffStep(nearestStep);
+    }
 }
