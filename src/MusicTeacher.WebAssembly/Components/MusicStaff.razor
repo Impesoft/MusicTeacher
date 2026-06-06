@@ -10,7 +10,21 @@
     }
 
     <line class="staff-barline" x1="52" y1="@StaffLineY(0)" x2="52" y2="@StaffLineY(4)" />
-    <text class="treble-clef" x="78" y="@StaffCenterY">&#119070;</text>
+    <g class="treble-clef" aria-hidden="true">
+        <path d="M88 181
+                 C103 178 103 157 90 153
+                 C70 148 65 132 78 120
+                 C93 106 115 113 116 133
+                 C117 154 91 163 78 146
+                 C67 132 74 115 94 106
+                 C116 96 113 75 95 65
+                 C78 56 76 39 86 29
+                 C98 18 109 34 106 54
+                 C102 82 93 108 89 130
+                 C84 154 85 175 93 190
+                 C99 203 84 211 74 201
+                 C67 194 72 181 88 181" />
+    </g>
 
     @if (IsPlacementMode)
     {
@@ -55,8 +69,6 @@
 @code {
     private const double BottomLineY = 154;
     private const double LineGap = 24;
-    private const double StaffCenterY = BottomLineY - LineGap * 2;
-
     [Parameter]
     public Pitch? DisplayedPitch { get; set; }
 

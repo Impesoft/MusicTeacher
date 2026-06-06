@@ -247,10 +247,12 @@ h1:focus {
 }
 
 .treble-clef {
-    dominant-baseline: central;
-    fill: var(--ink);
-    font-family: "Cambria Math", "Segoe UI Symbol", "Times New Roman", serif;
-    font-size: 132px;
+    fill: none;
+    pointer-events: none;
+    stroke: var(--ink);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 7;
 }
 
 .note-head {
