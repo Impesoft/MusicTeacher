@@ -57,6 +57,17 @@
                     OnStepPreviewed="PreviewStaffStep"
                     OnStepSelected="SelectStaffStep" />
 
+        @if (mode == DrillMode.PlaceNote)
+        {
+            <div class="accidental-selector" role="group" aria-label="@Localizer["AccidentalSelectorLabel"]">
+                <span>@Localizer["AccidentalSelectorLabel"]</span>
+                <button class="accidental-button" type="button" disabled aria-label="@Localizer["AccidentalFlat"]">♭</button>
+                <button class="accidental-button is-active" type="button" disabled aria-label="@Localizer["AccidentalNatural"]">♮</button>
+                <button class="accidental-button" type="button" disabled aria-label="@Localizer["AccidentalSharp"]">♯</button>
+                <small>@Localizer["AccidentalSelectorDisabledHint"]</small>
+            </div>
+        }
+
         @if (mode == DrillMode.NameNote)
         {
             <PianoKeyboard Pitches="@TrebleClef.BeginnerReadingNotes"
@@ -74,4 +85,3 @@
         <div class="@feedbackClass" aria-live="polite">@FeedbackText</div>
     </div>
 </section>
-

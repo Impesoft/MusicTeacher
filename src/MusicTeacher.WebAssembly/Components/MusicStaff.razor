@@ -20,11 +20,12 @@
         foreach (var step in SelectableSteps)
         {
             var y = StepToY(step);
+            var x = StepToX(step);
             var targetClass = SelectedStep == step ? "staff-target is-selected" : "staff-target";
 
             @if (NeedsLedgerLine(step))
             {
-                <line class="ledger-line is-target" x1="225" y1="@y" x2="285" y2="@y" />
+                <line class="ledger-line is-target" x1="@(x - 22)" y1="@y" x2="@(x + 22)" y2="@y" />
             }
 
             <g class="staff-hit-button"
@@ -33,7 +34,7 @@
                @onpointerenter="() => PreviewStep(step)"
                @onclick="() => SelectStep(step)"
                aria-label="@GetStepLabel(step)">
-                <circle class="@targetClass" cx="255" cy="@y" r="11" />
+                <circle class="@targetClass" cx="@x" cy="@y" r="11" />
             </g>
         }
     }
@@ -42,22 +43,25 @@
     {
         var staffStep = TrebleClef.GetStaffStep(DisplayedPitch.Value);
         var noteY = StepToY(staffStep);
-        var noteTransform = $"rotate(-18 255 {noteY})";
+        var noteX = IsPlacementMode && SelectedStep is not null ? StepToX(staffStep) : 255d;
+        var noteTransform = $"rotate(-18 {noteX} {noteY})";
 
         foreach (var ledgerStep in GetLedgerSteps(staffStep))
         {
             var ledgerY = StepToY(ledgerStep);
-            <line class="ledger-line" x1="225" y1="@ledgerY" x2="285" y2="@ledgerY" />
+            <line class="ledger-line" x1="@(noteX - 30)" y1="@ledgerY" x2="@(noteX + 30)" y2="@ledgerY" />
         }
 
-        <ellipse class="note-head" cx="255" cy="@noteY" rx="15" ry="10" transform="@noteTransform" />
-        <line class="note-stem" x1="268" y1="@noteY" x2="268" y2="@(noteY - 62)" />
+        <ellipse class="note-head" cx="@noteX" cy="@noteY" rx="15" ry="10" transform="@noteTransform" />
+        <line class="note-stem" x1="@(noteX + 13)" y1="@noteY" x2="@(noteX + 13)" y2="@(noteY - 62)" />
     }
 </svg>
 
 @code {
     private const double BottomLineY = 154;
     private const double LineGap = 24;
+    private const double PlacementStartX = 112;
+    private const double PlacementEndX = 360;
     [Parameter]
     public Pitch? DisplayedPitch { get; set; }
 
@@ -83,6 +87,27 @@
     private static double StaffLineY(int lineFromTop) => BottomLineY - (4 - lineFromTop) * LineGap;
 
     private static double StepToY(int staffStep) => BottomLineY - staffStep * (LineGap / 2);
+
+    private double StepToX(int staffStep)
+    {
+        var orderedSteps = SelectableSteps
+            .OrderBy(step => step)
+            .ToArray();
+
+        if (orderedSteps.Length <= 1)
+        {
+            return (PlacementStartX + PlacementEndX) / 2;
+        }
+
+        var index = Array.IndexOf(orderedSteps, staffStep);
+        if (index < 0)
+        {
+            return (PlacementStartX + PlacementEndX) / 2;
+        }
+
+        var progress = index / (double)(orderedSteps.Length - 1);
+        return PlacementStartX + (PlacementEndX - PlacementStartX) * progress;
+    }
 
     private async Task SelectStep(int step) => await OnStepSelected.InvokeAsync(step);
 

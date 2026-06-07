@@ -99,4 +99,19 @@
   <data name="StaffPlaceNoteAriaLabel" xml:space="preserve">
     <value>Place note on {0}</value>
   </data>
+  <data name="AccidentalSelectorLabel" xml:space="preserve">
+    <value>Accidental</value>
+  </data>
+  <data name="AccidentalFlat" xml:space="preserve">
+    <value>Flat</value>
+  </data>
+  <data name="AccidentalNatural" xml:space="preserve">
+    <value>No accidental</value>
+  </data>
+  <data name="AccidentalSharp" xml:space="preserve">
+    <value>Sharp</value>
+  </data>
+  <data name="AccidentalSelectorDisabledHint" xml:space="preserve">
+    <value>Sharps and flats are coming next.</value>
+  </data>
 </root>
