@@ -7,6 +7,7 @@ namespace MusicTeacher.WebAssembly.Services;
 public sealed class AppLocalizer(IJSRuntime jsRuntime)
 {
     private const string StorageKey = "music-teacher-culture";
+    private const string DefaultCultureName = "en";
     private static readonly ResourceManager ResourceManager = new(
         "MusicTeacher.WebAssembly.Resources.AppStrings",
         typeof(AppLocalizer).Assembly);
@@ -47,14 +48,14 @@ public sealed class AppLocalizer(IJSRuntime jsRuntime)
     {
         if (string.IsNullOrWhiteSpace(cultureName))
         {
-            return CultureInfo.GetCultureInfo("en");
+            return CultureInfo.GetCultureInfo(DefaultCultureName);
         }
 
         var supportedCulture = SupportedCultures.FirstOrDefault(culture =>
             string.Equals(culture.Name, cultureName, StringComparison.OrdinalIgnoreCase) ||
             cultureName.StartsWith(culture.Name + "-", StringComparison.OrdinalIgnoreCase));
 
-        return CultureInfo.GetCultureInfo(supportedCulture?.Name ?? "en");
+        return CultureInfo.GetCultureInfo(supportedCulture?.Name ?? DefaultCultureName);
     }
 
     private static void SetCurrentCulture(CultureInfo culture)

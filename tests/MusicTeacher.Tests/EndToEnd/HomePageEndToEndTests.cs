@@ -55,6 +55,27 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         Assert.True(targetXCoordinates.Distinct().Count() > 10);
     }
 
+    [E2EFact]
+    public async Task DutchCanBeSelectedWithoutRefreshAfterStartingInEnglish()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+            }
+            """);
+        await page.ReloadAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "How do you want to practice?" })).ToBeVisibleAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Nederlands" }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Hoe wil je oefenen?" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Vrij oefenen" })).ToBeVisibleAsync();
+    }
+
     public async Task InitializeAsync()
     {
         baseUrl = $"http://127.0.0.1:{port}";
