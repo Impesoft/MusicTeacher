@@ -16,11 +16,9 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     [E2EFact]
     public async Task LearnerCanNameTheFirstTrebleClefNote()
     {
-        await page!.GotoAsync(baseUrl);
-        await page.EvaluateAsync("localStorage.clear()");
-        await page.ReloadAsync();
+        await StartFreeExploreAsync();
 
-        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Treble Clef Start" })).ToBeVisibleAsync();
+        await Assertions.Expect(page!.GetByRole(AriaRole.Heading, new() { Name = "Treble Clef Start" })).ToBeVisibleAsync();
         var displayedPitch = await page.Locator(".music-staff").GetAttributeAsync("data-pitch");
 
         await page.Locator($"button.piano-white-key[data-pitch='{displayedPitch}']").ClickAsync();
@@ -32,8 +30,9 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     [E2EFact]
     public async Task LearnerCanOpenPlacementModeAndChooseAStaffPosition()
     {
-        await page!.GotoAsync(baseUrl);
-        await page.GetByRole(AriaRole.Button, new() { Name = "Place" }).ClickAsync();
+        await StartFreeExploreAsync();
+
+        await page!.GetByRole(AriaRole.Button, new() { Name = "Place", Exact = true }).ClickAsync();
 
         await Assertions.Expect(page.GetByText("Pick a line or space.")).ToBeVisibleAsync();
         await page.Locator(".staff-hit-button").First.ClickAsync();
@@ -50,6 +49,17 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         playwright = await Playwright.CreateAsync();
         browser = await playwright.Chromium.LaunchAsync(new() { Headless = true });
         page = await browser.NewPageAsync();
+    }
+
+    private async Task StartFreeExploreAsync()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync("""
+            localStorage.clear();
+            localStorage.setItem('music-teacher-culture', 'en');
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Free explore" }).ClickAsync();
     }
 
     public async Task DisposeAsync()
@@ -70,21 +80,16 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
 
     private Process StartServer()
     {
-        var projectPath = Path.GetFullPath(Path.Combine(
-            AppContext.BaseDirectory,
-            "..",
-            "..",
-            "..",
-            "..",
-            "..",
+        var projectPath = Path.Combine(
+            FindRepositoryRoot(),
             "src",
             "MusicTeacher.WebAssembly",
-            "MusicTeacher.WebAssembly.csproj"));
+            "MusicTeacher.WebAssembly.csproj");
 
         return Process.Start(new ProcessStartInfo
         {
             FileName = "dotnet",
-            Arguments = $"run --project \"{projectPath}\" --no-launch-profile --urls {baseUrl}",
+            Arguments = $"run --project \"{projectPath}\" --no-restore --no-launch-profile --urls {baseUrl}",
             RedirectStandardError = true,
             RedirectStandardOutput = true,
             UseShellExecute = false
@@ -113,6 +118,38 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
             }
         }
 
-        throw new TimeoutException($"Blazor dev server did not start at {baseUrl}.");
+        if (server is not null && !server.HasExited)
+        {
+            server.Kill(entireProcessTree: true);
+            await server.WaitForExitAsync(CancellationToken.None);
+        }
+
+        var output = server is null ? string.Empty : await server.StandardOutput.ReadToEndAsync(CancellationToken.None);
+        var error = server is null ? string.Empty : await server.StandardError.ReadToEndAsync(CancellationToken.None);
+
+        throw new TimeoutException($"Blazor dev server did not start at {baseUrl}.{Environment.NewLine}{output}{Environment.NewLine}{error}");
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+
+        while (directory is not null)
+        {
+            var projectPath = Path.Combine(
+                directory.FullName,
+                "src",
+                "MusicTeacher.WebAssembly",
+                "MusicTeacher.WebAssembly.csproj");
+
+            if (File.Exists(projectPath))
+            {
+                return directory.FullName;
+            }
+
+            directory = directory.Parent;
+        }
+
+        throw new InvalidOperationException("Could not find repository root.");
     }
 }
