@@ -40,6 +40,21 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync(new Regex("That fits.|Try the next one."));
     }
 
+    [E2EFact]
+    public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
+    {
+        await StartFreeExploreAsync("nl", "Vrij oefenen");
+
+        await page!.GetByRole(AriaRole.Button, new() { Name = "Plaats", Exact = true }).ClickAsync();
+
+        var targetXCoordinates = await page.Locator("circle.staff-target").EvaluateAllAsync<string[]>(
+            "nodes => nodes.map(node => node.getAttribute('cx'))");
+
+        Assert.Equal(14, targetXCoordinates.Length);
+        Assert.All(targetXCoordinates, coordinate => Assert.DoesNotContain(',', coordinate));
+        Assert.True(targetXCoordinates.Distinct().Count() > 10);
+    }
+
     public async Task InitializeAsync()
     {
         baseUrl = $"http://127.0.0.1:{port}";
@@ -51,15 +66,19 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         page = await browser.NewPageAsync();
     }
 
-    private async Task StartFreeExploreAsync()
+    private async Task StartFreeExploreAsync(string culture = "en", string startButtonName = "Free explore")
     {
         await page!.GotoAsync(baseUrl);
-        await page.EvaluateAsync("""
-            localStorage.clear();
-            localStorage.setItem('music-teacher-culture', 'en');
-            """);
+        await page.EvaluateAsync(
+            """
+            culture => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', culture);
+            }
+            """,
+            culture);
         await page.ReloadAsync();
-        await page.GetByRole(AriaRole.Button, new() { Name = "Free explore" }).ClickAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = startButtonName }).ClickAsync();
     }
 
     public async Task DisposeAsync()

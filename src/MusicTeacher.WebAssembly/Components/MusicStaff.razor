@@ -1,4 +1,5 @@
 @using MusicTeacher.Shared.MusicTheory
+@using System.Globalization
 @inject AppLocalizer Localizer
 
 <svg class="music-staff" viewBox="0 0 420 210" role="img" aria-label="@AriaLabel" data-pitch="@DisplayedPitch?.ScientificName">
@@ -21,11 +22,13 @@
         {
             var y = StepToY(step);
             var x = StepToX(step);
+            var svgY = SvgNumber(y);
+            var svgX = SvgNumber(x);
             var targetClass = SelectedStep == step ? "staff-target is-selected" : "staff-target";
 
             @if (NeedsLedgerLine(step))
             {
-                <line class="ledger-line is-target" x1="@(x - 22)" y1="@y" x2="@(x + 22)" y2="@y" />
+                <line class="ledger-line is-target" x1="@SvgNumber(x - 22)" y1="@svgY" x2="@SvgNumber(x + 22)" y2="@svgY" />
             }
 
             <g class="staff-hit-button"
@@ -34,7 +37,7 @@
                @onpointerenter="() => PreviewStep(step)"
                @onclick="() => SelectStep(step)"
                aria-label="@GetStepLabel(step)">
-                <circle class="@targetClass" cx="@x" cy="@y" r="11" />
+                <circle class="@targetClass" cx="@svgX" cy="@svgY" r="11" />
             </g>
         }
     }
@@ -44,16 +47,18 @@
         var staffStep = TrebleClef.GetStaffStep(DisplayedPitch.Value);
         var noteY = StepToY(staffStep);
         var noteX = IsPlacementMode && SelectedStep is not null ? StepToX(staffStep) : 255d;
-        var noteTransform = $"rotate(-18 {noteX} {noteY})";
+        var svgNoteY = SvgNumber(noteY);
+        var svgNoteX = SvgNumber(noteX);
+        var noteTransform = FormattableString.Invariant($"rotate(-18 {noteX:0.###} {noteY:0.###})");
 
         foreach (var ledgerStep in GetLedgerSteps(staffStep))
         {
             var ledgerY = StepToY(ledgerStep);
-            <line class="ledger-line" x1="@(noteX - 30)" y1="@ledgerY" x2="@(noteX + 30)" y2="@ledgerY" />
+            <line class="ledger-line" x1="@SvgNumber(noteX - 30)" y1="@SvgNumber(ledgerY)" x2="@SvgNumber(noteX + 30)" y2="@SvgNumber(ledgerY)" />
         }
 
-        <ellipse class="note-head" cx="@noteX" cy="@noteY" rx="15" ry="10" transform="@noteTransform" />
-        <line class="note-stem" x1="@(noteX + 13)" y1="@noteY" x2="@(noteX + 13)" y2="@(noteY - 62)" />
+        <ellipse class="note-head" cx="@svgNoteX" cy="@svgNoteY" rx="15" ry="10" transform="@noteTransform" />
+        <line class="note-stem" x1="@SvgNumber(noteX + 13)" y1="@svgNoteY" x2="@SvgNumber(noteX + 13)" y2="@SvgNumber(noteY - 62)" />
     }
 </svg>
 
@@ -87,6 +92,8 @@
     private static double StaffLineY(int lineFromTop) => BottomLineY - (4 - lineFromTop) * LineGap;
 
     private static double StepToY(int staffStep) => BottomLineY - staffStep * (LineGap / 2);
+
+    private static string SvgNumber(double value) => value.ToString("0.###", CultureInfo.InvariantCulture);
 
     private double StepToX(int staffStep)
     {
