@@ -15,6 +15,14 @@
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
     <script type="importmap"></script>
+    <script>
+        (() => {
+            const mode = localStorage.getItem('music-teacher-color-mode');
+            if (mode === 'light' || mode === 'dark') {
+                document.documentElement.dataset.colorMode = mode;
+            }
+        })();
+    </script>
 </head>
 
 <body>
@@ -32,6 +40,21 @@
         <span class="dismiss">x</span>
     </div>
     <script src="js/music-audio.js"></script>
+    <script>
+        window.musicTeacherColorMode = {
+            get: () => localStorage.getItem('music-teacher-color-mode') ?? 'system',
+            set: mode => {
+                if (mode === 'light' || mode === 'dark') {
+                    localStorage.setItem('music-teacher-color-mode', mode);
+                    document.documentElement.dataset.colorMode = mode;
+                    return;
+                }
+
+                localStorage.removeItem('music-teacher-color-mode');
+                delete document.documentElement.dataset.colorMode;
+            }
+        };
+    </script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js" autostart="false"></script>
     <script>
         Blazor.start({

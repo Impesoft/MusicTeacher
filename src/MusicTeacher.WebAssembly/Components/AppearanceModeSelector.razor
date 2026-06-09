@@ -1,0 +1,45 @@
+@inject AppLocalizer Localizer
+@inject IJSRuntime JS
+
+<div class="appearance-selector" role="group" aria-label="@Localizer["AppearanceModeLabel"]">
+    @foreach (var option in Options)
+    {
+        <button class="@GetOptionClass(option.Value)"
+                type="button"
+                aria-pressed="@(currentMode == option.Value)"
+                @onclick="() => SetMode(option.Value)">
+            @Localizer[option.LabelKey]
+        </button>
+    }
+</div>
+
+@code {
+    private const string SystemMode = "system";
+    private const string LightMode = "light";
+    private const string DarkMode = "dark";
+
+    private static readonly IReadOnlyList<AppearanceOption> Options =
+    [
+        new(SystemMode, "AppearanceModeSystem"),
+        new(LightMode, "AppearanceModeLight"),
+        new(DarkMode, "AppearanceModeDark")
+    ];
+
+    private string currentMode = SystemMode;
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentMode = await JS.InvokeAsync<string>("musicTeacherColorMode.get");
+    }
+
+    private async Task SetMode(string mode)
+    {
+        currentMode = mode;
+        await JS.InvokeVoidAsync("musicTeacherColorMode.set", mode);
+    }
+
+    private string GetOptionClass(string mode)
+        => currentMode == mode ? "appearance-button is-active" : "appearance-button";
+
+    private sealed record AppearanceOption(string Value, string LabelKey);
+}
