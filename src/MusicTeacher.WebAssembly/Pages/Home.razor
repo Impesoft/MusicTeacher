@@ -45,7 +45,83 @@
                     <strong>@Localizer["LearningMode"]</strong>
                     <small>@Localizer["LearningModeDescription"]</small>
                 </button>
+                <button class="start-option-card"
+                        type="button"
+                        @onclick="() => StartPractice(PracticeMode.Theory)">
+                    <strong>@Localizer["TheoryMode"]</strong>
+                    <small>@Localizer["TheoryModeDescription"]</small>
+                </button>
             </div>
+        </div>
+    </section>
+}
+else if (practiceMode == PracticeMode.Theory)
+{
+    <section class="theory-stage">
+        <div class="lesson-panel theory-panel">
+            <div class="lesson-kicker">@Localizer["TheoryKicker"]</div>
+            <h1>@Localizer["TheoryTitle"]</h1>
+
+            <button class="back-to-start-button" type="button" @onclick="ReturnToStart">
+                @Localizer["BackToStart"]
+            </button>
+
+            <div class="level-card" aria-live="polite">
+                <div class="level-card-header">
+                    <span>@Localizer.Format("TheoryLevelLabel", CurrentTheoryPage.Level)</span>
+                    <span>@Localizer.Format("TheoryPageCounter", theoryPageIndex + 1, AvailableTheoryPages.Count)</span>
+                </div>
+                <strong>@CurrentTheoryTitle</strong>
+                <small>@CurrentTheorySummary</small>
+            </div>
+        </div>
+
+        <div class="exercise-board theory-board">
+            <div class="prompt-row">
+                <div>
+                    <p class="prompt-label">@Localizer["TheoryMode"]</p>
+                    <h2>@CurrentTheoryTitle</h2>
+                </div>
+                <div class="prompt-actions">
+                    <button class="next-button secondary-button"
+                            type="button"
+                            disabled="@IsFirstTheoryPage"
+                            @onclick="PreviousTheoryPage"
+                            aria-label="@Localizer["PreviousTheoryPage"]">
+                        @Localizer["Previous"]
+                    </button>
+                    <button class="next-button"
+                            type="button"
+                            disabled="@IsLastTheoryPage"
+                            @onclick="NextTheoryPage"
+                            aria-label="@Localizer["NextTheoryPage"]">
+                        @Localizer["Next"]
+                    </button>
+                </div>
+            </div>
+
+            <p class="theory-copy">@CurrentTheoryBody</p>
+
+            @if (CurrentTheoryPage.Visual == TheoryVisual.Staff)
+            {
+                <div class="theory-visual">
+                    <MusicStaff />
+                </div>
+            }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.TrebleClef)
+            {
+                <div class="theory-visual">
+                    <MusicStaff DisplayedPitch="@(new Pitch(NoteLetter.G, 4))" />
+                    <p class="theory-callout">@Localizer["TheoryTrebleClefCallout"]</p>
+                </div>
+            }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.SingleNote && CurrentTheoryPage.Pitch is { } theoryPitch)
+            {
+                <div class="theory-visual">
+                    <MusicStaff DisplayedPitch="@theoryPitch" />
+                    <p class="theory-callout">@Localizer.Format("TheorySingleNoteCallout", GetPromptName(theoryPitch), theoryPitch.ScientificName.ToLowerInvariant())</p>
+                </div>
+            }
         </div>
     </section>
 }

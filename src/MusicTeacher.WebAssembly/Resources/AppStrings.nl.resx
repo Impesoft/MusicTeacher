@@ -45,6 +45,12 @@
   <data name="LearningModeDescription" xml:space="preserve">
     <value>Ontgrendel levels stap voor stap met reeksdoelen.</value>
   </data>
+  <data name="TheoryMode" xml:space="preserve">
+    <value>Theorie</value>
+  </data>
+  <data name="TheoryModeDescription" xml:space="preserve">
+    <value>Blader door korte uitlegpagina's voor alles wat al vrij is.</value>
+  </data>
   <data name="BackToStart" xml:space="preserve">
     <value>Wijzig modus</value>
   </data>
@@ -120,6 +126,15 @@
   <data name="Next" xml:space="preserve">
     <value>Volgende</value>
   </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="PreviousTheoryPage" xml:space="preserve">
+    <value>Vorige theoriepagina</value>
+  </data>
+  <data name="NextTheoryPage" xml:space="preserve">
+    <value>Volgende theoriepagina</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Klaar</value>
   </data>
@@ -185,5 +200,62 @@
   </data>
   <data name="AccidentalSelectorDisabledHint" xml:space="preserve">
     <value>Kruisen en mollen komen later.</value>
+  </data>
+  <data name="TheoryKicker" xml:space="preserve">
+    <value>Theoriebibliotheek</value>
+  </data>
+  <data name="TheoryTitle" xml:space="preserve">
+    <value>Leer de basis</value>
+  </data>
+  <data name="TheoryLevelLabel" xml:space="preserve">
+    <value>Level {0}</value>
+  </data>
+  <data name="TheoryPageCounter" xml:space="preserve">
+    <value>Pagina {0}/{1}</value>
+  </data>
+  <data name="TheoryStaffTitle" xml:space="preserve">
+    <value>Maak kennis met de notenbalk</value>
+  </data>
+  <data name="TheoryStaffSummary" xml:space="preserve">
+    <value>Muzieknoten wonen op vijf lijnen en vier ruimtes.</value>
+  </data>
+  <data name="TheoryStaffBody" xml:space="preserve">
+    <value>De notenbalk is de ladder voor geschreven muziek. Noten kunnen op een lijn staan of in een ruimte zitten. Is een noot te laag of te hoog, dan gebruiken we kleine hulplijntjes zodat de ladder verder kan gaan.</value>
+  </data>
+  <data name="TheoryTrebleClefTitle" xml:space="preserve">
+    <value>Maak kennis met de solsleutel</value>
+  </data>
+  <data name="TheoryTrebleClefSummary" xml:space="preserve">
+    <value>De solsleutel vertelt dat we hogere noten lezen.</value>
+  </data>
+  <data name="TheoryTrebleClefBody" xml:space="preserve">
+    <value>De solsleutel heet ook de G-sleutel. De krul wijst naar de G-lijn, dus die lijn is sol, of G4. Vanaf daar klimmen de nootnamen stap voor stap.</value>
+  </data>
+  <data name="TheoryTrebleClefCallout" xml:space="preserve">
+    <value>De aangeduide noot is sol, ook G4 genoemd.</value>
+  </data>
+  <data name="TheoryNoteMapTitle" xml:space="preserve">
+    <value>Noten van lage do tot hoge ti</value>
+  </data>
+  <data name="TheoryNoteMapSummary" xml:space="preserve">
+    <value>Lees de noten als trapjes van laag naar hoog.</value>
+  </data>
+  <data name="TheoryNoteMapBody" xml:space="preserve">
+    <value>Deze eerste reeks start onder de notenbalk bij lage do en klimt tot hoge ti boven de notenbalk. Elke volgende lijn of ruimte is een stap: do, re, mi, fa, sol, la, ti, en dan opnieuw do.</value>
+  </data>
+  <data name="TheoryNoteMapCallout" xml:space="preserve">
+    <value>Volg de noten van links naar rechts: elke noot staat een stap hoger.</value>
+  </data>
+  <data name="TheorySingleNoteTitle" xml:space="preserve">
+    <value>Maak kennis met {0}</value>
+  </data>
+  <data name="TheorySingleNoteSummary" xml:space="preserve">
+    <value>{0} wordt ook geschreven als {1}.</value>
+  </data>
+  <data name="TheorySingleNoteBody" xml:space="preserve">
+    <value>Deze pagina toont {0}. Kijk of de noot op een lijn staat of in een ruimte zit, en merk op of er een hulplijntje nodig is.</value>
+  </data>
+  <data name="TheorySingleNoteCallout" xml:space="preserve">
+    <value>Deze noot is {0}, ook {1} genoemd.</value>
   </data>
 </root>

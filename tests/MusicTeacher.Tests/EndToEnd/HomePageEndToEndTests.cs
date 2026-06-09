@@ -76,6 +76,46 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Vrij oefenen" })).ToBeVisibleAsync();
     }
 
+    [E2EFact]
+    public async Task LearnerCanBrowseLevelZeroTheoryPages()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+            }
+            """);
+        await page.ReloadAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Learn the basics" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet the staff" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 1/16")).ToBeVisibleAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet the treble clef" })).ToBeVisibleAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet low do" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 3/16")).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator(".music-staff")).ToHaveAttributeAsync("data-pitch", "C4");
+
+        for (var index = 0; index < 13; index++)
+        {
+            await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet high ti" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 16/16")).ToBeVisibleAsync();
+        await Assertions.Expect(page.Locator(".music-staff")).ToHaveAttributeAsync("data-pitch", "B5");
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Previous theory page" }).ClickAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet high la" })).ToBeVisibleAsync();
+    }
+
     public async Task InitializeAsync()
     {
         baseUrl = $"http://127.0.0.1:{port}";

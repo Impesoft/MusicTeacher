@@ -15,6 +15,8 @@ public partial class Home
         new(DrillMode.HearNotePlace, 0)
     ];
 
+    private static readonly IReadOnlyList<TheoryPage> TheoryPages = BuildTheoryPages();
+
     private readonly IReadOnlyList<int> selectableSteps = TrebleClef.BeginnerPlacementNotes
         .Select(TrebleClef.GetStaffStep)
         .ToArray();
@@ -30,6 +32,7 @@ public partial class Home
     private string? feedbackArgument;
     private string feedbackClass = "feedback";
     private Pitch? previousPitch;
+    private int theoryPageIndex;
 
     private string FeedbackText => feedbackArgument is null
         ? Localizer[feedbackKey]
@@ -62,6 +65,24 @@ public partial class Home
             CurrentLevelProgress.BestStreak,
             CurrentLearningLevel.RequiredStreak,
             Localizer[GetModeLabelKey(GetNextMode(mode) ?? mode)]);
+
+    private IReadOnlyList<TheoryPage> AvailableTheoryPages => TheoryPages
+        .Where(page => page.Level <= CurrentAvailableTheoryLevel)
+        .ToArray();
+
+    private int CurrentAvailableTheoryLevel => 0;
+
+    private TheoryPage CurrentTheoryPage => AvailableTheoryPages[Math.Clamp(theoryPageIndex, 0, AvailableTheoryPages.Count - 1)];
+
+    private string CurrentTheoryTitle => GetTheoryText(CurrentTheoryPage.TitleKey);
+
+    private string CurrentTheorySummary => GetTheoryText(CurrentTheoryPage.SummaryKey);
+
+    private string CurrentTheoryBody => GetTheoryText(CurrentTheoryPage.BodyKey);
+
+    private bool IsFirstTheoryPage => theoryPageIndex <= 0;
+
+    private bool IsLastTheoryPage => theoryPageIndex >= AvailableTheoryPages.Count - 1;
 
     private bool IsPlacementMode => mode is DrillMode.PlaceNote or DrillMode.HearNotePlace;
 
@@ -108,6 +129,12 @@ public partial class Home
     {
         practiceMode = nextPracticeMode;
 
+        if (practiceMode == PracticeMode.Theory)
+        {
+            theoryPageIndex = 0;
+            return;
+        }
+
         if (practiceMode == PracticeMode.LearningPath && IsModeLocked(mode))
         {
             mode = GetRecommendedLearningMode();
@@ -127,6 +154,22 @@ public partial class Home
     private void ReturnToStart()
     {
         hasStarted = false;
+    }
+
+    private void PreviousTheoryPage()
+    {
+        if (!IsFirstTheoryPage)
+        {
+            theoryPageIndex--;
+        }
+    }
+
+    private void NextTheoryPage()
+    {
+        if (!IsLastTheoryPage)
+        {
+            theoryPageIndex++;
+        }
     }
 
     private async Task SetMode(DrillMode nextMode)
@@ -430,6 +473,25 @@ public partial class Home
     private string GetPromptName(Pitch pitch)
         => $"{(pitch.Octave == 4 ? Localizer["LowOctave"] : Localizer["HighOctave"])} {pitch.FixedDoName}";
 
+    private string GetTheoryText(string resourceKey)
+        => CurrentTheoryPage.Pitch is { } pitch
+            ? Localizer.Format(resourceKey, GetPromptName(pitch), pitch.ScientificName.ToLowerInvariant())
+            : Localizer[resourceKey];
+
+    private static IReadOnlyList<TheoryPage> BuildTheoryPages()
+    {
+        var pages = new List<TheoryPage>
+        {
+            new(0, "TheoryStaffTitle", "TheoryStaffSummary", "TheoryStaffBody", TheoryVisual.Staff),
+            new(0, "TheoryTrebleClefTitle", "TheoryTrebleClefSummary", "TheoryTrebleClefBody", TheoryVisual.TrebleClef)
+        };
+
+        pages.AddRange(TrebleClef.BeginnerStaffNotes.Select(pitch =>
+            new TheoryPage(0, "TheorySingleNoteTitle", "TheorySingleNoteSummary", "TheorySingleNoteBody", TheoryVisual.SingleNote, pitch)));
+
+        return pages;
+    }
+
     private enum DrillMode
     {
         NameNote,
@@ -441,8 +503,18 @@ public partial class Home
     private enum PracticeMode
     {
         FreeExplore,
-        LearningPath
+        LearningPath,
+        Theory
     }
 
     private sealed record LearningLevel(DrillMode Mode, int RequiredStreak);
+
+    private sealed record TheoryPage(int Level, string TitleKey, string SummaryKey, string BodyKey, TheoryVisual Visual, Pitch? Pitch = null);
+
+    private enum TheoryVisual
+    {
+        Staff,
+        TrebleClef,
+        SingleNote
+    }
 }

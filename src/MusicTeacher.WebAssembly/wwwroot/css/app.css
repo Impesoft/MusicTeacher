@@ -139,7 +139,7 @@ h1:focus {
 .start-options {
     display: grid;
     gap: 0.85rem;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 1.8rem;
 }
 
@@ -189,6 +189,14 @@ h1:focus {
     max-width: 1180px;
 }
 
+.theory-stage {
+    display: grid;
+    gap: clamp(1rem, 3vw, 2rem);
+    grid-template-columns: minmax(16rem, 0.62fr) minmax(22rem, 1.38fr);
+    margin: 0 auto;
+    max-width: 1180px;
+}
+
 .lesson-panel,
 .exercise-board {
     border: 3px solid var(--ink);
@@ -201,6 +209,12 @@ h1:focus {
     background: linear-gradient(180deg, #ffffff 0%, var(--mist) 100%);
     min-height: 24rem;
     padding: clamp(1rem, 4vw, 2rem);
+}
+
+.theory-panel {
+    background:
+        radial-gradient(circle at 100% 0%, rgba(255, 200, 87, 0.36), transparent 32%),
+        linear-gradient(180deg, #ffffff 0%, var(--mist) 100%);
 }
 
 .lesson-kicker {
@@ -509,6 +523,49 @@ h1:focus {
     padding: 0 1rem;
 }
 
+.next-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.secondary-button {
+    background: rgba(255, 255, 255, 0.84);
+    border: 2px solid var(--ink);
+    color: var(--ink);
+}
+
+.theory-board {
+    background:
+        radial-gradient(circle at top left, rgba(142, 212, 232, 0.26), transparent 30%),
+        rgba(255, 249, 234, 0.94);
+}
+
+.theory-copy {
+    color: rgba(23, 33, 43, 0.78);
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    font-weight: 800;
+    line-height: 1.45;
+    margin-bottom: 1rem;
+    max-width: 58rem;
+}
+
+.theory-visual {
+    background: #fffefa;
+    border: 2px solid rgba(23, 33, 43, 0.12);
+    border-radius: 10px;
+    padding: 0.7rem;
+}
+
+.theory-callout {
+    background: #d9f6df;
+    border: 2px solid rgba(23, 33, 43, 0.18);
+    border-radius: 8px;
+    color: var(--ink);
+    font-weight: 900;
+    margin-top: 0.75rem;
+    padding: 0.7rem 0.85rem;
+}
+
 .music-staff {
     display: block;
     height: auto;
@@ -543,6 +600,18 @@ h1:focus {
     fill: var(--coral);
     stroke: var(--ink);
     stroke-width: 3;
+}
+
+.theory-note-head {
+    fill: var(--sun);
+    stroke-width: 2.2;
+}
+
+.theory-note-label {
+    fill: var(--key-label);
+    font-size: 9px;
+    font-weight: 900;
+    text-anchor: middle;
 }
 
 .ledger-line {
@@ -816,7 +885,8 @@ h1:focus {
         grid-template-columns: 1fr;
     }
 
-    .practice-stage {
+    .practice-stage,
+    .theory-stage {
         grid-template-columns: 1fr;
     }
 

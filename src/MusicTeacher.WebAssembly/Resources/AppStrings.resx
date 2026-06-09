@@ -45,6 +45,12 @@
   <data name="LearningModeDescription" xml:space="preserve">
     <value>Unlock levels step by step with streak goals.</value>
   </data>
+  <data name="TheoryMode" xml:space="preserve">
+    <value>Theory</value>
+  </data>
+  <data name="TheoryModeDescription" xml:space="preserve">
+    <value>Browse short lesson pages for everything unlocked so far.</value>
+  </data>
   <data name="BackToStart" xml:space="preserve">
     <value>Change mode</value>
   </data>
@@ -120,6 +126,15 @@
   <data name="Next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="PreviousTheoryPage" xml:space="preserve">
+    <value>Previous theory page</value>
+  </data>
+  <data name="NextTheoryPage" xml:space="preserve">
+    <value>Next theory page</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -185,5 +200,62 @@
   </data>
   <data name="AccidentalSelectorDisabledHint" xml:space="preserve">
     <value>Sharps and flats are coming next.</value>
+  </data>
+  <data name="TheoryKicker" xml:space="preserve">
+    <value>Theory library</value>
+  </data>
+  <data name="TheoryTitle" xml:space="preserve">
+    <value>Learn the basics</value>
+  </data>
+  <data name="TheoryLevelLabel" xml:space="preserve">
+    <value>Level {0}</value>
+  </data>
+  <data name="TheoryPageCounter" xml:space="preserve">
+    <value>Page {0}/{1}</value>
+  </data>
+  <data name="TheoryStaffTitle" xml:space="preserve">
+    <value>Meet the staff</value>
+  </data>
+  <data name="TheoryStaffSummary" xml:space="preserve">
+    <value>Music notes live on five lines and four spaces.</value>
+  </data>
+  <data name="TheoryStaffBody" xml:space="preserve">
+    <value>The staff is the ladder for written music. Notes can sit on a line or in a space. When a note is too low or too high, we add small ledger lines so the ladder can keep going.</value>
+  </data>
+  <data name="TheoryTrebleClefTitle" xml:space="preserve">
+    <value>Meet the treble clef</value>
+  </data>
+  <data name="TheoryTrebleClefSummary" xml:space="preserve">
+    <value>The treble clef tells us these notes are the higher notes.</value>
+  </data>
+  <data name="TheoryTrebleClefBody" xml:space="preserve">
+    <value>The treble clef is also called the G clef. Its curl points to the G line, so that line is sol, or G4. From there the note names climb step by step.</value>
+  </data>
+  <data name="TheoryTrebleClefCallout" xml:space="preserve">
+    <value>The highlighted note is sol, also called G4.</value>
+  </data>
+  <data name="TheoryNoteMapTitle" xml:space="preserve">
+    <value>Notes from low do to high ti</value>
+  </data>
+  <data name="TheoryNoteMapSummary" xml:space="preserve">
+    <value>Read the notes like stair steps from low to high.</value>
+  </data>
+  <data name="TheoryNoteMapBody" xml:space="preserve">
+    <value>This first range starts under the staff at low do and climbs to high ti above the staff. Each next line or space moves one step: do, re, mi, fa, sol, la, ti, then do again.</value>
+  </data>
+  <data name="TheoryNoteMapCallout" xml:space="preserve">
+    <value>Follow the notes from left to right: every note is one step higher.</value>
+  </data>
+  <data name="TheorySingleNoteTitle" xml:space="preserve">
+    <value>Meet {0}</value>
+  </data>
+  <data name="TheorySingleNoteSummary" xml:space="preserve">
+    <value>{0} is also written as {1}.</value>
+  </data>
+  <data name="TheorySingleNoteBody" xml:space="preserve">
+    <value>This page shows {0}. Look at whether the note sits on a line or in a space, and notice if it needs a ledger line.</value>
+  </data>
+  <data name="TheorySingleNoteCallout" xml:space="preserve">
+    <value>This note is {0}, also called {1}.</value>
   </data>
 </root>

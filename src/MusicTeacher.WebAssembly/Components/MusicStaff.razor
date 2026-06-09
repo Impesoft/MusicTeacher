@@ -42,6 +42,23 @@
         }
     }
 
+    @foreach (var note in GetTheoryNotes())
+    {
+        var staffStep = TrebleClef.GetStaffStep(note.pitch);
+        var noteY = StepToY(staffStep);
+        var noteX = TheoryNoteX(note.index);
+        var noteTransform = FormattableString.Invariant($"rotate(-18 {noteX:0.###} {noteY:0.###})");
+
+        foreach (var ledgerStep in GetLedgerSteps(staffStep))
+        {
+            var ledgerY = StepToY(ledgerStep);
+            <line class="ledger-line" x1="@SvgNumber(noteX - 18)" y1="@SvgNumber(ledgerY)" x2="@SvgNumber(noteX + 18)" y2="@SvgNumber(ledgerY)" />
+        }
+
+        <ellipse class="note-head theory-note-head" cx="@SvgNumber(noteX)" cy="@SvgNumber(noteY)" rx="11" ry="7.5" transform="@noteTransform" />
+        <svg:text class="theory-note-label" x="@SvgNumber(noteX)" y="195">@GetTheoryNoteLabel(note.pitch)</svg:text>
+    }
+
     @if (DisplayedPitch is not null)
     {
         var staffStep = TrebleClef.GetStaffStep(DisplayedPitch.Value);
@@ -80,6 +97,9 @@
     public int? SelectedStep { get; set; }
 
     [Parameter]
+    public IReadOnlyList<Pitch> TheoryPitches { get; set; } = [];
+
+    [Parameter]
     public EventCallback<int> OnStepSelected { get; set; }
 
     [Parameter]
@@ -116,6 +136,20 @@
         return PlacementStartX + (PlacementEndX - PlacementStartX) * progress;
     }
 
+    private double TheoryNoteX(int index)
+    {
+        if (TheoryPitches.Count <= 1)
+        {
+            return (PlacementStartX + PlacementEndX) / 2;
+        }
+
+        var progress = index / (double)(TheoryPitches.Count - 1);
+        return PlacementStartX + (PlacementEndX - PlacementStartX) * progress;
+    }
+
+    private IEnumerable<(Pitch pitch, int index)> GetTheoryNotes()
+        => TheoryPitches.Select((pitch, index) => (pitch, index));
+
     private async Task SelectStep(int step) => await OnStepSelected.InvokeAsync(step);
 
     private async Task PreviewStep(int step) => await OnStepPreviewed.InvokeAsync(step);
@@ -147,4 +181,7 @@
         var pitch = TrebleClef.GetPitchFromStaffStep(step);
         return Localizer.Format("StaffPlaceNoteAriaLabel", pitch.FixedDoName);
     }
+
+    private string GetTheoryNoteLabel(Pitch pitch)
+        => $"{pitch.FixedDoName} {pitch.ScientificName.ToLowerInvariant()}";
 }
