@@ -15,3 +15,13 @@ builder.Services.AddScoped<MusicAudioService>();
 var host = builder.Build();
 await host.Services.GetRequiredService<AppLocalizer>().InitializeAsync();
 await host.RunAsync();
+
+
+/// how to build:
+/// docker login
+/// from the src folder run the following command to build the docker image:
+/// docker build -t wardimpe/musicteacher:latest -f .\MusicTeacher.WebAssembly\Dockerfile .
+/// now you can push the image to docker hub:
+/// docker push wardimpe/musicteacher:latest
+
+
