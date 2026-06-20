@@ -100,6 +100,9 @@
     public IReadOnlyList<Pitch> TheoryPitches { get; set; } = [];
 
     [Parameter]
+    public bool UseAlphabeticalNoteNames { get; set; }
+
+    [Parameter]
     public EventCallback<int> OnStepSelected { get; set; }
 
     [Parameter]
@@ -107,7 +110,7 @@
 
     private string AriaLabel => DisplayedPitch is null
         ? Localizer["StaffPlacementAriaLabel"]
-        : Localizer.Format("StaffShowingNoteAriaLabel", DisplayedPitch.Value.FixedDoName);
+        : Localizer.Format("StaffShowingNoteAriaLabel", GetPrimaryNoteName(DisplayedPitch.Value));
 
     private static double StaffLineY(int lineFromTop) => BottomLineY - (4 - lineFromTop) * LineGap;
 
@@ -179,9 +182,29 @@
     private string GetStepLabel(int step)
     {
         var pitch = TrebleClef.GetPitchFromStaffStep(step);
-        return Localizer.Format("StaffPlaceNoteAriaLabel", pitch.FixedDoName);
+        return Localizer.Format("StaffPlaceNoteAriaLabel", GetPrimaryNoteName(pitch));
     }
 
     private string GetTheoryNoteLabel(Pitch pitch)
-        => $"{pitch.FixedDoName} {pitch.ScientificName.ToLowerInvariant()}";
+        => $"{GetPrimaryNoteName(pitch)} {GetSecondaryNoteName(pitch)}";
+
+    private string GetPrimaryNoteName(Pitch pitch)
+        => UseAlphabeticalNoteNames ? pitch.ScientificName : GetFixedDoName(pitch);
+
+    private string GetSecondaryNoteName(Pitch pitch)
+        => UseAlphabeticalNoteNames ? GetFixedDoName(pitch) : pitch.ScientificName.ToLowerInvariant();
+
+    private string GetFixedDoName(Pitch pitch)
+        => Localizer.CurrentCulture.TwoLetterISOLanguageName == "nl" && pitch.Letter == NoteLetter.B
+            ? $"si{GetAccidentalSymbol(pitch.Accidental)}"
+            : pitch.FixedDoName;
+
+    private static string GetAccidentalSymbol(Accidental accidental)
+        => accidental switch
+        {
+            Accidental.Flat => "♭",
+            Accidental.Natural => string.Empty,
+            Accidental.Sharp => "♯",
+            _ => throw new ArgumentOutOfRangeException(nameof(accidental), accidental, null)
+        };
 }

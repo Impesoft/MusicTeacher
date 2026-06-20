@@ -21,6 +21,11 @@
             if (mode === 'light' || mode === 'dark') {
                 document.documentElement.dataset.colorMode = mode;
             }
+
+            const theme = localStorage.getItem('music-teacher-visual-theme');
+            if (theme === 'rainbow' || theme === 'space') {
+                document.documentElement.dataset.visualTheme = theme;
+            }
         })();
     </script>
 </head>
@@ -52,6 +57,16 @@
 
                 localStorage.removeItem('music-teacher-color-mode');
                 delete document.documentElement.dataset.colorMode;
+            }
+        };
+        window.musicTeacherProfile = {
+            setVisualTheme: theme => {
+                if (theme === 'rainbow' || theme === 'space') {
+                    document.documentElement.dataset.visualTheme = theme;
+                    return;
+                }
+
+                delete document.documentElement.dataset.visualTheme;
             }
         };
     </script>

@@ -27,9 +27,9 @@
                     style="@GetBlackKeyStyle(key.WhiteKeyIndex)"
                     @onpointerenter="() => PreviewPitch(key.SharpPitch)"
                     @onclick="() => SelectPitch(key.SharpPitch)">
-                <span>@key.SharpPitch.FixedDoName</span>
-                <span>@key.FlatPitch.FixedDoName</span>
-                <small>@key.SharpPitch.DisplayName / @key.FlatPitch.DisplayName</small>
+                <span>@GetPrimaryNoteName(key.SharpPitch)</span>
+                <span>@GetPrimaryNoteName(key.FlatPitch)</span>
+                <small>@GetSecondaryNoteName(key.SharpPitch) / @GetSecondaryNoteName(key.FlatPitch)</small>
             </button>
         }
     </div>
@@ -38,8 +38,8 @@
         @foreach (var pitch in Pitches)
         {
             <span class="key-label">
-                <span>@pitch.FixedDoName</span>
-                <small>@pitch.ScientificName.ToLowerInvariant()</small>
+                <span>@GetPrimaryNoteName(pitch)</span>
+                <small>@GetSecondaryNoteName(pitch)</small>
             </span>
         }
     </div>
@@ -51,6 +51,9 @@
 
     [Parameter]
     public Pitch? HighlightedPitch { get; set; }
+
+    [Parameter]
+    public bool UseAlphabeticalNoteNames { get; set; }
 
     [Parameter]
     public EventCallback<Pitch> OnPitchPreviewed { get; set; }
@@ -71,15 +74,35 @@
 
     private async Task SelectPitch(Pitch pitch) => await OnPitchSelected.InvokeAsync(pitch);
 
-    private static string GetPitchLabel(Pitch pitch) => $"{pitch.FixedDoName} {pitch.ScientificName}";
+    private string GetPitchLabel(Pitch pitch) => $"{GetPrimaryNoteName(pitch)} {GetSecondaryNoteName(pitch)}";
 
     private string GetBlackKeyClass(BlackPianoKey key)
         => HighlightedPitch == key.SharpPitch || HighlightedPitch == key.FlatPitch
             ? "piano-black-key is-highlighted"
             : "piano-black-key";
 
-    private static string GetBlackKeyLabel(BlackPianoKey key)
-        => $"{key.SharpPitch.FixedDoName} {key.SharpPitch.DisplayName}, {key.FlatPitch.FixedDoName} {key.FlatPitch.DisplayName}";
+    private string GetBlackKeyLabel(BlackPianoKey key)
+        => $"{GetPitchLabel(key.SharpPitch)}, {GetPitchLabel(key.FlatPitch)}";
+
+    private string GetPrimaryNoteName(Pitch pitch)
+        => UseAlphabeticalNoteNames ? pitch.ScientificName : GetFixedDoName(pitch);
+
+    private string GetSecondaryNoteName(Pitch pitch)
+        => UseAlphabeticalNoteNames ? GetFixedDoName(pitch) : pitch.ScientificName.ToLowerInvariant();
+
+    private string GetFixedDoName(Pitch pitch)
+        => Localizer.CurrentCulture.TwoLetterISOLanguageName == "nl" && pitch.Letter == NoteLetter.B
+            ? $"si{GetAccidentalSymbol(pitch.Accidental)}"
+            : pitch.FixedDoName;
+
+    private static string GetAccidentalSymbol(Accidental accidental)
+        => accidental switch
+        {
+            Accidental.Flat => "♭",
+            Accidental.Natural => string.Empty,
+            Accidental.Sharp => "♯",
+            _ => throw new ArgumentOutOfRangeException(nameof(accidental), accidental, null)
+        };
 
     private string GetBlackKeyStyle(int whiteKeyIndex)
     {

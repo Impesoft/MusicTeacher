@@ -186,6 +186,42 @@
   <data name="AppearanceModeDark" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="NoteNameModeLabel" xml:space="preserve">
+    <value>Note names</value>
+  </data>
+  <data name="NoteNameModeFixedDo" xml:space="preserve">
+    <value>Do re mi</value>
+  </data>
+  <data name="NoteNameModeAlphabetical" xml:space="preserve">
+    <value>A B C</value>
+  </data>
+  <data name="VisualThemeLabel" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="VisualThemeClassic" xml:space="preserve">
+    <value>Classic</value>
+  </data>
+  <data name="VisualThemeRainbow" xml:space="preserve">
+    <value>Bright</value>
+  </data>
+  <data name="VisualThemeSpace" xml:space="preserve">
+    <value>Space</value>
+  </data>
+  <data name="AvatarLabel" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="AvatarStar" xml:space="preserve">
+    <value>Star avatar</value>
+  </data>
+  <data name="AvatarRocket" xml:space="preserve">
+    <value>Music avatar</value>
+  </data>
+  <data name="AvatarSpark" xml:space="preserve">
+    <value>Spark avatar</value>
+  </data>
+  <data name="SelectedAvatarLabel" xml:space="preserve">
+    <value>Selected avatar</value>
+  </data>
   <data name="KeyboardAriaLabel" xml:space="preserve">
     <value>Two octave note keyboard</value>
   </data>

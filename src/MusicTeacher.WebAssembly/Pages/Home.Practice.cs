@@ -224,5 +224,24 @@ public partial class Home
     }
 
     private string GetPromptName(Pitch pitch)
-        => $"{(pitch.Octave == 4 ? Localizer["LowOctave"] : Localizer["HighOctave"])} {pitch.FixedDoName}";
+    {
+        var octaveLabel = pitch.Octave == 4 ? Localizer["LowOctave"] : Localizer["HighOctave"];
+        var noteName = UseAlphabeticalNoteNames ? pitch.ScientificName : GetFixedDoName(pitch);
+
+        return $"{octaveLabel} {noteName}";
+    }
+
+    private string GetFixedDoName(Pitch pitch)
+        => Localizer.CurrentCulture.TwoLetterISOLanguageName == "nl" && pitch.Letter == NoteLetter.B
+            ? $"si{GetAccidentalSymbol(pitch.Accidental)}"
+            : pitch.FixedDoName;
+
+    private static string GetAccidentalSymbol(Accidental accidental)
+        => accidental switch
+        {
+            Accidental.Flat => "♭",
+            Accidental.Natural => string.Empty,
+            Accidental.Sharp => "♯",
+            _ => throw new ArgumentOutOfRangeException(nameof(accidental), accidental, null)
+        };
 }

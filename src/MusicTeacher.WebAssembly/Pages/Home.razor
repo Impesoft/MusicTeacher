@@ -14,6 +14,7 @@
 {
     <section class="start-screen">
         <div class="start-card">
+            <div class="avatar-preview" aria-hidden="true">@SelectedAvatarIcon</div>
             <div class="lesson-kicker">@(lesson is null ? string.Empty : Localizer["TrebleClefKicker"])</div>
             <h1>@Localizer["StartScreenTitle"]</h1>
             <p>@Localizer["StartScreenIntro"]</p>
@@ -29,6 +30,54 @@
                             @Localizer.GetCultureDisplayName(culture)
                         </button>
                     }
+                </div>
+            </div>
+
+            <div class="start-section">
+                <span>@Localizer["NoteNameModeLabel"]</span>
+                <div class="choice-switcher" role="group" aria-label="@Localizer["NoteNameModeLabel"]">
+                    <button class="@GetNoteNameModeClass(NoteNameMode.FixedDo)"
+                            type="button"
+                            @onclick="() => SetNoteNameMode(NoteNameMode.FixedDo)">
+                        @Localizer["NoteNameModeFixedDo"]
+                    </button>
+                    <button class="@GetNoteNameModeClass(NoteNameMode.Alphabetical)"
+                            type="button"
+                            @onclick="() => SetNoteNameMode(NoteNameMode.Alphabetical)">
+                        @Localizer["NoteNameModeAlphabetical"]
+                    </button>
+                </div>
+            </div>
+
+            <div class="start-preferences">
+                <div class="start-section">
+                    <span>@Localizer["VisualThemeLabel"]</span>
+                    <div class="theme-picker" role="group" aria-label="@Localizer["VisualThemeLabel"]">
+                        @foreach (var option in VisualThemeOptions)
+                        {
+                            <button class="@GetVisualThemeClass(option.Value)"
+                                    type="button"
+                                    @onclick="() => SetVisualTheme(option.Value)">
+                                <span class="theme-swatch" style="@option.SwatchStyle"></span>
+                                @Localizer[option.LabelKey]
+                            </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="start-section">
+                    <span>@Localizer["AvatarLabel"]</span>
+                    <div class="avatar-picker" role="group" aria-label="@Localizer["AvatarLabel"]">
+                        @foreach (var option in AvatarOptions)
+                        {
+                            <button class="@GetAvatarClass(option.Value)"
+                                    type="button"
+                                    aria-label="@Localizer[option.LabelKey]"
+                                    @onclick="() => SetAvatar(option.Value)">
+                                <span aria-hidden="true">@option.Icon</span>
+                            </button>
+                        }
+                    </div>
                 </div>
             </div>
 
@@ -59,6 +108,9 @@ else if (practiceMode == PracticeMode.Theory)
 {
     <section class="theory-stage">
         <div class="lesson-panel theory-panel">
+            <div class="avatar-chip" aria-label="@Localizer["SelectedAvatarLabel"]">
+                <span aria-hidden="true">@SelectedAvatarIcon</span>
+            </div>
             <div class="lesson-kicker">@Localizer["TheoryKicker"]</div>
             <h1>@Localizer["TheoryTitle"]</h1>
 
@@ -105,20 +157,22 @@ else if (practiceMode == PracticeMode.Theory)
             @if (CurrentTheoryPage.Visual == TheoryVisual.Staff)
             {
                 <div class="theory-visual">
-                    <MusicStaff />
+                    <MusicStaff UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames" />
                 </div>
             }
             else if (CurrentTheoryPage.Visual == TheoryVisual.TrebleClef)
             {
                 <div class="theory-visual">
-                    <MusicStaff DisplayedPitch="@(new Pitch(NoteLetter.G, 4))" />
+                    <MusicStaff DisplayedPitch="@(new Pitch(NoteLetter.G, 4))"
+                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames" />
                     <p class="theory-callout">@Localizer["TheoryTrebleClefCallout"]</p>
                 </div>
             }
             else if (CurrentTheoryPage.Visual == TheoryVisual.SingleNote && CurrentTheoryPage.Pitch is { } theoryPitch)
             {
                 <div class="theory-visual">
-                    <MusicStaff DisplayedPitch="@theoryPitch" />
+                    <MusicStaff DisplayedPitch="@theoryPitch"
+                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames" />
                     <p class="theory-callout">@Localizer.Format("TheorySingleNoteCallout", GetPromptName(theoryPitch), theoryPitch.ScientificName.ToLowerInvariant())</p>
                 </div>
             }
@@ -129,6 +183,9 @@ else
 {
     <section class="practice-stage">
         <div class="lesson-panel">
+            <div class="avatar-chip" aria-label="@Localizer["SelectedAvatarLabel"]">
+                <span aria-hidden="true">@SelectedAvatarIcon</span>
+            </div>
             <div class="lesson-kicker">@(lesson is null ? string.Empty : Localizer["TrebleClefKicker"])</div>
             <h1>@Localizer["TrebleClefStartTitle"]</h1>
 
@@ -207,6 +264,7 @@ else
                             IsPlacementMode="@IsPlacementMode"
                             SelectableSteps="@selectableSteps"
                             SelectedStep="@selectedStep"
+                            UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
             }
@@ -226,6 +284,7 @@ else
             {
                 <PianoKeyboard Pitches="@CurrentNotes"
                                HighlightedPitch="@KeyboardHighlightedPitch"
+                               UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"
                                OnPitchSelected="SelectKeyboardPitch" />
             }

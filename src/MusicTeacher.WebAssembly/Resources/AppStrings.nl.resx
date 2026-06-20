@@ -186,6 +186,42 @@
   <data name="AppearanceModeDark" xml:space="preserve">
     <value>Donker</value>
   </data>
+  <data name="NoteNameModeLabel" xml:space="preserve">
+    <value>Nootnamen</value>
+  </data>
+  <data name="NoteNameModeFixedDo" xml:space="preserve">
+    <value>Do re mi</value>
+  </data>
+  <data name="NoteNameModeAlphabetical" xml:space="preserve">
+    <value>A B C</value>
+  </data>
+  <data name="VisualThemeLabel" xml:space="preserve">
+    <value>Thema</value>
+  </data>
+  <data name="VisualThemeClassic" xml:space="preserve">
+    <value>Klassiek</value>
+  </data>
+  <data name="VisualThemeRainbow" xml:space="preserve">
+    <value>Fel</value>
+  </data>
+  <data name="VisualThemeSpace" xml:space="preserve">
+    <value>Ruimte</value>
+  </data>
+  <data name="AvatarLabel" xml:space="preserve">
+    <value>Avatar</value>
+  </data>
+  <data name="AvatarStar" xml:space="preserve">
+    <value>Steravatar</value>
+  </data>
+  <data name="AvatarRocket" xml:space="preserve">
+    <value>Muziekavatar</value>
+  </data>
+  <data name="AvatarSpark" xml:space="preserve">
+    <value>Fonkelavatar</value>
+  </data>
+  <data name="SelectedAvatarLabel" xml:space="preserve">
+    <value>Gekozen avatar</value>
+  </data>
   <data name="KeyboardAriaLabel" xml:space="preserve">
     <value>Klavier met twee octaven</value>
   </data>
@@ -247,13 +283,13 @@
     <value>De aangeduide noot is sol, ook G4 genoemd.</value>
   </data>
   <data name="TheoryNoteMapTitle" xml:space="preserve">
-    <value>Noten van lage do tot hoge ti</value>
+    <value>Noten van lage do tot hoge si</value>
   </data>
   <data name="TheoryNoteMapSummary" xml:space="preserve">
     <value>Lees de noten als trapjes van laag naar hoog.</value>
   </data>
   <data name="TheoryNoteMapBody" xml:space="preserve">
-    <value>Deze eerste reeks start onder de notenbalk bij lage do en klimt tot hoge ti boven de notenbalk. Elke volgende lijn of ruimte is een stap: do, re, mi, fa, sol, la, ti, en dan opnieuw do.</value>
+    <value>Deze eerste reeks start onder de notenbalk bij lage do en klimt tot hoge si boven de notenbalk. Elke volgende lijn of ruimte is een stap: do, re, mi, fa, sol, la, si, en dan opnieuw do.</value>
   </data>
   <data name="TheoryNoteMapCallout" xml:space="preserve">
     <value>Volg de noten van links naar rechts: elke noot staat een stap hoger.</value>

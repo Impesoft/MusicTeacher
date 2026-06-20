@@ -56,6 +56,33 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task AlphabeticalNoteNamesCanDrivePlacementPrompts()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-note-name-mode', 'alphabetical');
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Free explore" }).ClickAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Place", Exact = true }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { NameRegex = new Regex(@"Put (low|high) [A-G][45] on the staff") })).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
+    public async Task DutchFixedDoKeyboardUsesSi()
+    {
+        await StartFreeExploreAsync("nl", "Vrij oefenen");
+
+        await Assertions.Expect(page!.Locator(".key-label").Filter(new() { HasTextRegex = new Regex(@"\bsi\b") })).ToHaveCountAsync(2);
+    }
+
+    [E2EFact]
     public async Task DutchCanBeSelectedWithoutRefreshAfterStartingInEnglish()
     {
         await page!.GotoAsync(baseUrl);
