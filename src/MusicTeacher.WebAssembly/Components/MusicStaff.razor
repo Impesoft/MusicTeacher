@@ -56,6 +56,10 @@
         }
 
         <ellipse class="note-head theory-note-head" cx="@SvgNumber(noteX)" cy="@SvgNumber(noteY)" rx="11" ry="7.5" transform="@noteTransform" />
+        @if (note.pitch.Accidental != Accidental.Natural)
+        {
+            <svg:text class="note-accidental" x="@SvgNumber(noteX - 22)" y="@SvgNumber(noteY + 6)">@GetAccidentalSymbol(note.pitch.Accidental)</svg:text>
+        }
         <svg:text class="theory-note-label" x="@SvgNumber(noteX)" y="195">@GetTheoryNoteLabel(note.pitch)</svg:text>
     }
 
@@ -75,6 +79,10 @@
         }
 
         <ellipse class="note-head" cx="@svgNoteX" cy="@svgNoteY" rx="15" ry="10" transform="@noteTransform" />
+        @if (DisplayedPitch.Value.Accidental != Accidental.Natural)
+        {
+            <svg:text class="note-accidental" x="@SvgNumber(noteX - 34)" y="@SvgNumber(noteY + 8)">@GetAccidentalSymbol(DisplayedPitch.Value.Accidental)</svg:text>
+        }
         <line class="note-stem" x1="@SvgNumber(noteX + 13)" y1="@svgNoteY" x2="@SvgNumber(noteX + 13)" y2="@SvgNumber(noteY - 62)" />
     }
 </svg>

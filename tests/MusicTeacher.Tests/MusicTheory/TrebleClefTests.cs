@@ -53,6 +53,28 @@ public sealed class TrebleClefTests
         Assert.Equal(new Pitch(NoteLetter.B, 5), TrebleClef.BeginnerReadingNotes[^1]);
     }
 
+    [Fact]
+    public void BeginnerAccidentalRangeUsesBlackKeyEnharmonics()
+    {
+        Assert.Equal(20, TrebleClef.BeginnerAccidentalNotes.Count);
+        Assert.Contains(new Pitch(NoteLetter.C, 4, Accidental.Sharp), TrebleClef.BeginnerAccidentalNotes);
+        Assert.Contains(new Pitch(NoteLetter.D, 4, Accidental.Flat), TrebleClef.BeginnerAccidentalNotes);
+        Assert.Contains(new Pitch(NoteLetter.A, 5, Accidental.Sharp), TrebleClef.BeginnerAccidentalNotes);
+        Assert.Contains(new Pitch(NoteLetter.B, 5, Accidental.Flat), TrebleClef.BeginnerAccidentalNotes);
+        Assert.DoesNotContain(new Pitch(NoteLetter.E, 4, Accidental.Sharp), TrebleClef.BeginnerAccidentalNotes);
+        Assert.DoesNotContain(new Pitch(NoteLetter.C, 4, Accidental.Flat), TrebleClef.BeginnerAccidentalNotes);
+    }
+
+    [Fact]
+    public void AccidentalsKeepTheirNaturalStaffStep()
+    {
+        var cSharp = new Pitch(NoteLetter.C, 4, Accidental.Sharp);
+        var dFlat = new Pitch(NoteLetter.D, 4, Accidental.Flat);
+
+        Assert.Equal(TrebleClef.GetStaffStep(new Pitch(NoteLetter.C, 4)), TrebleClef.GetStaffStep(cSharp));
+        Assert.Equal(TrebleClef.GetStaffStep(new Pitch(NoteLetter.D, 4)), TrebleClef.GetStaffStep(dFlat));
+    }
+
     [Theory]
     [InlineData(NoteLetter.B, NoteLetter.B, 4, NoteLetter.B, 4)]
     [InlineData(NoteLetter.B, NoteLetter.C, 5, NoteLetter.B, 5)]

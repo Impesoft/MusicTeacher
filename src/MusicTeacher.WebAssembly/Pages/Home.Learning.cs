@@ -8,7 +8,10 @@ public partial class Home
     [
         new(DrillMode.NameNote, 5),
         new(DrillMode.PlaceNote, 10),
+        new(DrillMode.NameAccidental, 5),
+        new(DrillMode.PlaceAccidental, 5),
         new(DrillMode.HearNotePlay, 5),
+        new(DrillMode.HearAccidentalPlay, 5),
         new(DrillMode.HearNotePlace, 0)
     ];
 
@@ -88,8 +91,11 @@ public partial class Home
         {
             DrillMode.NameNote => true,
             DrillMode.PlaceNote => GetLevelProgress(DrillMode.NameNote).BestStreak >= 5,
-            DrillMode.HearNotePlay => GetLevelProgress(DrillMode.PlaceNote).BestStreak >= 10,
-            DrillMode.HearNotePlace => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
+            DrillMode.NameAccidental => GetLevelProgress(DrillMode.PlaceNote).BestStreak >= 10,
+            DrillMode.PlaceAccidental => GetLevelProgress(DrillMode.NameAccidental).BestStreak >= 5,
+            DrillMode.HearNotePlay => GetLevelProgress(DrillMode.PlaceAccidental).BestStreak >= 5,
+            DrillMode.HearAccidentalPlay => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
+            DrillMode.HearNotePlace => GetLevelProgress(DrillMode.HearAccidentalPlay).BestStreak >= 5,
             _ => false
         };
 
@@ -132,7 +138,10 @@ public partial class Home
         {
             DrillMode.NameNote => "name-note",
             DrillMode.PlaceNote => "place-note",
+            DrillMode.NameAccidental => "name-accidental",
+            DrillMode.PlaceAccidental => "place-accidental",
             DrillMode.HearNotePlay => "hear-note-play",
+            DrillMode.HearAccidentalPlay => "hear-accidental-play",
             DrillMode.HearNotePlace => "hear-note-place",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
         };
@@ -142,7 +151,10 @@ public partial class Home
         {
             DrillMode.NameNote => "NameMode",
             DrillMode.PlaceNote => "PlaceMode",
+            DrillMode.NameAccidental => "NameAccidentalMode",
+            DrillMode.PlaceAccidental => "PlaceAccidentalMode",
             DrillMode.HearNotePlay => "HearPlayMode",
+            DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",
             DrillMode.HearNotePlace => "HearPlaceMode",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
         };

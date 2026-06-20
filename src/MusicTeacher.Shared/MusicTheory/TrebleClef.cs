@@ -24,6 +24,30 @@ public static class TrebleClef
 
     public static readonly IReadOnlyList<Pitch> BeginnerStaffNotes = BeginnerReadingNotes;
 
+    public static readonly IReadOnlyList<Pitch> BeginnerAccidentalNotes =
+    [
+        new(NoteLetter.C, 4, Accidental.Sharp),
+        new(NoteLetter.D, 4, Accidental.Flat),
+        new(NoteLetter.D, 4, Accidental.Sharp),
+        new(NoteLetter.E, 4, Accidental.Flat),
+        new(NoteLetter.F, 4, Accidental.Sharp),
+        new(NoteLetter.G, 4, Accidental.Flat),
+        new(NoteLetter.G, 4, Accidental.Sharp),
+        new(NoteLetter.A, 4, Accidental.Flat),
+        new(NoteLetter.A, 4, Accidental.Sharp),
+        new(NoteLetter.B, 4, Accidental.Flat),
+        new(NoteLetter.C, 5, Accidental.Sharp),
+        new(NoteLetter.D, 5, Accidental.Flat),
+        new(NoteLetter.D, 5, Accidental.Sharp),
+        new(NoteLetter.E, 5, Accidental.Flat),
+        new(NoteLetter.F, 5, Accidental.Sharp),
+        new(NoteLetter.G, 5, Accidental.Flat),
+        new(NoteLetter.G, 5, Accidental.Sharp),
+        new(NoteLetter.A, 5, Accidental.Flat),
+        new(NoteLetter.A, 5, Accidental.Sharp),
+        new(NoteLetter.B, 5, Accidental.Flat)
+    ];
+
     public static int GetStaffStep(Pitch pitch)
     {
         var octaveOffset = pitch.Octave - 4;

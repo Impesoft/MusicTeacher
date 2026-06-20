@@ -4,35 +4,41 @@ namespace MusicTeacher.WebAssembly.Pages;
 
 public partial class Home
 {
-    private readonly IReadOnlyList<int> selectableSteps = TrebleClef.BeginnerPlacementNotes
+    private IReadOnlyList<int> SelectableSteps => CurrentNotes
         .Select(TrebleClef.GetStaffStep)
+        .Distinct()
         .ToArray();
 
     private string FeedbackText => feedbackArgument is null
         ? Localizer[feedbackKey]
         : Localizer.Format(feedbackKey, feedbackArgument);
 
-    private bool IsPlacementMode => mode is DrillMode.PlaceNote or DrillMode.HearNotePlace;
+    private bool IsPlacementMode => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
-    private bool IsHearingMode => mode is DrillMode.HearNotePlay or DrillMode.HearNotePlace;
+    private bool IsHearingMode => mode is DrillMode.HearNotePlay or DrillMode.HearAccidentalPlay or DrillMode.HearNotePlace;
 
-    private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.HearNotePlace;
+    private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
-    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.HearNotePlay;
+    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.HearAccidentalPlay;
 
-    private bool ShowsAccidentalSelector => mode is DrillMode.PlaceNote or DrillMode.HearNotePlace;
+    private bool ShowsAccidentalSelector => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
-    private Pitch? KeyboardHighlightedPitch => mode == DrillMode.PlaceNote ? currentPitch : null;
+    private bool CanChooseAccidental => mode == DrillMode.PlaceAccidental;
 
-    private Pitch? DisplayedPitch => mode == DrillMode.NameNote
+    private Pitch? KeyboardHighlightedPitch => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental ? currentPitch : null;
+
+    private Pitch? DisplayedPitch => mode is DrillMode.NameNote or DrillMode.NameAccidental
         ? currentPitch
-        : selectedStep is null ? null : TrebleClef.GetPitchFromStaffStep(selectedStep.Value);
+        : selectedStep is null ? null : TrebleClef.GetPitchFromStaffStep(selectedStep.Value) with { Accidental = selectedAccidental };
 
     private string CurrentDrillTitle => mode switch
     {
         DrillMode.NameNote => Localizer["NameTheNoteTitle"],
         DrillMode.PlaceNote => Localizer["PlaceTheNoteTitle"],
+        DrillMode.NameAccidental => Localizer["NameAccidentalTitle"],
+        DrillMode.PlaceAccidental => Localizer["PlaceAccidentalTitle"],
         DrillMode.HearNotePlay => Localizer["HearPlayTitle"],
+        DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayTitle"],
         DrillMode.HearNotePlace => Localizer["HearPlaceTitle"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
     };
@@ -41,14 +47,23 @@ public partial class Home
     {
         DrillMode.NameNote => Localizer["NamePrompt"],
         DrillMode.PlaceNote => Localizer.Format("PlacePrompt", GetPromptName(currentPitch)),
+        DrillMode.NameAccidental => Localizer["NameAccidentalPrompt"],
+        DrillMode.PlaceAccidental => Localizer.Format("PlaceAccidentalPrompt", GetPromptName(currentPitch)),
         DrillMode.HearNotePlay => Localizer["HearPlayPrompt"],
+        DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
         DrillMode.HearNotePlace => Localizer["HearPlacePrompt"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
     };
 
-    private IReadOnlyList<Pitch> CurrentNotes => mode is DrillMode.NameNote or DrillMode.HearNotePlay
-        ? TrebleClef.BeginnerReadingNotes
-        : TrebleClef.BeginnerPlacementNotes;
+    private IReadOnlyList<Pitch> CurrentNotes => mode switch
+    {
+        DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearAccidentalPlay => TrebleClef.BeginnerAccidentalNotes,
+        DrillMode.NameNote or DrillMode.HearNotePlay => TrebleClef.BeginnerReadingNotes,
+        DrillMode.PlaceNote or DrillMode.HearNotePlace => TrebleClef.BeginnerPlacementNotes,
+        _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
+    };
+
+    private IReadOnlyList<Pitch> CurrentKeyboardPitches => TrebleClef.BeginnerReadingNotes;
 
     private async Task SetMode(DrillMode nextMode)
     {
@@ -65,7 +80,7 @@ public partial class Home
 
     private async Task SelectKeyboardPitch(Pitch pitch)
     {
-        if (mode == DrillMode.PlaceNote)
+        if (mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental)
         {
             await PreviewPitch(pitch);
             return;
@@ -76,7 +91,7 @@ public partial class Home
 
     private async Task ChoosePitch(Pitch pitch)
     {
-        var isCorrect = pitch == currentPitch;
+        var isCorrect = IsSamePlayedPitch(pitch, currentPitch);
         await PlayClickCue(isCorrect, currentPitch);
         await RecordAnswer(isCorrect);
     }
@@ -88,13 +103,14 @@ public partial class Home
 
     private async Task PreviewStaffStep(int step)
     {
-        await Audio.PlayNoteAsync(TrebleClef.GetPitchFromStaffStep(step));
+        await Audio.PlayNoteAsync(TrebleClef.GetPitchFromStaffStep(step) with { Accidental = selectedAccidental });
     }
 
     private async Task SelectStaffStep(int step)
     {
         selectedStep = step;
-        var isCorrect = step == TrebleClef.GetStaffStep(currentPitch);
+        var placedPitch = TrebleClef.GetPitchFromStaffStep(step) with { Accidental = selectedAccidental };
+        var isCorrect = step == TrebleClef.GetStaffStep(currentPitch) && placedPitch.Accidental == currentPitch.Accidental;
         await PlayClickCue(isCorrect, currentPitch);
         await RecordAnswer(isCorrect);
     }
@@ -127,6 +143,7 @@ public partial class Home
         {
             feedbackKey = "LevelUnlockedFeedback";
             feedbackArgument = Localizer[GetModeLabelKey(unlockedMode)];
+            ShowUnlockToast(unlockedMode);
         }
 
         await ProgressStore.SaveAsync(progress);
@@ -150,11 +167,15 @@ public partial class Home
         currentPitch = PickRandomPitch(notes);
         previousPitch = currentPitch;
         selectedStep = null;
+        selectedAccidental = Accidental.Natural;
         feedbackKey = mode switch
         {
             DrillMode.NameNote => "PickNameFeedback",
             DrillMode.PlaceNote => "PickStaffFeedback",
+            DrillMode.NameAccidental => "PickAccidentalNameFeedback",
+            DrillMode.PlaceAccidental => "PickAccidentalStaffFeedback",
             DrillMode.HearNotePlay => "PickHeardKeyFeedback",
+            DrillMode.HearAccidentalPlay => "PickHeardBlackKeyFeedback",
             DrillMode.HearNotePlace => "PickHeardStaffFeedback",
             _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
         };
@@ -195,6 +216,33 @@ public partial class Home
         return string.Join(' ', classes);
     }
 
+    private void SetSelectedAccidental(Accidental accidental)
+    {
+        if (!CanChooseAccidental)
+        {
+            return;
+        }
+
+        selectedAccidental = accidental;
+    }
+
+    private string GetAccidentalButtonClass(Accidental accidental)
+    {
+        var classes = new List<string> { "accidental-button" };
+
+        if (selectedAccidental == accidental)
+        {
+            classes.Add("is-active");
+        }
+
+        if (CanChooseAccidental)
+        {
+            classes.Add("is-enabled");
+        }
+
+        return string.Join(' ', classes);
+    }
+
     private async Task PlayClickCue(bool isCorrect, Pitch pitch)
     {
         if (isCorrect)
@@ -223,6 +271,14 @@ public partial class Home
         }
     }
 
+    private void ShowUnlockToast(DrillMode unlockedMode)
+    {
+        var modeName = Localizer[GetModeLabelKey(unlockedMode)];
+        unlockToastMessage = unlockedMode == DrillMode.NameAccidental
+            ? Localizer.Format("UnlockToastAccidentalsMessage", modeName)
+            : Localizer.Format("UnlockToastMessage", modeName);
+    }
+
     private string GetPromptName(Pitch pitch)
     {
         var octaveLabel = pitch.Octave == 4 ? Localizer["LowOctave"] : Localizer["HighOctave"];
@@ -243,5 +299,29 @@ public partial class Home
             Accidental.Natural => string.Empty,
             Accidental.Sharp => "♯",
             _ => throw new ArgumentOutOfRangeException(nameof(accidental), accidental, null)
+        };
+
+    private static bool IsSamePlayedPitch(Pitch selectedPitch, Pitch answerPitch)
+    {
+        var selectedMidi = GetMidiNote(selectedPitch);
+        var answerMidi = GetMidiNote(answerPitch);
+
+        return selectedMidi == answerMidi;
+    }
+
+    private static int GetMidiNote(Pitch pitch)
+        => (pitch.Octave + 1) * 12 + GetSemitoneFromC(pitch.Letter) + (int)pitch.Accidental;
+
+    private static int GetSemitoneFromC(NoteLetter letter)
+        => letter switch
+        {
+            NoteLetter.C => 0,
+            NoteLetter.D => 2,
+            NoteLetter.E => 4,
+            NoteLetter.F => 5,
+            NoteLetter.G => 7,
+            NoteLetter.A => 9,
+            NoteLetter.B => 11,
+            _ => throw new ArgumentOutOfRangeException(nameof(letter), letter, null)
         };
 }

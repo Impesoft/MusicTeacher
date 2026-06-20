@@ -143,6 +143,79 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet high la" })).ToBeVisibleAsync();
     }
 
+    [E2EFact]
+    public async Task AccidentalsTheoryUnlocksWithAccidentalsLevel()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'place-note': {
+                            Attempts: 10,
+                            CorrectAnswers: 10,
+                            Streak: 10,
+                            BestStreak: 10
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 1/18")).ToBeVisibleAsync();
+
+        for (var index = 0; index < 16; index++)
+        {
+            await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet sharps and flats" })).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
+    public async Task UnlockToastAnnouncesNewLevel()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 4,
+                    CorrectAnswers: 4,
+                    Streak: 4,
+                    DrillProgress: {
+                        'name-note': {
+                            Attempts: 4,
+                            CorrectAnswers: 4,
+                            Streak: 4,
+                            BestStreak: 4
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var displayedPitch = await page.Locator(".music-staff").GetAttributeAsync("data-pitch");
+        await page.Locator($"button.piano-white-key[data-pitch='{displayedPitch}']").ClickAsync();
+
+        await Assertions.Expect(page.Locator(".unlock-toast")).ToContainTextAsync("New unlock");
+        await Assertions.Expect(page.Locator(".unlock-toast")).ToContainTextAsync("Place is open now.");
+    }
+
     public async Task InitializeAsync()
     {
         baseUrl = $"http://127.0.0.1:{port}";

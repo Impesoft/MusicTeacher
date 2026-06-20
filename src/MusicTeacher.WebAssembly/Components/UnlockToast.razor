@@ -1,0 +1,21 @@
+<div class="unlock-toast" role="status" aria-live="polite">
+    <div>
+        <strong>@Title</strong>
+        <span>@Message</span>
+    </div>
+    <button type="button" @onclick="OnDismiss" aria-label="@DismissLabel">×</button>
+</div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Message { get; set; } = string.Empty;
+
+    [Parameter]
+    public string DismissLabel { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback OnDismiss { get; set; }
+}

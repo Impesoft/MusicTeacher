@@ -36,9 +36,11 @@ public partial class Home
     private bool hasStarted;
     private Pitch currentPitch = TrebleClef.BeginnerReadingNotes[0];
     private int? selectedStep;
+    private Accidental selectedAccidental = Accidental.Natural;
     private string feedbackKey = "Ready";
     private string? feedbackArgument;
     private string feedbackClass = "feedback";
+    private string? unlockToastMessage;
     private Pitch? previousPitch;
     private int theoryPageIndex;
 
@@ -82,6 +84,11 @@ public partial class Home
     private void ReturnToStart()
     {
         hasStarted = false;
+    }
+
+    private void DismissUnlockToast()
+    {
+        unlockToastMessage = null;
     }
 
     private string GetCultureClass(string cultureName)
@@ -148,7 +155,10 @@ public partial class Home
     {
         NameNote,
         PlaceNote,
+        NameAccidental,
+        PlaceAccidental,
         HearNotePlay,
+        HearAccidentalPlay,
         HearNotePlace
     }
 

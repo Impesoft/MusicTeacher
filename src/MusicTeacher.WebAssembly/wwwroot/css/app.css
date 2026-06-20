@@ -194,6 +194,56 @@ h1:focus {
     padding: 1rem clamp(1rem, 4vw, 3rem) 2rem;
 }
 
+.unlock-toast {
+    align-items: center;
+    background: var(--success-bg);
+    border: 3px solid var(--border-strong);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    color: var(--ink);
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    max-width: min(26rem, calc(100vw - 2rem));
+    padding: 0.85rem 0.95rem;
+    position: fixed;
+    right: 1rem;
+    top: 1rem;
+    z-index: 20;
+}
+
+.unlock-toast div {
+    display: grid;
+    gap: 0.15rem;
+}
+
+.unlock-toast strong {
+    font-size: 0.95rem;
+    font-weight: 900;
+}
+
+.unlock-toast span {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.unlock-toast button {
+    align-items: center;
+    background: var(--surface-muted-strong);
+    border: 2px solid var(--border-medium);
+    border-radius: 50%;
+    color: var(--ink);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 1.05rem;
+    font-weight: 900;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+}
+
 .start-screen {
     display: grid;
     margin: 0 auto;
@@ -515,6 +565,7 @@ h1:focus {
     background: transparent;
     color: var(--ink);
     cursor: pointer;
+    font-size: 0.88rem;
     font-weight: 900;
     min-height: 3.15rem;
     padding: 0 0.4rem;
@@ -697,6 +748,18 @@ h1:focus {
     width: 2rem;
 }
 
+.accidental-button.is-enabled {
+    background: var(--surface-strong);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.accidental-button.is-enabled:hover,
+.accidental-button.is-enabled:focus-visible {
+    background: var(--sun);
+    border-color: var(--ink);
+}
+
 .accidental-button:disabled {
     opacity: 1;
 }
@@ -804,6 +867,13 @@ h1:focus {
 .theory-note-label {
     fill: var(--key-label);
     font-size: 9px;
+    font-weight: 900;
+    text-anchor: middle;
+}
+
+.note-accidental {
+    fill: var(--staff-ink);
+    font-size: 28px;
     font-weight: 900;
     text-anchor: middle;
 }

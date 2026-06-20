@@ -10,6 +10,14 @@
 
 <PageTitle>@Localizer["AppTitle"]</PageTitle>
 
+@if (unlockToastMessage is not null)
+{
+    <UnlockToast Title="@Localizer["UnlockToastTitle"]"
+                 Message="@unlockToastMessage"
+                 DismissLabel="@Localizer["DismissToast"]"
+                 OnDismiss="DismissUnlockToast" />
+}
+
 @if (!hasStarted)
 {
     <section class="start-screen">
@@ -176,6 +184,14 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer.Format("TheorySingleNoteCallout", GetPromptName(theoryPitch), theoryPitch.ScientificName.ToLowerInvariant())</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.Keyboard)
+            {
+                <div class="theory-visual">
+                    <PianoKeyboard Pitches="@TrebleClef.BeginnerReadingNotes"
+                                   UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames" />
+                    <p class="theory-callout">@Localizer["TheoryBlackKeysCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }
@@ -206,11 +222,29 @@ else
                         @onclick="() => SetMode(DrillMode.PlaceNote)">
                     @Localizer["PlaceMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.NameAccidental)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.NameAccidental)"
+                        @onclick="() => SetMode(DrillMode.NameAccidental)">
+                    @Localizer["NameAccidentalMode"]
+                </button>
+                <button class="@GetModeClass(DrillMode.PlaceAccidental)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.PlaceAccidental)"
+                        @onclick="() => SetMode(DrillMode.PlaceAccidental)">
+                    @Localizer["PlaceAccidentalMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.HearNotePlay)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.HearNotePlay)"
                         @onclick="() => SetMode(DrillMode.HearNotePlay)">
                     @Localizer["HearPlayMode"]
+                </button>
+                <button class="@GetModeClass(DrillMode.HearAccidentalPlay)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.HearAccidentalPlay)"
+                        @onclick="() => SetMode(DrillMode.HearAccidentalPlay)">
+                    @Localizer["HearAccidentalPlayMode"]
                 </button>
                 <button class="@GetModeClass(DrillMode.HearNotePlace)"
                         type="button"
@@ -262,7 +296,7 @@ else
             {
                 <MusicStaff DisplayedPitch="@DisplayedPitch"
                             IsPlacementMode="@IsPlacementMode"
-                            SelectableSteps="@selectableSteps"
+                            SelectableSteps="@SelectableSteps"
                             SelectedStep="@selectedStep"
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
@@ -273,16 +307,28 @@ else
             {
                 <div class="accidental-selector" role="group" aria-label="@Localizer["AccidentalSelectorLabel"]">
                     <span>@Localizer["AccidentalSelectorLabel"]</span>
-                    <button class="accidental-button" type="button" disabled aria-label="@Localizer["AccidentalFlat"]">♭</button>
-                    <button class="accidental-button is-active" type="button" disabled aria-label="@Localizer["AccidentalNatural"]">♮</button>
-                    <button class="accidental-button" type="button" disabled aria-label="@Localizer["AccidentalSharp"]">♯</button>
-                    <small>@Localizer["AccidentalSelectorDisabledHint"]</small>
+                    <button class="@GetAccidentalButtonClass(Accidental.Flat)"
+                            type="button"
+                            disabled="@(!CanChooseAccidental)"
+                            aria-label="@Localizer["AccidentalFlat"]"
+                            @onclick="() => SetSelectedAccidental(Accidental.Flat)">♭</button>
+                    <button class="@GetAccidentalButtonClass(Accidental.Natural)"
+                            type="button"
+                            disabled="@(!CanChooseAccidental)"
+                            aria-label="@Localizer["AccidentalNatural"]"
+                            @onclick="() => SetSelectedAccidental(Accidental.Natural)">♮</button>
+                    <button class="@GetAccidentalButtonClass(Accidental.Sharp)"
+                            type="button"
+                            disabled="@(!CanChooseAccidental)"
+                            aria-label="@Localizer["AccidentalSharp"]"
+                            @onclick="() => SetSelectedAccidental(Accidental.Sharp)">♯</button>
+                    <small>@(CanChooseAccidental ? Localizer["AccidentalSelectorHint"] : Localizer["AccidentalSelectorDisabledHint"])</small>
                 </div>
             }
 
             @if (ShowsKeyboard)
             {
-                <PianoKeyboard Pitches="@CurrentNotes"
+                <PianoKeyboard Pitches="@CurrentKeyboardPitches"
                                HighlightedPitch="@KeyboardHighlightedPitch"
                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"

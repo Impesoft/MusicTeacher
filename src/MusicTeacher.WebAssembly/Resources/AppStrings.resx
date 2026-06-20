@@ -66,6 +66,15 @@
   <data name="HearPlaceMode" xml:space="preserve">
     <value>Hear: place</value>
   </data>
+  <data name="NameAccidentalMode" xml:space="preserve">
+    <value>Sharps/flats</value>
+  </data>
+  <data name="PlaceAccidentalMode" xml:space="preserve">
+    <value>Place ♯/♭</value>
+  </data>
+  <data name="HearAccidentalPlayMode" xml:space="preserve">
+    <value>Hear: black keys</value>
+  </data>
   <data name="ScoreCorrect" xml:space="preserve">
     <value>{0} correct</value>
   </data>
@@ -105,6 +114,15 @@
   <data name="HearPlaceTitle" xml:space="preserve">
     <value>Hear the note: place it</value>
   </data>
+  <data name="NameAccidentalTitle" xml:space="preserve">
+    <value>Name sharps and flats</value>
+  </data>
+  <data name="PlaceAccidentalTitle" xml:space="preserve">
+    <value>Place sharps and flats</value>
+  </data>
+  <data name="HearAccidentalPlayTitle" xml:space="preserve">
+    <value>Hear a black key: play it</value>
+  </data>
   <data name="NamePrompt" xml:space="preserve">
     <value>Which name matches this note?</value>
   </data>
@@ -116,6 +134,15 @@
   </data>
   <data name="HearPlacePrompt" xml:space="preserve">
     <value>Listen, then place the note on the staff.</value>
+  </data>
+  <data name="NameAccidentalPrompt" xml:space="preserve">
+    <value>Which sharp or flat matches this note?</value>
+  </data>
+  <data name="PlaceAccidentalPrompt" xml:space="preserve">
+    <value>Put {0} on the staff with the right accidental</value>
+  </data>
+  <data name="HearAccidentalPlayPrompt" xml:space="preserve">
+    <value>Listen, then play the matching black key.</value>
   </data>
   <data name="PlayAssignmentNote" xml:space="preserve">
     <value>Play note</value>
@@ -144,6 +171,18 @@
   <data name="LevelUnlockedFeedback" xml:space="preserve">
     <value>Level unlocked: {0}.</value>
   </data>
+  <data name="UnlockToastTitle" xml:space="preserve">
+    <value>New unlock</value>
+  </data>
+  <data name="UnlockToastMessage" xml:space="preserve">
+    <value>{0} is open now.</value>
+  </data>
+  <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
+    <value>{0} is open now. New theory pages for sharps, flats, and black keys are open too.</value>
+  </data>
+  <data name="DismissToast" xml:space="preserve">
+    <value>Dismiss message</value>
+  </data>
   <data name="MissedFeedback" xml:space="preserve">
     <value>Try the next one.</value>
   </data>
@@ -158,6 +197,15 @@
   </data>
   <data name="PickHeardStaffFeedback" xml:space="preserve">
     <value>Place what you hear.</value>
+  </data>
+  <data name="PickAccidentalNameFeedback" xml:space="preserve">
+    <value>Pick the matching sharp or flat.</value>
+  </data>
+  <data name="PickAccidentalStaffFeedback" xml:space="preserve">
+    <value>Choose ♯ or ♭, then pick the line or space.</value>
+  </data>
+  <data name="PickHeardBlackKeyFeedback" xml:space="preserve">
+    <value>Play the black key you hear.</value>
   </data>
   <data name="LowOctave" xml:space="preserve">
     <value>low</value>
@@ -249,6 +297,9 @@
   <data name="AccidentalSelectorDisabledHint" xml:space="preserve">
     <value>Sharps and flats are coming next.</value>
   </data>
+  <data name="AccidentalSelectorHint" xml:space="preserve">
+    <value>Choose the accidental before placing the note.</value>
+  </data>
   <data name="TheoryKicker" xml:space="preserve">
     <value>Theory library</value>
   </data>
@@ -305,5 +356,26 @@
   </data>
   <data name="TheorySingleNoteCallout" xml:space="preserve">
     <value>This note is {0}, also called {1}.</value>
+  </data>
+  <data name="TheoryAccidentalsTitle" xml:space="preserve">
+    <value>Meet sharps and flats</value>
+  </data>
+  <data name="TheoryAccidentalsSummary" xml:space="preserve">
+    <value>A sharp raises a note. A flat lowers a note.</value>
+  </data>
+  <data name="TheoryAccidentalsBody" xml:space="preserve">
+    <value>Sharps and flats are accidentals. A sharp moves the note one tiny step higher, and a flat moves it one tiny step lower. The note stays on the same line or space, but the accidental tells you which nearby key to play.</value>
+  </data>
+  <data name="TheoryBlackKeysTitle" xml:space="preserve">
+    <value>Black keys have two names</value>
+  </data>
+  <data name="TheoryBlackKeysSummary" xml:space="preserve">
+    <value>The same black key can be named as a sharp or a flat.</value>
+  </data>
+  <data name="TheoryBlackKeysBody" xml:space="preserve">
+    <value>Look at the black keys between the white keys. The black key above do is do sharp, but it is also re flat. Both names point to the same sound, so either name can be correct depending on the music.</value>
+  </data>
+  <data name="TheoryBlackKeysCallout" xml:space="preserve">
+    <value>Each black key shows its sharp name and its flat name.</value>
   </data>
 </root>

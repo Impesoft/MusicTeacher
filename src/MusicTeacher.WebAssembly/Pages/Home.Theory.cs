@@ -10,7 +10,7 @@ public partial class Home
         .Where(page => page.Level <= CurrentAvailableTheoryLevel)
         .ToArray();
 
-    private int CurrentAvailableTheoryLevel => 0;
+    private int CurrentAvailableTheoryLevel => IsModeUnlocked(DrillMode.NameAccidental) ? 1 : 0;
 
     private TheoryPage CurrentTheoryPage => AvailableTheoryPages[Math.Clamp(theoryPageIndex, 0, AvailableTheoryPages.Count - 1)];
 
@@ -56,6 +56,9 @@ public partial class Home
         pages.AddRange(TrebleClef.BeginnerStaffNotes.Select(pitch =>
             new TheoryPage(0, "TheorySingleNoteTitle", "TheorySingleNoteSummary", "TheorySingleNoteBody", TheoryVisual.SingleNote, pitch)));
 
+        pages.Add(new TheoryPage(1, "TheoryAccidentalsTitle", "TheoryAccidentalsSummary", "TheoryAccidentalsBody", TheoryVisual.SingleNote, new Pitch(NoteLetter.C, 4, Accidental.Sharp)));
+        pages.Add(new TheoryPage(1, "TheoryBlackKeysTitle", "TheoryBlackKeysSummary", "TheoryBlackKeysBody", TheoryVisual.Keyboard));
+
         return pages;
     }
 
@@ -65,6 +68,7 @@ public partial class Home
     {
         Staff,
         TrebleClef,
-        SingleNote
+        SingleNote,
+        Keyboard
     }
 }

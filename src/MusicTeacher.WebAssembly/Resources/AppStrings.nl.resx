@@ -66,6 +66,15 @@
   <data name="HearPlaceMode" xml:space="preserve">
     <value>Hoor: plaats</value>
   </data>
+  <data name="NameAccidentalMode" xml:space="preserve">
+    <value>Kruisen/mollen</value>
+  </data>
+  <data name="PlaceAccidentalMode" xml:space="preserve">
+    <value>Plaats ♯/♭</value>
+  </data>
+  <data name="HearAccidentalPlayMode" xml:space="preserve">
+    <value>Hoor: zwarte toetsen</value>
+  </data>
   <data name="ScoreCorrect" xml:space="preserve">
     <value>{0} goed</value>
   </data>
@@ -105,6 +114,15 @@
   <data name="HearPlaceTitle" xml:space="preserve">
     <value>Hoor de noot: plaats ze</value>
   </data>
+  <data name="NameAccidentalTitle" xml:space="preserve">
+    <value>Noem kruisen en mollen</value>
+  </data>
+  <data name="PlaceAccidentalTitle" xml:space="preserve">
+    <value>Plaats kruisen en mollen</value>
+  </data>
+  <data name="HearAccidentalPlayTitle" xml:space="preserve">
+    <value>Hoor een zwarte toets: speel ze</value>
+  </data>
   <data name="NamePrompt" xml:space="preserve">
     <value>Welke naam past bij deze noot?</value>
   </data>
@@ -116,6 +134,15 @@
   </data>
   <data name="HearPlacePrompt" xml:space="preserve">
     <value>Luister en plaats de noot op de notenbalk.</value>
+  </data>
+  <data name="NameAccidentalPrompt" xml:space="preserve">
+    <value>Welke kruis of mol past bij deze noot?</value>
+  </data>
+  <data name="PlaceAccidentalPrompt" xml:space="preserve">
+    <value>Zet {0} op de notenbalk met het juiste voorteken</value>
+  </data>
+  <data name="HearAccidentalPlayPrompt" xml:space="preserve">
+    <value>Luister en speel de juiste zwarte toets.</value>
   </data>
   <data name="PlayAssignmentNote" xml:space="preserve">
     <value>Speel noot</value>
@@ -144,6 +171,18 @@
   <data name="LevelUnlockedFeedback" xml:space="preserve">
     <value>Level ontgrendeld: {0}.</value>
   </data>
+  <data name="UnlockToastTitle" xml:space="preserve">
+    <value>Nieuw vrijgespeeld</value>
+  </data>
+  <data name="UnlockToastMessage" xml:space="preserve">
+    <value>{0} is nu open.</value>
+  </data>
+  <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
+    <value>{0} is nu open. Nieuwe theorie over kruisen, mollen en zwarte toetsen is ook open.</value>
+  </data>
+  <data name="DismissToast" xml:space="preserve">
+    <value>Melding sluiten</value>
+  </data>
   <data name="MissedFeedback" xml:space="preserve">
     <value>Probeer de volgende.</value>
   </data>
@@ -158,6 +197,15 @@
   </data>
   <data name="PickHeardStaffFeedback" xml:space="preserve">
     <value>Plaats wat je hoort.</value>
+  </data>
+  <data name="PickAccidentalNameFeedback" xml:space="preserve">
+    <value>Kies de juiste kruis of mol.</value>
+  </data>
+  <data name="PickAccidentalStaffFeedback" xml:space="preserve">
+    <value>Kies ♯ of ♭ en daarna de lijn of ruimte.</value>
+  </data>
+  <data name="PickHeardBlackKeyFeedback" xml:space="preserve">
+    <value>Speel de zwarte toets die je hoort.</value>
   </data>
   <data name="LowOctave" xml:space="preserve">
     <value>laag</value>
@@ -249,6 +297,9 @@
   <data name="AccidentalSelectorDisabledHint" xml:space="preserve">
     <value>Kruisen en mollen komen later.</value>
   </data>
+  <data name="AccidentalSelectorHint" xml:space="preserve">
+    <value>Kies het voorteken voordat je de noot plaatst.</value>
+  </data>
   <data name="TheoryKicker" xml:space="preserve">
     <value>Theoriebibliotheek</value>
   </data>
@@ -305,5 +356,26 @@
   </data>
   <data name="TheorySingleNoteCallout" xml:space="preserve">
     <value>Deze noot is {0}, ook {1} genoemd.</value>
+  </data>
+  <data name="TheoryAccidentalsTitle" xml:space="preserve">
+    <value>Maak kennis met kruisen en mollen</value>
+  </data>
+  <data name="TheoryAccidentalsSummary" xml:space="preserve">
+    <value>Een kruis maakt een noot hoger. Een mol maakt een noot lager.</value>
+  </data>
+  <data name="TheoryAccidentalsBody" xml:space="preserve">
+    <value>Kruisen en mollen zijn voortekens. Een kruis schuift de noot een klein stapje omhoog, en een mol schuift ze een klein stapje omlaag. De noot blijft op dezelfde lijn of in dezelfde ruimte, maar het voorteken vertelt welke toets je speelt.</value>
+  </data>
+  <data name="TheoryBlackKeysTitle" xml:space="preserve">
+    <value>Zwarte toetsen hebben twee namen</value>
+  </data>
+  <data name="TheoryBlackKeysSummary" xml:space="preserve">
+    <value>Dezelfde zwarte toets kan een kruisnaam of een molnaam hebben.</value>
+  </data>
+  <data name="TheoryBlackKeysBody" xml:space="preserve">
+    <value>Kijk naar de zwarte toetsen tussen de witte toetsen. De zwarte toets boven do is do kruis, maar ook re mol. Beide namen horen bij dezelfde klank, dus welke naam juist is hangt af van de muziek.</value>
+  </data>
+  <data name="TheoryBlackKeysCallout" xml:space="preserve">
+    <value>Elke zwarte toets toont haar kruisnaam en haar molnaam.</value>
   </data>
 </root>
