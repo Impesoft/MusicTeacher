@@ -246,30 +246,66 @@
   <data name="VisualThemeLabel" xml:space="preserve">
     <value>Thema</value>
   </data>
-  <data name="VisualThemeClassic" xml:space="preserve">
-    <value>Klassiek</value>
+  <data name="VisualThemeAnimeSky" xml:space="preserve">
+    <value>Animehemel</value>
   </data>
-  <data name="VisualThemeRainbow" xml:space="preserve">
-    <value>Fel</value>
+  <data name="VisualThemeMangaNight" xml:space="preserve">
+    <value>Manganacht</value>
   </data>
-  <data name="VisualThemeSpace" xml:space="preserve">
-    <value>Ruimte</value>
+  <data name="VisualThemeCandyStage" xml:space="preserve">
+    <value>Snoeppodium</value>
+  </data>
+  <data name="VisualThemeStarship" xml:space="preserve">
+    <value>Sterrenreis</value>
+  </data>
+  <data name="VisualThemeForestBand" xml:space="preserve">
+    <value>Bosband</value>
+  </data>
+  <data name="VisualThemeCityPop" xml:space="preserve">
+    <value>Citypop</value>
+  </data>
+  <data name="VisualThemeStickerWall" xml:space="preserve">
+    <value>Stickermuur</value>
+  </data>
+  <data name="VisualThemeOceanShow" xml:space="preserve">
+    <value>Oceanshow</value>
   </data>
   <data name="AvatarLabel" xml:space="preserve">
     <value>Avatar</value>
   </data>
-  <data name="AvatarStar" xml:space="preserve">
-    <value>Steravatar</value>
-  </data>
-  <data name="AvatarRocket" xml:space="preserve">
-    <value>Muziekavatar</value>
-  </data>
-  <data name="AvatarSpark" xml:space="preserve">
-    <value>Fonkelavatar</value>
-  </data>
+  <data name="AvatarMelody" xml:space="preserve"><value>Melody-avatar</value></data>
+  <data name="AvatarMika" xml:space="preserve"><value>Mika-avatar</value></data>
+  <data name="AvatarNova" xml:space="preserve"><value>Nova-avatar</value></data>
+  <data name="AvatarPixel" xml:space="preserve"><value>Pixel-avatar</value></data>
+  <data name="AvatarLuna" xml:space="preserve"><value>Luna-avatar</value></data>
+  <data name="AvatarKai" xml:space="preserve"><value>Kai-avatar</value></data>
+  <data name="AvatarRiko" xml:space="preserve"><value>Riko-avatar</value></data>
+  <data name="AvatarZara" xml:space="preserve"><value>Zara-avatar</value></data>
+  <data name="AvatarTempo" xml:space="preserve"><value>Tempo-avatar</value></data>
+  <data name="AvatarSora" xml:space="preserve"><value>Sora-avatar</value></data>
+  <data name="AvatarNori" xml:space="preserve"><value>Nori-avatar</value></data>
+  <data name="AvatarAria" xml:space="preserve"><value>Aria-avatar</value></data>
   <data name="SelectedAvatarLabel" xml:space="preserve">
     <value>Gekozen avatar</value>
   </data>
+  <data name="BadgeShelfLabel" xml:space="preserve">
+    <value>Badges</value>
+  </data>
+  <data name="BadgeShelfEmpty" xml:space="preserve">
+    <value>Speel levels vrij om badges te verzamelen.</value>
+  </data>
+  <data name="BadgePlaceNotesTitle" xml:space="preserve"><value>Notenbalkstarter</value></data>
+  <data name="BadgePlaceNotesDescription" xml:space="preserve"><value>Plaatsen op de notenbalk vrijgespeeld.</value></data>
+  <data name="BadgeAccidentalsTitle" xml:space="preserve"><value>Kruisverkenner</value></data>
+  <data name="BadgeAccidentalsDescription" xml:space="preserve"><value>Kruisen, mollen en zwarte-toetsentheorie vrijgespeeld.</value></data>
+  <data name="BadgePlaceAccidentalsTitle" xml:space="preserve"><value>Voortekenkunstenaar</value></data>
+  <data name="BadgePlaceAccidentalsDescription" xml:space="preserve"><value>Plaatsen met voortekens vrijgespeeld.</value></data>
+  <data name="BadgeEarTrainingTitle" xml:space="preserve"><value>Gehoortrainer</value></data>
+  <data name="BadgeEarTrainingDescription" xml:space="preserve"><value>Luisteroefeningen vrijgespeeld.</value></data>
+  <data name="BadgeBlackKeysTitle" xml:space="preserve"><value>Zwarte-toetsheld</value></data>
+  <data name="BadgeBlackKeysDescription" xml:space="preserve"><value>Luisteren naar zwarte toetsen vrijgespeeld.</value></data>
+  <data name="BadgeStaffMasterTitle" xml:space="preserve"><value>Notenbalkmeester</value></data>
+  <data name="BadgeStaffMasterDescription" xml:space="preserve"><value>Hoor-en-plaatsmeesterschap vrijgespeeld.</value></data>
   <data name="KeyboardAriaLabel" xml:space="preserve">
     <value>Klavier met twee octaven</value>
   </data>
@@ -377,5 +413,26 @@
   </data>
   <data name="TheoryBlackKeysCallout" xml:space="preserve">
     <value>Elke zwarte toets toont haar kruisnaam en haar molnaam.</value>
+  </data>
+  <data name="CustomizeProfileTitle" xml:space="preserve">
+    <value>Profiel aanpassen</value>
+  </data>
+  <data name="TabAvatar" xml:space="preserve">
+    <value>Avatars</value>
+  </data>
+  <data name="TabTheme" xml:space="preserve">
+    <value>Thema's</value>
+  </data>
+  <data name="TabSettings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="CloseLabel" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="CustomizerEditButton" xml:space="preserve">
+    <value>Karakter &amp; thema's aanpassen</value>
+  </data>
+  <data name="ProfileWelcome" xml:space="preserve">
+    <value>Welkom, muzikant!</value>
   </data>
 </root>

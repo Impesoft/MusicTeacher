@@ -3,6 +3,7 @@ using MusicTeacher.Shared.MusicTheory;
 using MusicTeacher.Shared.Progress;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace MusicTeacher.WebAssembly.Pages;
 
@@ -11,19 +12,44 @@ public partial class Home
     private const string NoteNameModeStorageKey = "music-teacher-note-name-mode";
     private const string VisualThemeStorageKey = "music-teacher-visual-theme";
     private const string AvatarStorageKey = "music-teacher-avatar";
+    private const string EarnedBadgesStorageKey = "music-teacher-earned-badges";
 
     private static readonly IReadOnlyList<VisualThemeOption> VisualThemeOptions =
     [
-        new("classic", "VisualThemeClassic", "background: linear-gradient(135deg, #8ed4e8, #ffc857);"),
-        new("rainbow", "VisualThemeRainbow", "background: linear-gradient(135deg, #ff6f91, #ffd166, #59d9a5);"),
-        new("space", "VisualThemeSpace", "background: linear-gradient(135deg, #243b6b, #7b61ff, #26d9d0);")
+        new("anime-sky", "VisualThemeAnimeSky"),
+        new("manga-night", "VisualThemeMangaNight"),
+        new("candy-stage", "VisualThemeCandyStage"),
+        new("starship", "VisualThemeStarship"),
+        new("forest-band", "VisualThemeForestBand"),
+        new("city-pop", "VisualThemeCityPop"),
+        new("sticker-wall", "VisualThemeStickerWall"),
+        new("ocean-show", "VisualThemeOceanShow")
     ];
 
     private static readonly IReadOnlyList<AvatarOption> AvatarOptions =
     [
-        new("star", "AvatarStar", "★"),
-        new("rocket", "AvatarRocket", "♬"),
-        new("spark", "AvatarSpark", "✦")
+        new("melody", "AvatarMelody"),
+        new("mika", "AvatarMika"),
+        new("nova", "AvatarNova"),
+        new("pixel", "AvatarPixel"),
+        new("luna", "AvatarLuna"),
+        new("kai", "AvatarKai"),
+        new("riko", "AvatarRiko"),
+        new("zara", "AvatarZara"),
+        new("tempo", "AvatarTempo"),
+        new("sora", "AvatarSora"),
+        new("nori", "AvatarNori"),
+        new("aria", "AvatarAria")
+    ];
+
+    private static readonly IReadOnlyList<BadgeAward> BadgeAwards =
+    [
+        new(DrillMode.PlaceNote, "place-notes", "BadgePlaceNotesTitle", "BadgePlaceNotesDescription", "◆"),
+        new(DrillMode.NameAccidental, "accidentals", "BadgeAccidentalsTitle", "BadgeAccidentalsDescription", "♯"),
+        new(DrillMode.PlaceAccidental, "place-accidentals", "BadgePlaceAccidentalsTitle", "BadgePlaceAccidentalsDescription", "♭"),
+        new(DrillMode.HearNotePlay, "ear-training", "BadgeEarTrainingTitle", "BadgeEarTrainingDescription", "♪"),
+        new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
+        new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
 
     private LessonDefinition? lesson;
@@ -31,8 +57,8 @@ public partial class Home
     private PracticeMode practiceMode = PracticeMode.FreeExplore;
     private DrillMode mode = DrillMode.NameNote;
     private NoteNameMode noteNameMode = NoteNameMode.FixedDo;
-    private string selectedVisualTheme = "classic";
-    private string selectedAvatar = "star";
+    private string selectedVisualTheme = "anime-sky";
+    private string selectedAvatar = "melody";
     private bool hasStarted;
     private Pitch currentPitch = TrebleClef.BeginnerReadingNotes[0];
     private int? selectedStep;
@@ -40,9 +66,12 @@ public partial class Home
     private string feedbackKey = "Ready";
     private string? feedbackArgument;
     private string feedbackClass = "feedback";
-    private string? unlockToastMessage;
+    private UnlockToastViewModel? unlockToast;
+    private HashSet<string> earnedBadgeIds = [];
     private Pitch? previousPitch;
     private int theoryPageIndex;
+    private bool isCustomizerOpen = false;
+    private CustomizerTab activeCustomizerTab = CustomizerTab.Avatar;
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,6 +80,7 @@ public partial class Home
         noteNameMode = ParseNoteNameMode(await JS.InvokeAsync<string?>("localStorage.getItem", [NoteNameModeStorageKey]));
         selectedVisualTheme = ResolveVisualTheme(await JS.InvokeAsync<string?>("localStorage.getItem", [VisualThemeStorageKey]));
         selectedAvatar = ResolveAvatar(await JS.InvokeAsync<string?>("localStorage.getItem", [AvatarStorageKey]));
+        earnedBadgeIds = ParseEarnedBadges(await JS.InvokeAsync<string?>("localStorage.getItem", [EarnedBadgesStorageKey]));
         await ApplyVisualTheme();
         NextRound();
     }
@@ -86,9 +116,28 @@ public partial class Home
         hasStarted = false;
     }
 
+    private void OpenCustomizer()
+    {
+        activeCustomizerTab = CustomizerTab.Avatar;
+        isCustomizerOpen = true;
+    }
+
+    private void CloseCustomizer()
+    {
+        isCustomizerOpen = false;
+    }
+
+    private void SetCustomizerTab(CustomizerTab tab)
+    {
+        activeCustomizerTab = tab;
+    }
+
+    private string GetTabClass(CustomizerTab tab)
+        => activeCustomizerTab == tab ? "customizer-tab-button is-active" : "customizer-tab-button";
+
     private void DismissUnlockToast()
     {
-        unlockToastMessage = null;
+        unlockToast = null;
     }
 
     private string GetCultureClass(string cultureName)
@@ -104,7 +153,9 @@ public partial class Home
 
     private bool UseAlphabeticalNoteNames => noteNameMode == NoteNameMode.Alphabetical;
 
-    private string SelectedAvatarIcon => AvatarOptions.First(option => option.Value == selectedAvatar).Icon;
+    private IReadOnlyList<BadgeAward> EarnedBadges => BadgeAwards
+        .Where(badge => earnedBadgeIds.Contains(badge.Id))
+        .ToArray();
 
     private async Task SetNoteNameMode(NoteNameMode nextMode)
     {
@@ -146,10 +197,32 @@ public partial class Home
         => mode == NoteNameMode.Alphabetical ? "alphabetical" : "fixed-do";
 
     private static string ResolveVisualTheme(string? visualTheme)
-        => VisualThemeOptions.Any(option => option.Value == visualTheme) ? visualTheme! : "classic";
+        => VisualThemeOptions.Any(option => option.Value == visualTheme) ? visualTheme! : "anime-sky";
 
     private static string ResolveAvatar(string? avatar)
-        => AvatarOptions.Any(option => option.Value == avatar) ? avatar! : "star";
+        => AvatarOptions.Any(option => option.Value == avatar) ? avatar! : "melody";
+
+    private static HashSet<string> ParseEarnedBadges(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            return [];
+        }
+
+        try
+        {
+            return JsonSerializer.Deserialize<HashSet<string>>(json) ?? [];
+        }
+        catch (JsonException)
+        {
+            return [];
+        }
+    }
+
+    private async Task SaveEarnedBadges()
+    {
+        await JS.InvokeVoidAsync("localStorage.setItem", EarnedBadgesStorageKey, JsonSerializer.Serialize(earnedBadgeIds));
+    }
 
     private enum DrillMode
     {
@@ -175,7 +248,18 @@ public partial class Home
         Alphabetical
     }
 
-    private sealed record VisualThemeOption(string Value, string LabelKey, string SwatchStyle);
+    private enum CustomizerTab
+    {
+        Avatar,
+        Theme,
+        Settings
+    }
 
-    private sealed record AvatarOption(string Value, string LabelKey, string Icon);
+    private sealed record VisualThemeOption(string Value, string LabelKey);
+
+    private sealed record AvatarOption(string Value, string LabelKey);
+
+    private sealed record BadgeAward(DrillMode Mode, string Id, string TitleKey, string DescriptionKey, string Icon);
+
+    private sealed record UnlockToastViewModel(string Message, string BadgeTitle, string BadgeDescription, string BadgeIcon);
 }

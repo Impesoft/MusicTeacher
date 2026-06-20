@@ -246,30 +246,66 @@
   <data name="VisualThemeLabel" xml:space="preserve">
     <value>Theme</value>
   </data>
-  <data name="VisualThemeClassic" xml:space="preserve">
-    <value>Classic</value>
+  <data name="VisualThemeAnimeSky" xml:space="preserve">
+    <value>Anime sky</value>
   </data>
-  <data name="VisualThemeRainbow" xml:space="preserve">
-    <value>Bright</value>
+  <data name="VisualThemeMangaNight" xml:space="preserve">
+    <value>Manga night</value>
   </data>
-  <data name="VisualThemeSpace" xml:space="preserve">
-    <value>Space</value>
+  <data name="VisualThemeCandyStage" xml:space="preserve">
+    <value>Candy stage</value>
+  </data>
+  <data name="VisualThemeStarship" xml:space="preserve">
+    <value>Starship</value>
+  </data>
+  <data name="VisualThemeForestBand" xml:space="preserve">
+    <value>Forest band</value>
+  </data>
+  <data name="VisualThemeCityPop" xml:space="preserve">
+    <value>City pop</value>
+  </data>
+  <data name="VisualThemeStickerWall" xml:space="preserve">
+    <value>Sticker wall</value>
+  </data>
+  <data name="VisualThemeOceanShow" xml:space="preserve">
+    <value>Ocean show</value>
   </data>
   <data name="AvatarLabel" xml:space="preserve">
     <value>Avatar</value>
   </data>
-  <data name="AvatarStar" xml:space="preserve">
-    <value>Star avatar</value>
-  </data>
-  <data name="AvatarRocket" xml:space="preserve">
-    <value>Music avatar</value>
-  </data>
-  <data name="AvatarSpark" xml:space="preserve">
-    <value>Spark avatar</value>
-  </data>
+  <data name="AvatarMelody" xml:space="preserve"><value>Melody avatar</value></data>
+  <data name="AvatarMika" xml:space="preserve"><value>Mika avatar</value></data>
+  <data name="AvatarNova" xml:space="preserve"><value>Nova avatar</value></data>
+  <data name="AvatarPixel" xml:space="preserve"><value>Pixel avatar</value></data>
+  <data name="AvatarLuna" xml:space="preserve"><value>Luna avatar</value></data>
+  <data name="AvatarKai" xml:space="preserve"><value>Kai avatar</value></data>
+  <data name="AvatarRiko" xml:space="preserve"><value>Riko avatar</value></data>
+  <data name="AvatarZara" xml:space="preserve"><value>Zara avatar</value></data>
+  <data name="AvatarTempo" xml:space="preserve"><value>Tempo avatar</value></data>
+  <data name="AvatarSora" xml:space="preserve"><value>Sora avatar</value></data>
+  <data name="AvatarNori" xml:space="preserve"><value>Nori avatar</value></data>
+  <data name="AvatarAria" xml:space="preserve"><value>Aria avatar</value></data>
   <data name="SelectedAvatarLabel" xml:space="preserve">
     <value>Selected avatar</value>
   </data>
+  <data name="BadgeShelfLabel" xml:space="preserve">
+    <value>Badges</value>
+  </data>
+  <data name="BadgeShelfEmpty" xml:space="preserve">
+    <value>Unlock levels to collect badges.</value>
+  </data>
+  <data name="BadgePlaceNotesTitle" xml:space="preserve"><value>Staff Starter</value></data>
+  <data name="BadgePlaceNotesDescription" xml:space="preserve"><value>Unlocked staff placement.</value></data>
+  <data name="BadgeAccidentalsTitle" xml:space="preserve"><value>Sharp Scout</value></data>
+  <data name="BadgeAccidentalsDescription" xml:space="preserve"><value>Unlocked sharps, flats, and black-key theory.</value></data>
+  <data name="BadgePlaceAccidentalsTitle" xml:space="preserve"><value>Accidental Artist</value></data>
+  <data name="BadgePlaceAccidentalsDescription" xml:space="preserve"><value>Unlocked accidental placement.</value></data>
+  <data name="BadgeEarTrainingTitle" xml:space="preserve"><value>Ear Trainer</value></data>
+  <data name="BadgeEarTrainingDescription" xml:space="preserve"><value>Unlocked listening drills.</value></data>
+  <data name="BadgeBlackKeysTitle" xml:space="preserve"><value>Black Key Hero</value></data>
+  <data name="BadgeBlackKeysDescription" xml:space="preserve"><value>Unlocked black-key listening.</value></data>
+  <data name="BadgeStaffMasterTitle" xml:space="preserve"><value>Staff Master</value></data>
+  <data name="BadgeStaffMasterDescription" xml:space="preserve"><value>Unlocked hear-and-place mastery.</value></data>
   <data name="KeyboardAriaLabel" xml:space="preserve">
     <value>Two octave note keyboard</value>
   </data>
@@ -377,5 +413,26 @@
   </data>
   <data name="TheoryBlackKeysCallout" xml:space="preserve">
     <value>Each black key shows its sharp name and its flat name.</value>
+  </data>
+  <data name="CustomizeProfileTitle" xml:space="preserve">
+    <value>Customize Profile</value>
+  </data>
+  <data name="TabAvatar" xml:space="preserve">
+    <value>Avatars</value>
+  </data>
+  <data name="TabTheme" xml:space="preserve">
+    <value>Themes</value>
+  </data>
+  <data name="TabSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="CloseLabel" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CustomizerEditButton" xml:space="preserve">
+    <value>Customize Character &amp; Themes</value>
+  </data>
+  <data name="ProfileWelcome" xml:space="preserve">
+    <value>Welcome, Musician!</value>
   </data>
 </root>

@@ -1,7 +1,9 @@
 <div class="unlock-toast" role="status" aria-live="polite">
-    <div>
+    <div class="toast-badge" aria-hidden="true">@BadgeIcon</div>
+    <div class="toast-copy">
         <strong>@Title</strong>
         <span>@Message</span>
+        <small>@BadgeTitle · @BadgeDescription</small>
     </div>
     <button type="button" @onclick="OnDismiss" aria-label="@DismissLabel">×</button>
 </div>
@@ -12,6 +14,15 @@
 
     [Parameter]
     public string Message { get; set; } = string.Empty;
+
+    [Parameter]
+    public string BadgeTitle { get; set; } = string.Empty;
+
+    [Parameter]
+    public string BadgeDescription { get; set; } = string.Empty;
+
+    [Parameter]
+    public string BadgeIcon { get; set; } = string.Empty;
 
     [Parameter]
     public string DismissLabel { get; set; } = string.Empty;

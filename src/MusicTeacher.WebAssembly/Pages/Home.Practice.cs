@@ -143,7 +143,7 @@ public partial class Home
         {
             feedbackKey = "LevelUnlockedFeedback";
             feedbackArgument = Localizer[GetModeLabelKey(unlockedMode)];
-            ShowUnlockToast(unlockedMode);
+            await AwardUnlock(unlockedMode);
         }
 
         await ProgressStore.SaveAsync(progress);
@@ -271,12 +271,24 @@ public partial class Home
         }
     }
 
-    private void ShowUnlockToast(DrillMode unlockedMode)
+    private async Task AwardUnlock(DrillMode unlockedMode)
     {
         var modeName = Localizer[GetModeLabelKey(unlockedMode)];
-        unlockToastMessage = unlockedMode == DrillMode.NameAccidental
+        var badge = BadgeAwards.FirstOrDefault(award => award.Mode == unlockedMode)
+            ?? new BadgeAward(unlockedMode, GetModeKey(unlockedMode), GetModeLabelKey(unlockedMode), GetModeLabelKey(unlockedMode), "★");
+
+        earnedBadgeIds.Add(badge.Id);
+        await SaveEarnedBadges();
+
+        var message = unlockedMode == DrillMode.NameAccidental
             ? Localizer.Format("UnlockToastAccidentalsMessage", modeName)
             : Localizer.Format("UnlockToastMessage", modeName);
+
+        unlockToast = new UnlockToastViewModel(
+            message,
+            Localizer[badge.TitleKey],
+            Localizer[badge.DescriptionKey],
+            badge.Icon);
     }
 
     private string GetPromptName(Pitch pitch)

@@ -10,10 +10,13 @@
 
 <PageTitle>@Localizer["AppTitle"]</PageTitle>
 
-@if (unlockToastMessage is not null)
+@if (unlockToast is not null)
 {
     <UnlockToast Title="@Localizer["UnlockToastTitle"]"
-                 Message="@unlockToastMessage"
+                 Message="@unlockToast.Message"
+                 BadgeTitle="@unlockToast.BadgeTitle"
+                 BadgeDescription="@unlockToast.BadgeDescription"
+                 BadgeIcon="@unlockToast.BadgeIcon"
                  DismissLabel="@Localizer["DismissToast"]"
                  OnDismiss="DismissUnlockToast" />
 }
@@ -22,69 +25,24 @@
 {
     <section class="start-screen">
         <div class="start-card">
-            <div class="avatar-preview" aria-hidden="true">@SelectedAvatarIcon</div>
-            <div class="lesson-kicker">@(lesson is null ? string.Empty : Localizer["TrebleClefKicker"])</div>
-            <h1>@Localizer["StartScreenTitle"]</h1>
-            <p>@Localizer["StartScreenIntro"]</p>
-
-            <div class="start-section">
-                <span>@Localizer["LanguageSelectorLabel"]</span>
-                <div class="language-switcher" role="group" aria-label="@Localizer["LanguageSelectorLabel"]">
-                    @foreach (var culture in AppLocalizer.SupportedCultures)
-                    {
-                        <button class="@GetCultureClass(culture.Name)"
-                                type="button"
-                                @onclick="() => ChangeCulture(culture.Name)">
-                            @Localizer.GetCultureDisplayName(culture)
-                        </button>
-                    }
-                </div>
-            </div>
-
-            <div class="start-section">
-                <span>@Localizer["NoteNameModeLabel"]</span>
-                <div class="choice-switcher" role="group" aria-label="@Localizer["NoteNameModeLabel"]">
-                    <button class="@GetNoteNameModeClass(NoteNameMode.FixedDo)"
-                            type="button"
-                            @onclick="() => SetNoteNameMode(NoteNameMode.FixedDo)">
-                        @Localizer["NoteNameModeFixedDo"]
-                    </button>
-                    <button class="@GetNoteNameModeClass(NoteNameMode.Alphabetical)"
-                            type="button"
-                            @onclick="() => SetNoteNameMode(NoteNameMode.Alphabetical)">
-                        @Localizer["NoteNameModeAlphabetical"]
+            <div class="profile-header-card">
+                <div class="profile-avatar-area">
+                    <AvatarPortrait Avatar="@selectedAvatar" Size="large" IsAnimated="true" />
+                    <button class="customize-trigger-button" type="button" @onclick="OpenCustomizer">
+                        🎨 @Localizer["CustomizerEditButton"]
                     </button>
                 </div>
-            </div>
-
-            <div class="start-preferences">
-                <div class="start-section">
-                    <span>@Localizer["VisualThemeLabel"]</span>
-                    <div class="theme-picker" role="group" aria-label="@Localizer["VisualThemeLabel"]">
-                        @foreach (var option in VisualThemeOptions)
-                        {
-                            <button class="@GetVisualThemeClass(option.Value)"
-                                    type="button"
-                                    @onclick="() => SetVisualTheme(option.Value)">
-                                <span class="theme-swatch" style="@option.SwatchStyle"></span>
-                                @Localizer[option.LabelKey]
-                            </button>
-                        }
-                    </div>
-                </div>
-
-                <div class="start-section">
-                    <span>@Localizer["AvatarLabel"]</span>
-                    <div class="avatar-picker" role="group" aria-label="@Localizer["AvatarLabel"]">
-                        @foreach (var option in AvatarOptions)
-                        {
-                            <button class="@GetAvatarClass(option.Value)"
-                                    type="button"
-                                    aria-label="@Localizer[option.LabelKey]"
-                                    @onclick="() => SetAvatar(option.Value)">
-                                <span aria-hidden="true">@option.Icon</span>
-                            </button>
-                        }
+                <div class="profile-details-area">
+                    <div class="lesson-kicker">@(lesson is null ? string.Empty : Localizer["TrebleClefKicker"])</div>
+                    <h1>@Localizer["ProfileWelcome"]</h1>
+                    <p class="profile-welcome-intro">@Localizer["StartScreenIntro"]</p>
+                    <div class="profile-meta-badges">
+                        <span class="meta-badge">
+                            🌐 @(Localizer.CurrentCulture.Name.StartsWith("nl", StringComparison.OrdinalIgnoreCase) ? "Nederlands" : "English")
+                        </span>
+                        <span class="meta-badge">
+                            🎵 @(UseAlphabeticalNoteNames ? Localizer["NoteNameModeAlphabetical"] : Localizer["NoteNameModeFixedDo"])
+                        </span>
                     </div>
                 </div>
             </div>
@@ -117,7 +75,7 @@ else if (practiceMode == PracticeMode.Theory)
     <section class="theory-stage">
         <div class="lesson-panel theory-panel">
             <div class="avatar-chip" aria-label="@Localizer["SelectedAvatarLabel"]">
-                <span aria-hidden="true">@SelectedAvatarIcon</span>
+                <AvatarPortrait Avatar="@selectedAvatar" Size="small" />
             </div>
             <div class="lesson-kicker">@Localizer["TheoryKicker"]</div>
             <h1>@Localizer["TheoryTitle"]</h1>
@@ -200,7 +158,7 @@ else
     <section class="practice-stage">
         <div class="lesson-panel">
             <div class="avatar-chip" aria-label="@Localizer["SelectedAvatarLabel"]">
-                <span aria-hidden="true">@SelectedAvatarIcon</span>
+                <AvatarPortrait Avatar="@selectedAvatar" Size="small" />
             </div>
             <div class="lesson-kicker">@(lesson is null ? string.Empty : Localizer["TrebleClefKicker"])</div>
             <h1>@Localizer["TrebleClefStartTitle"]</h1>
@@ -273,6 +231,26 @@ else
                 <span>@Localizer.Format("ScoreTries", DisplayAttempts)</span>
                 <span>@Localizer.Format("ScoreStreak", DisplayStreak)</span>
             </div>
+
+            <div class="badge-shelf" aria-label="@Localizer["BadgeShelfLabel"]">
+                <div class="badge-shelf-header">@Localizer["BadgeShelfLabel"]</div>
+                @if (EarnedBadges.Count == 0)
+                {
+                    <div class="badge-empty">@Localizer["BadgeShelfEmpty"]</div>
+                }
+                else
+                {
+                    <div class="badge-grid">
+                        @foreach (var badge in EarnedBadges)
+                        {
+                            <div class="earned-badge" title="@Localizer[badge.DescriptionKey]">
+                                <span>@badge.Icon</span>
+                                <small>@Localizer[badge.TitleKey]</small>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
         </div>
 
         <div class="exercise-board">
@@ -338,4 +316,100 @@ else
             <div class="@feedbackClass" aria-live="polite">@FeedbackText</div>
         </div>
     </section>
+}
+
+@if (isCustomizerOpen)
+{
+    <div class="customizer-overlay" @onclick="CloseCustomizer" role="dialog" aria-modal="true">
+        <div class="customizer-modal" @onclick:stopPropagation>
+            <div class="customizer-header">
+                <h2>🎨 @Localizer["CustomizeProfileTitle"]</h2>
+                <button class="close-modal-button" type="button" @onclick="CloseCustomizer" aria-label="@Localizer["CloseLabel"]">×</button>
+            </div>
+
+            <div class="customizer-tabs" role="tablist">
+                <button class="@GetTabClass(CustomizerTab.Avatar)" type="button" role="tab" @onclick="() => SetCustomizerTab(CustomizerTab.Avatar)">
+                    @Localizer["TabAvatar"]
+                </button>
+                <button class="@GetTabClass(CustomizerTab.Theme)" type="button" role="tab" @onclick="() => SetCustomizerTab(CustomizerTab.Theme)">
+                    @Localizer["TabTheme"]
+                </button>
+                <button class="@GetTabClass(CustomizerTab.Settings)" type="button" role="tab" @onclick="() => SetCustomizerTab(CustomizerTab.Settings)">
+                    @Localizer["TabSettings"]
+                </button>
+            </div>
+
+            <div class="customizer-content">
+                @if (activeCustomizerTab == CustomizerTab.Avatar)
+                {
+                    <div class="avatar-selection-grid">
+                        @foreach (var option in AvatarOptions)
+                        {
+                            var activeClass = GetAvatarClass(option.Value);
+                            <button class="@activeClass"
+                                    type="button"
+                                    aria-label="@Localizer[option.LabelKey]"
+                                    @onclick="() => SetAvatar(option.Value)">
+                                <AvatarPortrait Avatar="@option.Value" Size="medium" />
+                                <span class="avatar-name">@Localizer[option.LabelKey].Replace(" avatar", "")</span>
+                            </button>
+                        }
+                    </div>
+                }
+                else if (activeCustomizerTab == CustomizerTab.Theme)
+                {
+                    <div class="theme-selection-grid">
+                        @foreach (var option in VisualThemeOptions)
+                        {
+                            var activeClass = GetVisualThemeClass(option.Value);
+                            <button class="@activeClass"
+                                    type="button"
+                                    @onclick="() => SetVisualTheme(option.Value)">
+                                <span class="theme-preview theme-@option.Value"></span>
+                                <span class="theme-name">@Localizer[option.LabelKey]</span>
+                            </button>
+                        }
+                    </div>
+                }
+                else if (activeCustomizerTab == CustomizerTab.Settings)
+                {
+                    <div class="settings-pane">
+                        <div class="setting-item">
+                            <span class="setting-label">@Localizer["NoteNameModeLabel"]</span>
+                            <div class="choice-switcher" role="group" aria-label="@Localizer["NoteNameModeLabel"]">
+                                <button class="@GetNoteNameModeClass(NoteNameMode.FixedDo)"
+                                        type="button"
+                                        @onclick="() => SetNoteNameMode(NoteNameMode.FixedDo)">
+                                    @Localizer["NoteNameModeFixedDo"]
+                                </button>
+                                <button class="@GetNoteNameModeClass(NoteNameMode.Alphabetical)"
+                                        type="button"
+                                        @onclick="() => SetNoteNameMode(NoteNameMode.Alphabetical)">
+                                    @Localizer["NoteNameModeAlphabetical"]
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <span class="setting-label">@Localizer["LanguageSelectorLabel"]</span>
+                            <div class="language-switcher" role="group" aria-label="@Localizer["LanguageSelectorLabel"]">
+                                @foreach (var culture in AppLocalizer.SupportedCultures)
+                                {
+                                    <button class="@GetCultureClass(culture.Name)"
+                                            type="button"
+                                            @onclick="() => ChangeCulture(culture.Name)">
+                                        @Localizer.GetCultureDisplayName(culture)
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            
+            <div class="customizer-footer">
+                <button class="save-modal-button" type="button" @onclick="CloseCustomizer">@Localizer["CloseLabel"]</button>
+            </div>
+        </div>
+    </div>
 }

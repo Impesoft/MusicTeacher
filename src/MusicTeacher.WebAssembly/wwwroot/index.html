@@ -23,7 +23,8 @@
             }
 
             const theme = localStorage.getItem('music-teacher-visual-theme');
-            if (theme === 'rainbow' || theme === 'space') {
+            const themes = ['anime-sky', 'manga-night', 'candy-stage', 'starship', 'forest-band', 'city-pop', 'sticker-wall', 'ocean-show'];
+            if (themes.includes(theme)) {
                 document.documentElement.dataset.visualTheme = theme;
             }
         })();
@@ -61,7 +62,8 @@
         };
         window.musicTeacherProfile = {
             setVisualTheme: theme => {
-                if (theme === 'rainbow' || theme === 'space') {
+                const themes = ['anime-sky', 'manga-night', 'candy-stage', 'starship', 'forest-band', 'city-pop', 'sticker-wall', 'ocean-show'];
+                if (themes.includes(theme)) {
                     document.documentElement.dataset.visualTheme = theme;
                     return;
                 }
