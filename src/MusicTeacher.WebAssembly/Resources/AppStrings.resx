@@ -456,6 +456,9 @@
   <data name="MidiInvitationTitle" xml:space="preserve"><value>Have a piano or MIDI keyboard?</value></data>
   <data name="MidiInvitationDescription" xml:space="preserve"><value>Connect it to play real keys while you learn. It is optional, but recommended!</value></data>
   <data name="MidiInvitationAction" xml:space="preserve"><value>Connect keyboard</value></data>
+  <data name="MidiInvitationConnectedTitle" xml:space="preserve"><value>MIDI keyboard connected</value></data>
+  <data name="MidiInvitationConnectedDescription" xml:space="preserve"><value>Your real keys are ready to use while you learn.</value></data>
+  <data name="MidiInvitationManageAction" xml:space="preserve"><value>Manage</value></data>
   <data name="MidiConnectShort" xml:space="preserve"><value>Connect MIDI keyboard</value></data>
   <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI keyboard connected</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>

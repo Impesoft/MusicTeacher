@@ -1477,6 +1477,21 @@ h1:focus {
     transform: translateY(-2px);
 }
 
+.midi-invitation.is-connected {
+    background: linear-gradient(135deg, #dff8e5, #efffdc);
+}
+
+.midi-invitation.is-connected .midi-invitation-icon {
+    align-items: center;
+    background: #45d75f;
+    border: 2px solid #17212b;
+    border-radius: 50%;
+    display: inline-flex;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+}
+
 .midi-invitation-icon {
     font-size: 1.8rem;
 }

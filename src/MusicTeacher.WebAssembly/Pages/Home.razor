@@ -72,13 +72,17 @@
 
             @if (MidiInput.IsSupported)
             {
-                <button class="midi-invitation" type="button" @onclick="OpenMidiSettings">
-                    <span class="midi-invitation-icon" aria-hidden="true">🎹</span>
+                <button class="midi-invitation @(MidiInput.IsListening ? "is-connected" : null)"
+                        type="button"
+                        @onclick="OpenMidiSettings">
+                    <span class="midi-invitation-icon" aria-hidden="true">@(MidiInput.IsListening ? "✓" : "🎹")</span>
                     <span>
-                        <strong>@Localizer["MidiInvitationTitle"]</strong>
-                        <small>@Localizer["MidiInvitationDescription"]</small>
+                        <strong>@Localizer[MidiInput.IsListening ? "MidiInvitationConnectedTitle" : "MidiInvitationTitle"]</strong>
+                        <small>@Localizer[MidiInput.IsListening ? "MidiInvitationConnectedDescription" : "MidiInvitationDescription"]</small>
                     </span>
-                    <span class="midi-invitation-action">@Localizer["MidiInvitationAction"] →</span>
+                    <span class="midi-invitation-action">
+                        @Localizer[MidiInput.IsListening ? "MidiInvitationManageAction" : "MidiInvitationAction"] →
+                    </span>
                 </button>
             }
         </div>

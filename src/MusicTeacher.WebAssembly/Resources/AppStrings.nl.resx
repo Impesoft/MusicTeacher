@@ -456,6 +456,9 @@
   <data name="MidiInvitationTitle" xml:space="preserve"><value>Heb je een piano of MIDI-keyboard?</value></data>
   <data name="MidiInvitationDescription" xml:space="preserve"><value>Verbind het en speel echte toetsen terwijl je leert. Niet verplicht, wel aanbevolen!</value></data>
   <data name="MidiInvitationAction" xml:space="preserve"><value>Keyboard verbinden</value></data>
+  <data name="MidiInvitationConnectedTitle" xml:space="preserve"><value>MIDI-keyboard verbonden</value></data>
+  <data name="MidiInvitationConnectedDescription" xml:space="preserve"><value>Je echte toetsen zijn klaar om te gebruiken tijdens het leren.</value></data>
+  <data name="MidiInvitationManageAction" xml:space="preserve"><value>Beheren</value></data>
   <data name="MidiConnectShort" xml:space="preserve"><value>MIDI-keyboard verbinden</value></data>
   <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI-keyboard verbonden</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
