@@ -453,6 +453,11 @@
   <data name="MidiDiagnosticCallbackFailed" xml:space="preserve"><value>Browser ontving {0} berichten (laatste: {1}, {2}, {3}), maar doorsturen mislukte: {4}</value></data>
   <data name="MidiDiagnosticNoSignal" xml:space="preserve"><value>Geen ruwe berichten. Poortstatus: {0}; verbinding: {1}. Sluit andere MIDI-apps en controleer de actieve MIDI-poort van het keyboard.</value></data>
   <data name="MidiDiagnosticUnavailable" xml:space="preserve"><value>Geen browserdiagnose beschikbaar.</value></data>
+  <data name="MidiInvitationTitle" xml:space="preserve"><value>Heb je een piano of MIDI-keyboard?</value></data>
+  <data name="MidiInvitationDescription" xml:space="preserve"><value>Verbind het en speel echte toetsen terwijl je leert. Niet verplicht, wel aanbevolen!</value></data>
+  <data name="MidiInvitationAction" xml:space="preserve"><value>Keyboard verbinden</value></data>
+  <data name="MidiConnectShort" xml:space="preserve"><value>MIDI-keyboard verbinden</value></data>
+  <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI-keyboard verbonden</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

@@ -241,6 +241,12 @@ public partial class Home
         isCustomizerOpen = true;
     }
 
+    private void OpenMidiSettings()
+    {
+        activeCustomizerTab = CustomizerTab.Settings;
+        isCustomizerOpen = true;
+    }
+
     private void CloseCustomizer()
     {
         isCustomizerOpen = false;

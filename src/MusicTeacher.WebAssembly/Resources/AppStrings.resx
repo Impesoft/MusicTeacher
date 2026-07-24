@@ -453,6 +453,11 @@
   <data name="MidiDiagnosticCallbackFailed" xml:space="preserve"><value>Browser received {0} messages (last: {1}, {2}, {3}), but forwarding failed: {4}</value></data>
   <data name="MidiDiagnosticNoSignal" xml:space="preserve"><value>No raw messages. Port state: {0}; connection: {1}. Close other MIDI apps and verify the controller's active MIDI port.</value></data>
   <data name="MidiDiagnosticUnavailable" xml:space="preserve"><value>No browser diagnostics are available.</value></data>
+  <data name="MidiInvitationTitle" xml:space="preserve"><value>Have a piano or MIDI keyboard?</value></data>
+  <data name="MidiInvitationDescription" xml:space="preserve"><value>Connect it to play real keys while you learn. It is optional, but recommended!</value></data>
+  <data name="MidiInvitationAction" xml:space="preserve"><value>Connect keyboard</value></data>
+  <data name="MidiConnectShort" xml:space="preserve"><value>Connect MIDI keyboard</value></data>
+  <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI keyboard connected</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>

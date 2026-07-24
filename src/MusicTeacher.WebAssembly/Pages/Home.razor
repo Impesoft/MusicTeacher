@@ -69,6 +69,18 @@
                     <small>@Localizer["TheoryModeDescription"]</small>
                 </button>
             </div>
+
+            @if (MidiInput.IsSupported)
+            {
+                <button class="midi-invitation" type="button" @onclick="OpenMidiSettings">
+                    <span class="midi-invitation-icon" aria-hidden="true">🎹</span>
+                    <span>
+                        <strong>@Localizer["MidiInvitationTitle"]</strong>
+                        <small>@Localizer["MidiInvitationDescription"]</small>
+                    </span>
+                    <span class="midi-invitation-action">@Localizer["MidiInvitationAction"] →</span>
+                </button>
+            }
         </div>
     </section>
 }
@@ -85,6 +97,12 @@ else if (practiceMode == PracticeMode.Theory)
             <button class="back-to-start-button" type="button" @onclick="ReturnToStart">
                 @Localizer["BackToStart"]
             </button>
+            @if (MidiInput.IsSupported)
+            {
+                <button class="midi-practice-shortcut" type="button" @onclick="OpenMidiSettings">
+                    🎹 @(MidiInput.IsListening ? Localizer["MidiConnectedShort"] : Localizer["MidiConnectShort"])
+                </button>
+            }
 
             <div class="level-card" aria-live="polite">
                 <div class="level-card-header">
@@ -168,6 +186,12 @@ else
             <button class="back-to-start-button" type="button" @onclick="ReturnToStart">
                 @Localizer["BackToStart"]
             </button>
+            @if (MidiInput.IsSupported)
+            {
+                <button class="midi-practice-shortcut" type="button" @onclick="OpenMidiSettings">
+                    🎹 @(MidiInput.IsListening ? Localizer["MidiConnectedShort"] : Localizer["MidiConnectShort"])
+                </button>
+            }
 
             <div class="mode-switch" role="tablist" aria-label="@Localizer["DrillModeLabel"]">
                 <button class="@GetModeClass(DrillMode.NameNote)"

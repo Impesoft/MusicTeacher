@@ -1455,6 +1455,63 @@ h1:focus {
     position: relative;
 }
 
+.midi-invitation {
+    align-items: center;
+    background: linear-gradient(135deg, #e7f8ff, #fff2b8);
+    border: 2px solid #17212b;
+    border-radius: 14px;
+    color: #17212b;
+    cursor: pointer;
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: auto 1fr auto;
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    text-align: left;
+    width: 100%;
+}
+
+.midi-invitation:hover,
+.midi-invitation:focus-visible {
+    box-shadow: 0 4px 0 #17212b;
+    transform: translateY(-2px);
+}
+
+.midi-invitation-icon {
+    font-size: 1.8rem;
+}
+
+.midi-invitation strong,
+.midi-invitation small,
+.midi-invitation-action {
+    color: #17212b;
+    display: block;
+    -webkit-text-fill-color: #17212b;
+}
+
+.midi-invitation small {
+    margin-top: 0.15rem;
+    opacity: 0.78;
+}
+
+.midi-invitation-action {
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.midi-practice-shortcut {
+    background: var(--sun);
+    border: 2px solid var(--ink);
+    border-radius: 999px;
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 900;
+    margin-left: 0.5rem;
+    padding: 0.35rem 0.75rem;
+}
+
 .piano-keyboard-shell {
     position: relative;
 }
@@ -1783,6 +1840,14 @@ h1:focus {
 
     .start-options {
         grid-template-columns: 1fr;
+    }
+
+    .midi-invitation {
+        grid-template-columns: auto 1fr;
+    }
+
+    .midi-invitation-action {
+        grid-column: 2;
     }
 
     .start-preferences {
