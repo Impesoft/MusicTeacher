@@ -25,6 +25,12 @@ public partial class Home
 
     private bool CanChooseAccidental => mode == DrillMode.PlaceAccidental;
 
+    private bool AcceptsMidiKeyAnswers => mode is
+        DrillMode.NameNote or
+        DrillMode.NameAccidental or
+        DrillMode.HearNotePlay or
+        DrillMode.HearAccidentalPlay;
+
     private Pitch? KeyboardHighlightedPitch => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental ? currentPitch : null;
 
     private Pitch? DisplayedPitch => mode is DrillMode.NameNote or DrillMode.NameAccidental
@@ -91,7 +97,12 @@ public partial class Home
 
     private async Task ChoosePitch(Pitch pitch)
     {
-        var isCorrect = IsSamePlayedPitch(pitch, currentPitch);
+        await ChooseMidiNote(pitch.MidiNote);
+    }
+
+    private async Task ChooseMidiNote(int midiNote)
+    {
+        var isCorrect = midiNote == currentPitch.MidiNote;
         await PlayClickCue(isCorrect, currentPitch);
         await RecordAnswer(isCorrect);
     }
@@ -313,27 +324,4 @@ public partial class Home
             _ => throw new ArgumentOutOfRangeException(nameof(accidental), accidental, null)
         };
 
-    private static bool IsSamePlayedPitch(Pitch selectedPitch, Pitch answerPitch)
-    {
-        var selectedMidi = GetMidiNote(selectedPitch);
-        var answerMidi = GetMidiNote(answerPitch);
-
-        return selectedMidi == answerMidi;
-    }
-
-    private static int GetMidiNote(Pitch pitch)
-        => (pitch.Octave + 1) * 12 + GetSemitoneFromC(pitch.Letter) + (int)pitch.Accidental;
-
-    private static int GetSemitoneFromC(NoteLetter letter)
-        => letter switch
-        {
-            NoteLetter.C => 0,
-            NoteLetter.D => 2,
-            NoteLetter.E => 4,
-            NoteLetter.F => 5,
-            NoteLetter.G => 7,
-            NoteLetter.A => 9,
-            NoteLetter.B => 11,
-            _ => throw new ArgumentOutOfRangeException(nameof(letter), letter, null)
-        };
 }

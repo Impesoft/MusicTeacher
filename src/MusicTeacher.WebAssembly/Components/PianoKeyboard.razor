@@ -1,14 +1,17 @@
 @using MusicTeacher.Shared.MusicTheory
 @inject AppLocalizer Localizer
 
+<div class="piano-keyboard-shell">
+@if (LowerPressedCount > 0)
+{
+    <div class="midi-range-indicator is-lower" aria-live="polite">◀ @Localizer.Format("MidiLowerKeys", LowerPressedCount)</div>
+}
 <div class="piano-keyboard" role="group" aria-label="@Localizer["KeyboardAriaLabel"]">
     <div class="white-key-row">
         @foreach (var pitch in Pitches)
         {
-            var keyClass = HighlightedPitch == pitch ? "piano-white-key is-highlighted" : "piano-white-key";
-
             <button type="button"
-                    class="@keyClass"
+                    class="@GetWhiteKeyClass(pitch)"
                     data-pitch="@pitch.ScientificName"
                     aria-label="@GetPitchLabel(pitch)"
                     @onpointerenter="() => PreviewPitch(pitch)"
@@ -44,6 +47,11 @@
         }
     </div>
 </div>
+@if (HigherPressedCount > 0)
+{
+    <div class="midi-range-indicator is-higher" aria-live="polite">@Localizer.Format("MidiHigherKeys", HigherPressedCount) ▶</div>
+}
+</div>
 
 @code {
     [Parameter]
@@ -51,6 +59,9 @@
 
     [Parameter]
     public Pitch? HighlightedPitch { get; set; }
+
+    [Parameter]
+    public IReadOnlySet<int> PressedMidiNotes { get; set; } = new HashSet<int>();
 
     [Parameter]
     public bool UseAlphabeticalNoteNames { get; set; }
@@ -74,12 +85,32 @@
 
     private async Task SelectPitch(Pitch pitch) => await OnPitchSelected.InvokeAsync(pitch);
 
+    private int LowestVisibleMidiNote => Pitches.Count == 0 ? 0 : Pitches.Min(pitch => pitch.MidiNote);
+
+    private int HighestVisibleMidiNote => Pitches.Count == 0 ? 0 : Pitches.Max(pitch => pitch.MidiNote);
+
+    private int LowerPressedCount => PressedMidiNotes.Count(note => note < LowestVisibleMidiNote);
+
+    private int HigherPressedCount => PressedMidiNotes.Count(note => note > HighestVisibleMidiNote);
+
+    private string GetWhiteKeyClass(Pitch pitch)
+        => GetKeyClass("piano-white-key", pitch.MidiNote, HighlightedPitch == pitch);
+
     private string GetPitchLabel(Pitch pitch) => $"{GetPrimaryNoteName(pitch)} {GetSecondaryNoteName(pitch)}";
 
     private string GetBlackKeyClass(BlackPianoKey key)
-        => HighlightedPitch == key.SharpPitch || HighlightedPitch == key.FlatPitch
-            ? "piano-black-key is-highlighted"
-            : "piano-black-key";
+        => GetKeyClass(
+            "piano-black-key",
+            key.SharpPitch.MidiNote,
+            HighlightedPitch == key.SharpPitch || HighlightedPitch == key.FlatPitch);
+
+    private string GetKeyClass(string baseClass, int midiNote, bool highlighted)
+    {
+        var classes = new List<string> { baseClass };
+        if (highlighted) classes.Add("is-highlighted");
+        if (PressedMidiNotes.Contains(midiNote)) classes.Add("is-pressed");
+        return string.Join(' ', classes);
+    }
 
     private string GetBlackKeyLabel(BlackPianoKey key)
         => $"{GetPitchLabel(key.SharpPitch)}, {GetPitchLabel(key.FlatPitch)}";

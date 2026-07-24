@@ -7,6 +7,8 @@
 @inject MusicAudioService Audio
 @inject AppLocalizer Localizer
 @inject IJSRuntime JS
+@inject MidiInputService MidiInput
+@implements IAsyncDisposable
 
 <PageTitle>@Localizer["AppTitle"]</PageTitle>
 
@@ -308,6 +310,7 @@ else
             {
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"
                                HighlightedPitch="@KeyboardHighlightedPitch"
+                               PressedMidiNotes="@pressedMidiNotes"
                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"
                                OnPitchSelected="SelectKeyboardPitch" />
@@ -388,6 +391,57 @@ else
                                     @Localizer["NoteNameModeAlphabetical"]
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="setting-item">
+                            <label class="setting-label" for="midi-input-device">@Localizer["MidiInputLabel"]</label>
+                            @if (!MidiInput.IsSupported)
+                            {
+                                <p class="setting-help">@Localizer["MidiUnsupported"]</p>
+                            }
+                            else if (!midiAccessRequested)
+                            {
+                                <button class="choice-button" type="button" @onclick="RequestMidiAccess">
+                                    @Localizer["MidiEnable"]
+                                </button>
+                            }
+                            else
+                            {
+                                @if (MidiInput.AccessFailed)
+                                {
+                                    <p class="setting-help">@Localizer["MidiAccessFailed"]</p>
+                                    <button class="choice-button" type="button" @onclick="RequestMidiAccess">
+                                        @Localizer["MidiRetry"]
+                                    </button>
+                                }
+                                <select id="midi-input-device"
+                                        class="midi-device-select"
+                                        disabled="@MidiInput.AccessFailed"
+                                        value="@SelectedMidiDeviceValue"
+                                        @onchange="ChangeMidiDevice">
+                                    <option value="">@Localizer["MidiOff"]</option>
+                                    @foreach (var device in MidiInput.Devices)
+                                    {
+                                        <option value="@device.Id">@device.Name</option>
+                                    }
+                                </select>
+                                <p class="setting-help">@MidiStatusText</p>
+                                @if (MidiInput.SelectedDeviceId is not null)
+                                {
+                                    <div class="midi-input-monitor @(MidiInput.LastMidiNote is null ? null : "has-input")"
+                                         aria-live="polite">
+                                        <span class="midi-monitor-light" aria-hidden="true"></span>
+                                        <span>@MidiMonitorText</span>
+                                    </div>
+                                    <button class="midi-diagnostic-button" type="button" @onclick="RefreshMidiDiagnostics">
+                                        @Localizer["MidiCheckSignal"]
+                                    </button>
+                                    @if (MidiInput.BrowserDiagnostics is not null)
+                                    {
+                                        <p class="midi-diagnostic-result">@MidiBrowserDiagnosticText</p>
+                                    }
+                                }
+                            }
                         </div>
 
                         <div class="setting-item">

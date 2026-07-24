@@ -435,4 +435,24 @@
   <data name="ProfileWelcome" xml:space="preserve">
     <value>Welcome, Musician!</value>
   </data>
+  <data name="MidiInputLabel" xml:space="preserve"><value>MIDI keyboard</value></data>
+  <data name="MidiEnable" xml:space="preserve"><value>Connect a MIDI keyboard</value></data>
+  <data name="MidiOff" xml:space="preserve"><value>Off</value></data>
+  <data name="MidiOffStatus" xml:space="preserve"><value>The physical keyboard is off.</value></data>
+  <data name="MidiConnected" xml:space="preserve"><value>Keyboard connected.</value></data>
+  <data name="MidiListening" xml:space="preserve"><value>Keyboard connected and listening.</value></data>
+  <data name="MidiListeningFailed" xml:space="preserve"><value>The keyboard could not be opened: {0}</value></data>
+  <data name="MidiDisconnected" xml:space="preserve"><value>The selected keyboard is disconnected.</value></data>
+  <data name="MidiUnsupported" xml:space="preserve"><value>This browser does not support MIDI keyboards. You can keep using the on-screen keys.</value></data>
+  <data name="MidiAccessFailed" xml:space="preserve"><value>MIDI access was not allowed. You can retry or keep using the on-screen keys.</value></data>
+  <data name="MidiRetry" xml:space="preserve"><value>Try MIDI again</value></data>
+  <data name="MidiMonitorWaiting" xml:space="preserve"><value>Play a key to test the MIDI input.</value></data>
+  <data name="MidiMonitorReceived" xml:space="preserve"><value>Received {0} · {1} MIDI messages</value></data>
+  <data name="MidiCheckSignal" xml:space="preserve"><value>Check raw MIDI signal</value></data>
+  <data name="MidiDiagnosticRawReceived" xml:space="preserve"><value>Browser received {0} messages. Last bytes: {1}, {2}, {3}.</value></data>
+  <data name="MidiDiagnosticCallbackFailed" xml:space="preserve"><value>Browser received {0} messages (last: {1}, {2}, {3}), but forwarding failed: {4}</value></data>
+  <data name="MidiDiagnosticNoSignal" xml:space="preserve"><value>No raw messages. Port state: {0}; connection: {1}. Close other MIDI apps and verify the controller's active MIDI port.</value></data>
+  <data name="MidiDiagnosticUnavailable" xml:space="preserve"><value>No browser diagnostics are available.</value></data>
+  <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
+  <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>

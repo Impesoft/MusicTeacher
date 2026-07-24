@@ -11,6 +11,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<AppLocalizer>();
 builder.Services.AddScoped<IProgressStore, BrowserProgressStore>();
 builder.Services.AddScoped<MusicAudioService>();
+builder.Services.AddScoped<MidiInputService>();
 
 var host = builder.Build();
 await host.Services.GetRequiredService<AppLocalizer>().InitializeAsync();
@@ -23,5 +24,4 @@ await host.RunAsync();
 /// docker build -t wardimpe/musicteacher:latest -f .\MusicTeacher.WebAssembly\Dockerfile .
 /// now you can push the image to docker hub:
 /// docker push wardimpe/musicteacher:latest
-
 

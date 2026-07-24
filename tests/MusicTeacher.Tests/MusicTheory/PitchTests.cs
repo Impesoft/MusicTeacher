@@ -5,6 +5,16 @@ namespace MusicTeacher.Tests.MusicTheory;
 public sealed class PitchTests
 {
     [Theory]
+    [InlineData(NoteLetter.C, 4, Accidental.Natural, 60)]
+    [InlineData(NoteLetter.C, 4, Accidental.Sharp, 61)]
+    [InlineData(NoteLetter.D, 4, Accidental.Flat, 61)]
+    [InlineData(NoteLetter.A, 4, Accidental.Natural, 69)]
+    public void MidiNoteUsesScientificPitch(NoteLetter letter, int octave, Accidental accidental, int expected)
+    {
+        Assert.Equal(expected, new Pitch(letter, octave, accidental).MidiNote);
+    }
+
+    [Theory]
     [InlineData(NoteLetter.A, 4, Accidental.Natural, 440.0)]
     [InlineData(NoteLetter.C, 4, Accidental.Natural, 261.63)]
     [InlineData(NoteLetter.C, 4, Accidental.Sharp, 277.18)]

@@ -1,6 +1,8 @@
 using MusicTeacher.Shared.Lessons;
 using MusicTeacher.Shared.MusicTheory;
 using MusicTeacher.Shared.Progress;
+using MusicTeacher.WebAssembly.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -13,6 +15,7 @@ public partial class Home
     private const string VisualThemeStorageKey = "music-teacher-visual-theme";
     private const string AvatarStorageKey = "music-teacher-avatar";
     private const string EarnedBadgesStorageKey = "music-teacher-earned-badges";
+    private const string MidiInputStorageKey = "music-teacher-midi-input";
 
     private static readonly IReadOnlyList<VisualThemeOption> VisualThemeOptions =
     [
@@ -72,6 +75,8 @@ public partial class Home
     private int theoryPageIndex;
     private bool isCustomizerOpen = false;
     private CustomizerTab activeCustomizerTab = CustomizerTab.Avatar;
+    private readonly HashSet<int> pressedMidiNotes = [];
+    private bool midiAccessRequested;
 
     protected override async Task OnInitializedAsync()
     {
@@ -81,8 +86,122 @@ public partial class Home
         selectedVisualTheme = ResolveVisualTheme(await JS.InvokeAsync<string?>("localStorage.getItem", [VisualThemeStorageKey]));
         selectedAvatar = ResolveAvatar(await JS.InvokeAsync<string?>("localStorage.getItem", [AvatarStorageKey]));
         earnedBadgeIds = ParseEarnedBadges(await JS.InvokeAsync<string?>("localStorage.getItem", [EarnedBadgesStorageKey]));
+        MidiInput.NoteChanged += OnMidiNoteChanged;
+        MidiInput.DevicesChanged += OnMidiDevicesChanged;
+        MidiInput.DiagnosticsChanged += OnMidiDiagnosticsChanged;
+        await MidiInput.InitializeAsync();
         await ApplyVisualTheme();
         NextRound();
+    }
+
+    private string SelectedMidiDeviceValue => MidiInput.SelectedDeviceId ?? string.Empty;
+
+    private string MidiStatusText => MidiInput.SelectedDeviceId is null
+        ? Localizer["MidiOffStatus"]
+        : MidiInput.IsListening
+            ? Localizer["MidiListening"]
+        : MidiInput.ListeningError is not null
+            ? Localizer.Format("MidiListeningFailed", MidiInput.ListeningError)
+        : MidiInput.Devices.Any(device =>
+            device.Id == MidiInput.SelectedDeviceId &&
+            string.Equals(device.State, "connected", StringComparison.OrdinalIgnoreCase))
+            ? Localizer["MidiConnected"]
+            : Localizer["MidiDisconnected"];
+
+    private string MidiMonitorText => MidiInput.LastMidiNote is { } midiNote
+        ? Localizer.Format("MidiMonitorReceived", GetMidiNoteName(midiNote), MidiInput.MessageCount)
+        : Localizer["MidiMonitorWaiting"];
+
+    private string MidiBrowserDiagnosticText => MidiInput.BrowserDiagnostics switch
+    {
+        { RawMessageCount: > 0, LastRawMessage: { } message, CallbackError: not null } diagnostics =>
+            Localizer.Format("MidiDiagnosticCallbackFailed", diagnostics.RawMessageCount, message.Status, message.Data1, message.Data2, diagnostics.CallbackError),
+        { RawMessageCount: > 0, LastRawMessage: { } message } diagnostics =>
+            Localizer.Format("MidiDiagnosticRawReceived", diagnostics.RawMessageCount, message.Status, message.Data1, message.Data2),
+        { SelectedInputConnection: var connection, SelectedInputState: var state } =>
+            Localizer.Format("MidiDiagnosticNoSignal", state ?? "?", connection ?? "?"),
+        _ => Localizer["MidiDiagnosticUnavailable"]
+    };
+
+    private async Task RequestMidiAccess()
+    {
+        await MidiInput.RequestAccessAsync();
+        midiAccessRequested = true;
+
+        var storedDeviceId = await JS.InvokeAsync<string?>("localStorage.getItem", [MidiInputStorageKey]);
+        if (!string.IsNullOrWhiteSpace(storedDeviceId) &&
+            MidiInput.Devices.Any(device => device.Id == storedDeviceId))
+        {
+            await MidiInput.SelectDeviceAsync(storedDeviceId);
+        }
+    }
+
+    private async Task ChangeMidiDevice(ChangeEventArgs args)
+    {
+        await MidiInput.SelectDeviceAsync(args.Value?.ToString());
+        pressedMidiNotes.Clear();
+
+        if (MidiInput.SelectedDeviceId is null)
+        {
+            await JS.InvokeVoidAsync("localStorage.removeItem", MidiInputStorageKey);
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("localStorage.setItem", MidiInputStorageKey, MidiInput.SelectedDeviceId);
+        }
+    }
+
+    private async Task RefreshMidiDiagnostics() => await MidiInput.RefreshDiagnosticsAsync();
+
+    private async Task OnMidiNoteChanged(MidiNoteChange change)
+    {
+        if (change.IsPressed)
+        {
+            if (!pressedMidiNotes.Add(change.MidiNote)) return;
+        }
+        else
+        {
+            pressedMidiNotes.Remove(change.MidiNote);
+        }
+
+        await InvokeAsync(StateHasChanged);
+
+        if (change.IsPressed && AcceptsMidiKeyAnswers && IsMidiNoteInVisibleRange(change.MidiNote))
+        {
+            await InvokeAsync(() => ChooseMidiNote(change.MidiNote));
+        }
+    }
+
+    private bool IsMidiNoteInVisibleRange(int midiNote)
+        => CurrentKeyboardPitches.Count > 0 &&
+           midiNote >= CurrentKeyboardPitches.Min(pitch => pitch.MidiNote) &&
+           midiNote <= CurrentKeyboardPitches.Max(pitch => pitch.MidiNote);
+
+    private void OnMidiDevicesChanged()
+    {
+        if (MidiInput.SelectedDeviceId is not null &&
+            !MidiInput.Devices.Any(device => device.Id == MidiInput.SelectedDeviceId))
+        {
+            pressedMidiNotes.Clear();
+        }
+
+        _ = InvokeAsync(StateHasChanged);
+    }
+
+    private void OnMidiDiagnosticsChanged() => _ = InvokeAsync(StateHasChanged);
+
+    private static string GetMidiNoteName(int midiNote)
+    {
+        string[] names = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"];
+        return $"{names[midiNote % 12]}{midiNote / 12 - 1}";
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        MidiInput.NoteChanged -= OnMidiNoteChanged;
+        MidiInput.DevicesChanged -= OnMidiDevicesChanged;
+        MidiInput.DiagnosticsChanged -= OnMidiDiagnosticsChanged;
+        await Task.CompletedTask;
     }
 
     private async Task SetPracticeMode(PracticeMode nextPracticeMode)

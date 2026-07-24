@@ -435,4 +435,24 @@
   <data name="ProfileWelcome" xml:space="preserve">
     <value>Welkom, muzikant!</value>
   </data>
+  <data name="MidiInputLabel" xml:space="preserve"><value>MIDI-keyboard</value></data>
+  <data name="MidiEnable" xml:space="preserve"><value>Verbind een MIDI-keyboard</value></data>
+  <data name="MidiOff" xml:space="preserve"><value>Uit</value></data>
+  <data name="MidiOffStatus" xml:space="preserve"><value>Het fysieke keyboard staat uit.</value></data>
+  <data name="MidiConnected" xml:space="preserve"><value>Keyboard verbonden.</value></data>
+  <data name="MidiListening" xml:space="preserve"><value>Keyboard verbonden en klaar om te luisteren.</value></data>
+  <data name="MidiListeningFailed" xml:space="preserve"><value>Het keyboard kon niet worden geopend: {0}</value></data>
+  <data name="MidiDisconnected" xml:space="preserve"><value>Het gekozen keyboard is niet verbonden.</value></data>
+  <data name="MidiUnsupported" xml:space="preserve"><value>Deze browser ondersteunt geen MIDI-keyboards. Je kunt de toetsen op het scherm blijven gebruiken.</value></data>
+  <data name="MidiAccessFailed" xml:space="preserve"><value>MIDI-toegang werd niet toegestaan. Probeer opnieuw of gebruik de toetsen op het scherm.</value></data>
+  <data name="MidiRetry" xml:space="preserve"><value>MIDI opnieuw proberen</value></data>
+  <data name="MidiMonitorWaiting" xml:space="preserve"><value>Speel een toets om de MIDI-invoer te testen.</value></data>
+  <data name="MidiMonitorReceived" xml:space="preserve"><value>{0} ontvangen · {1} MIDI-berichten</value></data>
+  <data name="MidiCheckSignal" xml:space="preserve"><value>Ruw MIDI-signaal controleren</value></data>
+  <data name="MidiDiagnosticRawReceived" xml:space="preserve"><value>Browser ontving {0} berichten. Laatste bytes: {1}, {2}, {3}.</value></data>
+  <data name="MidiDiagnosticCallbackFailed" xml:space="preserve"><value>Browser ontving {0} berichten (laatste: {1}, {2}, {3}), maar doorsturen mislukte: {4}</value></data>
+  <data name="MidiDiagnosticNoSignal" xml:space="preserve"><value>Geen ruwe berichten. Poortstatus: {0}; verbinding: {1}. Sluit andere MIDI-apps en controleer de actieve MIDI-poort van het keyboard.</value></data>
+  <data name="MidiDiagnosticUnavailable" xml:space="preserve"><value>Geen browserdiagnose beschikbaar.</value></data>
+  <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
+  <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

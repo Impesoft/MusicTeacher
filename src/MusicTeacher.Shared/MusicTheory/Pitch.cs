@@ -4,12 +4,13 @@ public readonly record struct Pitch(NoteLetter Letter, int Octave, Accidental Ac
 {
     public string ScientificName => $"{Letter}{ScientificAccidental}{Octave}";
 
+    public int MidiNote => (Octave + 1) * 12 + SemitoneFromC + (int)Accidental;
+
     public double FrequencyHz
     {
         get
         {
-            var midiNote = (Octave + 1) * 12 + SemitoneFromC + (int)Accidental;
-            return 440d * Math.Pow(2d, (midiNote - 69) / 12d);
+            return 440d * Math.Pow(2d, (MidiNote - 69) / 12d);
         }
     }
 
