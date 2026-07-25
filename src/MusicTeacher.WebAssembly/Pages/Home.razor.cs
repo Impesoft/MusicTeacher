@@ -253,6 +253,7 @@ public partial class Home
 
     private void ReturnToStart()
     {
+        CancelTheoryPlayback();
         melodyDemonstrationVersion++;
         beatRoundVersion++;
         durationHoldVersion++;

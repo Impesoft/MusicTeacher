@@ -475,6 +475,14 @@
   <data name="TheoryNoteValue1SymbolLabel" xml:space="preserve"><value>Symbool van een kwartnoot: gevulde nootkop met een stok</value></data>
   <data name="TheoryNoteValue2SymbolLabel" xml:space="preserve"><value>Symbool van een halve noot: open nootkop met een stok</value></data>
   <data name="TheoryNoteValue4SymbolLabel" xml:space="preserve"><value>Symbool van een hele noot: open nootkop zonder stok</value></data>
+  <data name="TheoryRestsTitle" xml:space="preserve"><value>De tel gaat door tijdens de stilte</value></data>
+  <data name="TheoryRestsSummary" xml:space="preserve"><value>Een stille tel is met opzet stil—dat noemen we een rust.</value></data>
+  <data name="TheoryRestsBody" xml:space="preserve"><value>Muziek heeft stille momenten én klanken nodig. Tijdens een rust speel je niet, maar blijf je de vaste tel voelen en tellen. In dit patroon hoor je een klank op tel 1 en 3, terwijl tel 2 en 4 stil blijven.</value></data>
+  <data name="TheoryRestsCallout" xml:space="preserve"><value>Een rust is geen verloren tel. Tel stil verder zodat de volgende klank op de juiste plek begint.</value></data>
+  <data name="TheoryRestPatternLabel" xml:space="preserve"><value>Patroon van vier tellen: klank op één, rust op twee, klank op drie, rust op vier</value></data>
+  <data name="TheoryRestSoundLabel" xml:space="preserve"><value>Klank</value></data>
+  <data name="TheoryRestSilenceLabel" xml:space="preserve"><value>Rust</value></data>
+  <data name="TheoryRestListen" xml:space="preserve"><value>Luister naar klanken en rusten</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Profiel aanpassen</value>
   </data>

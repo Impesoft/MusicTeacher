@@ -202,6 +202,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Audible one-, two-, and four-beat duration theory.
 - [x] Quarter-, half-, and whole-note symbols introduced after beat counts.
 - [x] Pitch-neutral press-and-hold exercise with count-in and metronome guidance using pointer, Space, or MIDI note-off.
+- [x] Rest theory showing that the steady beat continues through silence.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Rhythm Echo.
 - [ ] Song content and section progression.

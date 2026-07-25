@@ -422,6 +422,67 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task RestTheoryUnlocksAfterHeldDurationPractice()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        },
+                        'beat-tap': {
+                            Attempts: 3,
+                            CorrectAnswers: 3,
+                            Streak: 3,
+                            BestStreak: 3
+                        },
+                        'hold-duration': {
+                            Attempts: 3,
+                            CorrectAnswers: 3,
+                            Streak: 3,
+                            BestStreak: 3
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 1/23")).ToBeVisibleAsync();
+
+        for (var index = 0; index < 22; index++)
+        {
+            await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "The beat keeps going through silence" })).ToBeVisibleAsync();
+        var pattern = page.GetByRole(AriaRole.Group, new()
+        {
+            Name = "Four-beat pattern: sound on one, rest on two, sound on three, rest on four"
+        });
+        await Assertions.Expect(pattern.Locator(".rest-beat.is-sound")).ToHaveCountAsync(2);
+        await Assertions.Expect(pattern.Locator(".rest-beat.is-rest")).ToHaveCountAsync(2);
+
+        var listen = page.GetByRole(AriaRole.Button, new() { Name = "Listen to sound and rests" });
+        await listen.ClickAsync();
+        await Assertions.Expect(pattern.Locator(".rest-beat.is-active")).ToHaveCountAsync(1);
+        await Assertions.Expect(listen).ToBeEnabledAsync(new() { Timeout = 4_000 });
+    }
+
+    [E2EFact]
     public async Task UnlockToastAnnouncesNewLevel()
     {
         await page!.GotoAsync(baseUrl);

@@ -262,6 +262,39 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer["TheoryNoteValuesCallout"]</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.Rests)
+            {
+                <div class="theory-visual rests-theory-visual">
+                    <div class="rest-pattern"
+                         role="group"
+                         aria-label="@Localizer["TheoryRestPatternLabel"]">
+                        @for (var beat = 1; beat <= 4; beat++)
+                        {
+                            var isSound = beat is 1 or 3;
+                            <div class="rest-beat @(isSound ? "is-sound" : "is-rest") @(activeRestExampleBeat == beat ? "is-active" : null)">
+                                <strong>@beat</strong>
+                                @if (isSound)
+                                {
+                                    <NoteValueSymbol Beats="1" AriaLabel="@Localizer["TheoryNoteValue1SymbolLabel"]" />
+                                    <span>@Localizer["TheoryRestSoundLabel"]</span>
+                                }
+                                else
+                                {
+                                    <span class="rest-silence-mark" aria-hidden="true">…</span>
+                                    <span>@Localizer["TheoryRestSilenceLabel"]</span>
+                                }
+                            </div>
+                        }
+                    </div>
+                    <button class="duration-listen-button"
+                            type="button"
+                            disabled="@(activeRestExampleBeat > 0)"
+                            @onclick="PlayTheoryRestPattern">
+                        @Localizer["TheoryRestListen"]
+                    </button>
+                    <p class="theory-callout">@Localizer["TheoryRestsCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }

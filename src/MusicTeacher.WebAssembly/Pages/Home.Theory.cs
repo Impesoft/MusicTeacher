@@ -11,7 +11,9 @@ public partial class Home
         .ToArray();
 
     private int CurrentAvailableTheoryLevel
-        => IsLevelComplete(DrillMode.BeatTap)
+        => IsLevelComplete(DrillMode.HoldDuration)
+            ? 4
+            : IsLevelComplete(DrillMode.BeatTap)
             ? 3
             : IsLevelComplete(DrillMode.HearNotePlay)
             ? 2
@@ -31,10 +33,14 @@ public partial class Home
 
     private bool IsLastTheoryPage => theoryPageIndex >= AvailableTheoryPages.Count - 1;
 
+    private int theoryPlaybackVersion;
+    private int activeRestExampleBeat;
+
     private void PreviousTheoryPage()
     {
         if (!IsFirstTheoryPage)
         {
+            CancelTheoryPlayback();
             theoryPageIndex--;
         }
     }
@@ -43,12 +49,47 @@ public partial class Home
     {
         if (!IsLastTheoryPage)
         {
+            CancelTheoryPlayback();
             theoryPageIndex++;
         }
     }
 
     private async Task PlayTheoryDuration(int beats)
         => await Audio.PlayDurationExampleAsync(beats);
+
+    private async Task PlayTheoryRestPattern()
+    {
+        var version = ++theoryPlaybackVersion;
+
+        for (var beat = 1; beat <= 4; beat++)
+        {
+            if (version != theoryPlaybackVersion || practiceMode != PracticeMode.Theory)
+            {
+                return;
+            }
+
+            activeRestExampleBeat = beat;
+            await Audio.PlayMidiNoteAsync(84);
+            if (beat is 1 or 3)
+            {
+                await Audio.PlayDurationExampleAsync(1);
+            }
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(BeatInterval);
+        }
+
+        if (version == theoryPlaybackVersion)
+        {
+            activeRestExampleBeat = 0;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+    private void CancelTheoryPlayback()
+    {
+        theoryPlaybackVersion++;
+        activeRestExampleBeat = 0;
+    }
 
     private string GetTheoryText(string resourceKey)
         => CurrentTheoryPage.Pitch is { } pitch
@@ -72,6 +113,7 @@ public partial class Home
         pages.Add(new TheoryPage(3, "TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast));
         pages.Add(new TheoryPage(3, "TheoryBeatDurationsTitle", "TheoryBeatDurationsSummary", "TheoryBeatDurationsBody", TheoryVisual.BeatDurations));
         pages.Add(new TheoryPage(3, "TheoryNoteValuesTitle", "TheoryNoteValuesSummary", "TheoryNoteValuesBody", TheoryVisual.NoteValues));
+        pages.Add(new TheoryPage(4, "TheoryRestsTitle", "TheoryRestsSummary", "TheoryRestsBody", TheoryVisual.Rests));
 
         return pages;
     }
@@ -87,6 +129,7 @@ public partial class Home
         Beat,
         DurationContrast,
         BeatDurations,
-        NoteValues
+        NoteValues,
+        Rests
     }
 }

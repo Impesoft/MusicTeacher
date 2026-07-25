@@ -475,6 +475,14 @@
   <data name="TheoryNoteValue1SymbolLabel" xml:space="preserve"><value>Quarter-note symbol: filled note head with a stem</value></data>
   <data name="TheoryNoteValue2SymbolLabel" xml:space="preserve"><value>Half-note symbol: open note head with a stem</value></data>
   <data name="TheoryNoteValue4SymbolLabel" xml:space="preserve"><value>Whole-note symbol: open note head without a stem</value></data>
+  <data name="TheoryRestsTitle" xml:space="preserve"><value>The beat keeps going through silence</value></data>
+  <data name="TheoryRestsSummary" xml:space="preserve"><value>A quiet beat is intentional—it is called a rest.</value></data>
+  <data name="TheoryRestsBody" xml:space="preserve"><value>Music needs quiet moments as well as sounds. During a rest, do not play, but keep feeling and counting the steady beat. In this pattern you hear a sound on beats 1 and 3, while beats 2 and 4 stay quiet.</value></data>
+  <data name="TheoryRestsCallout" xml:space="preserve"><value>A rest is not a lost beat. Count it silently so the next sound starts in the right place.</value></data>
+  <data name="TheoryRestPatternLabel" xml:space="preserve"><value>Four-beat pattern: sound on one, rest on two, sound on three, rest on four</value></data>
+  <data name="TheoryRestSoundLabel" xml:space="preserve"><value>Sound</value></data>
+  <data name="TheoryRestSilenceLabel" xml:space="preserve"><value>Rest</value></data>
+  <data name="TheoryRestListen" xml:space="preserve"><value>Listen to sound and rests</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Customize Profile</value>
   </data>
