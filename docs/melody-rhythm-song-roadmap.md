@@ -32,13 +32,13 @@ flowchart TD
     A["Read and name notes"] --> B["Play single heard notes"]
     B --> C["Melody Echo: 2–3 notes"]
     C --> D["Melody Echo: longer phrases"]
-    D --> J["Read short staff phrases: pitch only"]
+    D --> J["Read short staff note patterns: pitch only"]
     B --> E["Theory: steady beat"]
     E --> F["Tap the beat"]
     F --> G["Theory: long and short sounds"]
     G --> H["Theory: 1-, 2-, and 4-beat notes"]
     H --> I["Rhythm Echo on one sound"]
-    J --> M["Staff phrases with note lengths"]
+    J --> M["Measures with note lengths"]
     H --> M
     M --> K["Staff phrases with melody and rhythm"]
     I --> K
@@ -92,9 +92,9 @@ last 10, rather than a perfect unbroken streak.
 Use beat counts as the primary language; conventional English and Dutch note-value
 names can be secondary labels.
 
-### Release 4 — Staff-read phrase bridge
+### Release 4 — Written-note bridge
 
-- Show short phrases on the staff instead of demonstrating them for imitation.
+- Show short note patterns on the staff instead of demonstrating them for imitation.
 - First assess pitch order only; note lengths, start time, gaps, and tempo are ignored.
 - Keep MIDI and the on-screen piano equivalent because the intended answer control is
   still a piano key, not staff placement.
@@ -105,9 +105,13 @@ names can be secondary labels.
 
 | Step | Staff notation | Pitch | Duration | Pulse/rests |
 |---|---|---|---|---|
-| Read 1 | Short phrase | Assessed | Ignored | Ignored |
-| Read 2 | Short phrase | Assessed | Assessed | Ignored |
-| Read 3 | Short phrase | Assessed | Assessed | Assessed |
+| Read 1 | 2–4 note pattern, no meter implied | Assessed | Ignored | Ignored |
+| Read 2 | One 2/4 measure with two quarter notes | Assessed | Assessed | Ignored |
+| Read 3 | One 4/4 measure with four quarter notes | Assessed | Assessed | Assessed |
+
+Do not call Read 1 a measure: without assessed note values or a time signature, that
+would imply rhythmic meaning the learner has not unlocked yet. Introduce the term
+“measure” (`maat`) together with 2/4 in Read 2, then expand to 4/4 in Read 3.
 
 ### Release 5 — Guided songs
 
@@ -118,6 +122,59 @@ names can be secondary labels.
 - Unlock rhythmic variants only after rhythm prerequisites.
 - Join phrases into sections, then into a complete song.
 - Preserve phrase checkpoints and section practice.
+
+## Repertoire strategy
+
+Use original, game-like mini-songs as the core curriculum instead of relying on the
+usual nursery-song repertoire. Original material lets every note, rhythm, range, and
+unlock requirement serve the learning path while giving each song a playful identity.
+
+| Working title | Role | Initial rhythmic vocabulary |
+|---|---|---|
+| Robot March | First 2/4 measure | Two quarter notes |
+| Space Beacon | First 4/4 measure | Quarter and half notes |
+| Sneaky Cat | First rests | Quarter notes and quarter rests |
+| Dragon Wakes Up | Longer written melody | Quarter and half notes |
+| Level Complete! | First joined song sections | Quarter, half, and whole notes |
+| Pixel Chase | Eighth-note introduction | Paired eighth notes |
+| Meteor Escape | Eighth-note consolidation | Repeated eighth-note patterns |
+| Boss Battle | Later subdivision | Short sixteenth-note groups |
+| Wizard's Spell | Much later triplet stage | Explicitly taught triplets |
+
+Names and stories are working concepts, not final content. Each song should have a
+small visual or narrative payoff so progression feels closer to unlocking a game
+soundtrack than completing a worksheet.
+
+An optional “Classics Remixed” path may later use verified public-domain compositions
+with original MusicTeacher arrangements. Do not copy modern arrangements or
+recordings merely because the underlying composition is public domain. Energetic
+possibilities include *In the Hall of the Mountain King* and the *Can-Can*, but only
+after their actual rhythmic and pitch requirements are unlocked.
+
+### Rhythmic-vocabulary gate
+
+Every song declares the notation and performance concepts it uses:
+
+```text
+meter: 4/4
+uses:
+  - quarter-notes
+  - half-notes
+  - quarter-rests
+requires:
+  - staff-phrase-pitch
+  - duration-basic
+```
+
+Extend the vocabulary explicitly with concepts such as `paired-eighths`,
+`eighth-rests`, `sixteenths`, `dotted-notes`, `ties`, `pickups`, `triplets`, and
+`compound-meter`. Song validation and unlocking must reject content whose `uses`
+entries are not covered by its declared prerequisites.
+
+Triplets and compound meter are deliberately late concepts. Three notes in a motif
+must not be labelled or performed as a triplet unless they divide one beat into three
+equal parts. Likewise, 6/8 and shuffle-like material must not enter the early song
+pool merely because its notation can be simplified visually.
 
 ### Future — Keyboard range discovery
 

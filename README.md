@@ -25,7 +25,7 @@ The current v1 focuses on treble-clef note reading with fixed-do names (`do`, `r
 - `Melody echo`: listen to a short phrase and repeat its pitches in order; timing is
   deliberately ignored at this stage.
 - `Long melody echo`: repeat four- and five-note phrases after mastering short echoes.
-- `Read a phrase`: read two- to four-note phrases from the staff and play their pitches
+- `Read notes`: read two- to four-note patterns from the staff and play their pitches
   in order; timing and note length are deliberately ignored.
 - `Tap the beat`: follow a count-in and keep a steady pulse using touch, Space, or any MIDI key.
 - `Hold the sound`: follow a four-click count-in, then press and release after one, two, or four metronome-guided beats using the hold pad, Space, or any MIDI key.

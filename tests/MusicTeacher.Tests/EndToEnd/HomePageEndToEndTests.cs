@@ -54,7 +54,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(modeNavigation.Locator(".mode-group-basics .mode-button")).ToHaveTextAsync(
             ["Name", "Place", "Hear: play", "Hear: place"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-melody .mode-button")).ToHaveTextAsync(
-            ["Melody echo", "Long melody echo", "Read a phrase"]);
+            ["Melody echo", "Long melody echo", "Read notes"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-rhythm .mode-button")).ToHaveTextAsync(
             ["Tap the beat", "Hold the sound", "Rhythm echo"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-accidentals .mode-button")).ToHaveTextAsync(
@@ -114,7 +114,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Melody echo", Exact = true })).ToBeEnabledAsync();
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Tap the beat", Exact = true })).ToBeEnabledAsync();
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Hear: place", Exact = true })).ToBeEnabledAsync();
-        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Read a phrase", Exact = true })).ToBeDisabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Read notes", Exact = true })).ToBeDisabledAsync();
     }
 
     [E2EFact]
@@ -145,7 +145,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.ReloadAsync();
         await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
 
-        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Read a phrase", Exact = true });
+        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Read notes", Exact = true });
         await Assertions.Expect(modeButton).ToBeEnabledAsync();
         await modeButton.ClickAsync();
 
@@ -164,7 +164,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.WaitForTimeoutAsync(1_100);
         await page.Locator($"button.piano-white-key[data-pitch='{pitches[1]}']").ClickAsync();
 
-        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("You read the whole phrase!");
+        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("You read the whole note pattern!");
         await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
     }
 
