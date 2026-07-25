@@ -1355,6 +1355,45 @@ h1:focus {
     padding: 0.7rem 0.85rem;
 }
 
+.beat-theory-visual {
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.beat-pulse-row {
+    align-items: end;
+    display: grid;
+    gap: clamp(0.6rem, 3vw, 1.5rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0 auto;
+    max-width: 34rem;
+}
+
+.beat-pulse {
+    align-items: center;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.beat-pulse span {
+    align-items: center;
+    aspect-ratio: 1;
+    background: var(--accent);
+    border: 3px solid var(--border-strong);
+    border-radius: 50%;
+    box-shadow: 0 0.3rem 0 var(--border-soft);
+    color: var(--surface-strong);
+    display: flex;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    justify-content: center;
+    width: clamp(3rem, 10vw, 5rem);
+}
+
+.beat-pulse strong {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+}
+
 .music-staff {
     display: block;
     height: auto;

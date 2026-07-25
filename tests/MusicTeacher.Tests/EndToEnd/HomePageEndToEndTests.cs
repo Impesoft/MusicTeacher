@@ -219,6 +219,46 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task SteadyBeatTheoryUnlocksAfterSingleNoteListening()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 1/19")).ToBeVisibleAsync();
+
+        for (var index = 0; index < 18; index++)
+        {
+            await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Feel the steady beat" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("Four evenly spaced beats numbered 1 to 4")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Each number gets one pulse.", new() { Exact = false })).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
     public async Task UnlockToastAnnouncesNewLevel()
     {
         await page!.GotoAsync(baseUrl);

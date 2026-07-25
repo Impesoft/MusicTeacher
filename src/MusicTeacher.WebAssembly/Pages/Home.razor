@@ -174,6 +174,21 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer["TheoryBlackKeysCallout"]</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.Beat)
+            {
+                <div class="theory-visual beat-theory-visual">
+                    <div class="beat-pulse-row" aria-label="@Localizer["TheorySteadyBeatPatternLabel"]">
+                        @for (var beat = 1; beat <= 4; beat++)
+                        {
+                            <div class="beat-pulse">
+                                <span aria-hidden="true">●</span>
+                                <strong>@beat</strong>
+                            </div>
+                        }
+                    </div>
+                    <p class="theory-callout">@Localizer["TheorySteadyBeatCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }

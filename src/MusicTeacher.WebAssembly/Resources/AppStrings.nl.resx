@@ -417,6 +417,21 @@
   <data name="TheoryBlackKeysCallout" xml:space="preserve">
     <value>Elke zwarte toets toont haar kruisnaam en haar molnaam.</value>
   </data>
+  <data name="TheorySteadyBeatTitle" xml:space="preserve">
+    <value>Voel de vaste maat</value>
+  </data>
+  <data name="TheorySteadyBeatSummary" xml:space="preserve">
+    <value>De tel is de rustige hartslag van muziek.</value>
+  </data>
+  <data name="TheorySteadyBeatBody" xml:space="preserve">
+    <value>Bij een vaste tel zit er evenveel tijd tussen elke tik, zoals voetstappen die niet sneller of trager worden. Tel 1, 2, 3, 4 en klap één keer op elk getal. Een lied kan veel verschillende noten hebben terwijl de tel eronder gewoon doorgaat.</value>
+  </data>
+  <data name="TheorySteadyBeatCallout" xml:space="preserve">
+    <value>Zeg “1, 2, 3, 4” gelijkmatig. Elk getal krijgt één tik.</value>
+  </data>
+  <data name="TheorySteadyBeatPatternLabel" xml:space="preserve">
+    <value>Vier gelijkmatig verdeelde tellen, genummerd van 1 tot 4</value>
+  </data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Profiel aanpassen</value>
   </data>

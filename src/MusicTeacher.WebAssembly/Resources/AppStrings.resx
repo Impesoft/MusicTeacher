@@ -417,6 +417,21 @@
   <data name="TheoryBlackKeysCallout" xml:space="preserve">
     <value>Each black key shows its sharp name and its flat name.</value>
   </data>
+  <data name="TheorySteadyBeatTitle" xml:space="preserve">
+    <value>Feel the steady beat</value>
+  </data>
+  <data name="TheorySteadyBeatSummary" xml:space="preserve">
+    <value>The beat is music's steady heartbeat.</value>
+  </data>
+  <data name="TheorySteadyBeatBody" xml:space="preserve">
+    <value>A steady beat keeps the same space between every pulse, like footsteps that do not speed up or slow down. Count 1, 2, 3, 4 and clap once on every number. A song can have many different notes while its beat keeps going underneath.</value>
+  </data>
+  <data name="TheorySteadyBeatCallout" xml:space="preserve">
+    <value>Say “1, 2, 3, 4” evenly. Each number gets one pulse.</value>
+  </data>
+  <data name="TheorySteadyBeatPatternLabel" xml:space="preserve">
+    <value>Four evenly spaced beats numbered 1 to 4</value>
+  </data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Customize Profile</value>
   </data>
