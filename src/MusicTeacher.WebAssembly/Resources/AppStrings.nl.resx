@@ -542,8 +542,11 @@
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>
+  <data name="DurationHoldMode" xml:space="preserve"><value>Houd de klank aan</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Houd een vaste tel</value></data>
+  <data name="DurationHoldTitle" xml:space="preserve"><value>Laat de klank duren</value></data>
   <data name="BeatTapPrompt" xml:space="preserve"><value>Luister naar het aftellen en blijf daarna even snel tikken.</value></data>
+  <data name="DurationHoldPrompt" xml:space="preserve"><value>Druk en houd {0} tellen vast. Laat daarna los.</value></data>
   <data name="BeatTapStart" xml:space="preserve"><value>Start aftellen</value></data>
   <data name="BeatTapCountIn" xml:space="preserve"><value>Luister…</value></data>
   <data name="BeatTapButton" xml:space="preserve"><value>Tik!</value></data>
@@ -559,8 +562,21 @@
   <data name="BeatTapCompleteFeedback" xml:space="preserve"><value>Knap, dat was een vaste tel!</value></data>
   <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Goed geprobeerd! Luister naar het aftellen en maak de tijd tussen je tikken gelijkmatiger.</value></data>
   <data name="BeatTapLearningGoal" xml:space="preserve"><value>Vaste rondes: {0}/{1}. Dit ritmepad groeit los van de melodie-oefeningen.</value></data>
+  <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Juiste lengtes: {0}/{1}. De toonhoogte telt niet mee in deze ritme-oefening.</value></data>
+  <data name="DurationHoldTarget" xml:space="preserve"><value>Klank van {0} tellen</value></data>
+  <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Aangehouden klanklengte in tellen</value></data>
+  <data name="DurationHoldPressButton" xml:space="preserve"><value>Druk en houd vast</value></data>
+  <data name="DurationHoldReleaseButton" xml:space="preserve"><value>Laat los!</value></data>
+  <data name="DurationHoldInputHint" xml:space="preserve"><value>Houd dit vlak, Spatie of een MIDI-toets ingedrukt</value></data>
+  <data name="DurationHoldReadyFeedback" xml:space="preserve"><value>Houd de klank aan voor het getoonde aantal tellen.</value></data>
+  <data name="DurationHoldHoldingFeedback" xml:space="preserve"><value>Blijf tellen tot {0}…</value></data>
+  <data name="DurationHoldTooShortFeedback" xml:space="preserve"><value>Dat was wat te kort. Tel alle {0} tellen voor je loslaat.</value></data>
+  <data name="DurationHoldTooLongFeedback" xml:space="preserve"><value>Dat was wat te lang. Laat net na tel {0} los.</value></data>
+  <data name="DurationHoldCorrectFeedback" xml:space="preserve"><value>Geweldig—die klank duurde {0} tellen!</value></data>
   <data name="BadgeSteadyBeatTitle" xml:space="preserve"><value>Maatmaatje</value></data>
   <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Oefenen met een vaste tel ontgrendeld.</value></data>
+  <data name="BadgeHoldDurationTitle" xml:space="preserve"><value>Klankrekker</value></data>
+  <data name="BadgeHoldDurationDescription" xml:space="preserve"><value>Aangehouden klanken van één, twee en vier tellen ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

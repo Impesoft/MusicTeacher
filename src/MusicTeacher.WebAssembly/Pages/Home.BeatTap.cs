@@ -96,6 +96,7 @@ public partial class Home
 
     private async Task CompleteBeatRound(bool isSuccessful)
     {
+        var wasDurationHoldUnlocked = IsModeUnlocked(DrillMode.HoldDuration);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(isSuccessful)
             : progress.DrillProgress;
@@ -111,6 +112,17 @@ public partial class Home
         feedbackKey = isSuccessful ? "BeatTapCompleteFeedback" : "BeatTapTryAgainFeedback";
         feedbackArguments = [];
         feedbackClass = isSuccessful ? "feedback is-correct" : "feedback is-missed";
+
+        if (practiceMode == PracticeMode.LearningPath &&
+            isSuccessful &&
+            !wasDurationHoldUnlocked &&
+            IsModeUnlocked(DrillMode.HoldDuration))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.HoldDuration)]];
+            await AwardUnlock(DrillMode.HoldDuration);
+        }
+
         await ProgressStore.SaveAsync(progress);
     }
 }

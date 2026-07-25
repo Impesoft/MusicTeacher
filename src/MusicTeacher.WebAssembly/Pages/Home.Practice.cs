@@ -19,6 +19,8 @@ public partial class Home
 
     private bool IsBeatTapMode => mode == DrillMode.BeatTap;
 
+    private bool IsDurationHoldMode => mode == DrillMode.HoldDuration;
+
     private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
     private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.HearAccidentalPlay;
@@ -49,6 +51,7 @@ public partial class Home
         DrillMode.PlaceAccidental => Localizer["PlaceAccidentalTitle"],
         DrillMode.HearNotePlay => Localizer["HearPlayTitle"],
         DrillMode.BeatTap => Localizer["BeatTapTitle"],
+        DrillMode.HoldDuration => Localizer["DurationHoldTitle"],
         DrillMode.MelodyEcho => Localizer["MelodyEchoTitle"],
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongTitle"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayTitle"],
@@ -64,6 +67,7 @@ public partial class Home
         DrillMode.PlaceAccidental => Localizer.Format("PlaceAccidentalPrompt", GetPromptName(currentPitch)),
         DrillMode.HearNotePlay => Localizer["HearPlayPrompt"],
         DrillMode.BeatTap => Localizer["BeatTapPrompt"],
+        DrillMode.HoldDuration => Localizer.Format("DurationHoldPrompt", requestedDurationBeats),
         DrillMode.MelodyEcho => Localizer["MelodyEchoPrompt"],
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongPrompt"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
@@ -91,6 +95,8 @@ public partial class Home
         mode = nextMode;
         melodyDemonstrationVersion++;
         beatRoundVersion++;
+        durationHoldVersion++;
+        await Audio.StopSustainedNoteAsync();
         previousPitch = null;
         NextRound();
         if (IsMelodyEchoMode)
@@ -229,6 +235,8 @@ public partial class Home
     {
         melodyDemonstrationVersion++;
         beatRoundVersion++;
+        durationHoldVersion++;
+        await Audio.StopSustainedNoteAsync();
         NextRound();
         if (IsMelodyEchoMode)
         {
@@ -245,6 +253,12 @@ public partial class Home
         if (IsBeatTapMode)
         {
             ResetBeatRound();
+            return;
+        }
+
+        if (IsDurationHoldMode)
+        {
+            PrepareDurationRound();
             return;
         }
 

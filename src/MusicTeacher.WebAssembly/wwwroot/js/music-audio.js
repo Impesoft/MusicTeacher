@@ -1,5 +1,6 @@
 (function () {
   let audioContext;
+  let sustainedTone;
 
   function getAudioContext() {
     audioContext ||= new (window.AudioContext || window.webkitAudioContext)();
@@ -38,6 +39,37 @@
     playNoteForDuration(frequency, durationSeconds) {
       const safeDuration = Math.min(Math.max(durationSeconds, 0.1), 4);
       playTone(frequency, safeDuration, 0.045, "sine");
+    },
+    startSustainedNote(frequency) {
+      if (sustainedTone) {
+        return;
+      }
+
+      const context = getAudioContext();
+      const now = context.currentTime;
+      const oscillator = context.createOscillator();
+      const gain = context.createGain();
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.045, now + 0.025);
+      oscillator.connect(gain);
+      gain.connect(context.destination);
+      oscillator.start(now);
+      sustainedTone = { context, oscillator, gain };
+    },
+    stopSustainedNote() {
+      if (!sustainedTone) {
+        return;
+      }
+
+      const { context, oscillator, gain } = sustainedTone;
+      const now = context.currentTime;
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setValueAtTime(Math.max(gain.gain.value, 0.0001), now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.04);
+      oscillator.stop(now + 0.06);
+      sustainedTone = null;
     },
     playBuzzer() {
       const context = getAudioContext();

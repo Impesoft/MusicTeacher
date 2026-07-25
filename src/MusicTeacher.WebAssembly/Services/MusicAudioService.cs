@@ -35,4 +35,10 @@ public sealed class MusicAudioService(IJSRuntime jsRuntime)
             523.25,
             beats * beatDurationSeconds);
     }
+
+    public ValueTask StartSustainedNoteAsync()
+        => jsRuntime.InvokeVoidAsync("musicTeacherAudio.startSustainedNote", 523.25);
+
+    public ValueTask StopSustainedNoteAsync()
+        => jsRuntime.InvokeVoidAsync("musicTeacherAudio.stopSustainedNote");
 }

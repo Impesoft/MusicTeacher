@@ -542,8 +542,11 @@
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melody Explorer</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>
+  <data name="DurationHoldMode" xml:space="preserve"><value>Hold the sound</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Keep a steady beat</value></data>
+  <data name="DurationHoldTitle" xml:space="preserve"><value>Make the sound last</value></data>
   <data name="BeatTapPrompt" xml:space="preserve"><value>Listen to the count-in, then keep tapping at the same speed.</value></data>
+  <data name="DurationHoldPrompt" xml:space="preserve"><value>Press and hold for {0} beats, then release.</value></data>
   <data name="BeatTapStart" xml:space="preserve"><value>Start count-in</value></data>
   <data name="BeatTapCountIn" xml:space="preserve"><value>Listen…</value></data>
   <data name="BeatTapButton" xml:space="preserve"><value>Tap!</value></data>
@@ -559,8 +562,21 @@
   <data name="BeatTapCompleteFeedback" xml:space="preserve"><value>Great steady beat!</value></data>
   <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Good try! Listen to the count-in and make the spaces between taps more even.</value></data>
   <data name="BeatTapLearningGoal" xml:space="preserve"><value>Steady rounds: {0}/{1}. This rhythm path grows separately from melody practice.</value></data>
+  <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Accurate holds: {0}/{1}. Pitch does not matter in this rhythm exercise.</value></data>
+  <data name="DurationHoldTarget" xml:space="preserve"><value>{0}-beat sound</value></data>
+  <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Held sound duration in beats</value></data>
+  <data name="DurationHoldPressButton" xml:space="preserve"><value>Press and hold</value></data>
+  <data name="DurationHoldReleaseButton" xml:space="preserve"><value>Release!</value></data>
+  <data name="DurationHoldInputHint" xml:space="preserve"><value>Hold this pad, hold Space, or hold any MIDI key</value></data>
+  <data name="DurationHoldReadyFeedback" xml:space="preserve"><value>Hold the sound for the number of beats shown.</value></data>
+  <data name="DurationHoldHoldingFeedback" xml:space="preserve"><value>Keep counting to {0}…</value></data>
+  <data name="DurationHoldTooShortFeedback" xml:space="preserve"><value>That was a little short. Count all {0} beats before releasing.</value></data>
+  <data name="DurationHoldTooLongFeedback" xml:space="preserve"><value>That was a little long. Release just after beat {0}.</value></data>
+  <data name="DurationHoldCorrectFeedback" xml:space="preserve"><value>Wonderful—that sound lasted {0} beats!</value></data>
   <data name="BadgeSteadyBeatTitle" xml:space="preserve"><value>Beat Keeper</value></data>
   <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Unlocked steady-beat practice.</value></data>
+  <data name="BadgeHoldDurationTitle" xml:space="preserve"><value>Sound Stretcher</value></data>
+  <data name="BadgeHoldDurationDescription" xml:space="preserve"><value>Unlocked one-, two-, and four-beat held sounds.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>

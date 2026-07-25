@@ -12,6 +12,7 @@ public partial class Home
         new(DrillMode.PlaceAccidental, 5),
         new(DrillMode.HearNotePlay, 5),
         new(DrillMode.BeatTap, 3),
+        new(DrillMode.HoldDuration, 3),
         new(DrillMode.MelodyEcho, 5),
         new(DrillMode.MelodyEchoLong, 5),
         new(DrillMode.HearAccidentalPlay, 5),
@@ -40,8 +41,11 @@ public partial class Home
 
     private string LearningGoalText => CurrentLearningLevel.RequiredStreak == 0
         ? Localizer["FinalLevelGoal"]
-        : mode == DrillMode.BeatTap
-            ? Localizer.Format("BeatTapLearningGoal", CurrentLevelProgress.BestStreak, CurrentLearningLevel.RequiredStreak)
+        : mode is DrillMode.BeatTap or DrillMode.HoldDuration
+            ? Localizer.Format(
+                mode == DrillMode.BeatTap ? "BeatTapLearningGoal" : "DurationHoldLearningGoal",
+                CurrentLevelProgress.BestStreak,
+                CurrentLearningLevel.RequiredStreak)
         : Localizer.Format(
             "LearningGoal",
             CurrentLevelProgress.BestStreak,
@@ -100,6 +104,7 @@ public partial class Home
             DrillMode.PlaceAccidental => GetLevelProgress(DrillMode.NameAccidental).BestStreak >= 5,
             DrillMode.HearNotePlay => GetLevelProgress(DrillMode.PlaceAccidental).BestStreak >= 5,
             DrillMode.BeatTap => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
+            DrillMode.HoldDuration => GetLevelProgress(DrillMode.BeatTap).BestStreak >= 3,
             DrillMode.MelodyEcho => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
             DrillMode.MelodyEchoLong => GetLevelProgress(DrillMode.MelodyEcho).BestStreak >= 5,
             DrillMode.HearAccidentalPlay => GetLevelProgress(DrillMode.MelodyEchoLong).BestStreak >= 5,
@@ -121,11 +126,16 @@ public partial class Home
     {
         if (drillMode == DrillMode.BeatTap)
         {
+            return DrillMode.HoldDuration;
+        }
+
+        if (drillMode == DrillMode.HoldDuration)
+        {
             return null;
         }
 
         var pitchLearningLevels = LearningLevels
-            .Where(level => level.Mode != DrillMode.BeatTap)
+            .Where(level => level.Mode is not (DrillMode.BeatTap or DrillMode.HoldDuration))
             .ToArray();
         var index = pitchLearningLevels
             .Select((level, levelIndex) => new { level, levelIndex })
@@ -158,6 +168,7 @@ public partial class Home
             DrillMode.PlaceAccidental => "place-accidental",
             DrillMode.HearNotePlay => "hear-note-play",
             DrillMode.BeatTap => "beat-tap",
+            DrillMode.HoldDuration => "hold-duration",
             DrillMode.MelodyEcho => "melody-echo",
             DrillMode.MelodyEchoLong => "melody-echo-long",
             DrillMode.HearAccidentalPlay => "hear-accidental-play",
@@ -174,6 +185,7 @@ public partial class Home
             DrillMode.PlaceAccidental => "PlaceAccidentalMode",
             DrillMode.HearNotePlay => "HearPlayMode",
             DrillMode.BeatTap => "BeatTapMode",
+            DrillMode.HoldDuration => "DurationHoldMode",
             DrillMode.MelodyEcho => "MelodyEchoMode",
             DrillMode.MelodyEchoLong => "MelodyEchoLongMode",
             DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",

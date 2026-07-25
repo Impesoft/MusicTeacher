@@ -121,6 +121,56 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task HoldDurationUnlocksAndScoresSpaceKeyRelease()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        },
+                        'beat-tap': {
+                            Attempts: 3,
+                            CorrectAnswers: 3,
+                            Streak: 3,
+                            BestStreak: 3
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Hold the sound", Exact = true });
+        await Assertions.Expect(modeButton).ToBeEnabledAsync();
+        await modeButton.ClickAsync();
+
+        var progress = page.GetByRole(AriaRole.Progressbar, new() { Name = "Held sound duration in beats" });
+        var requestedBeats = int.Parse((await progress.GetAttributeAsync("aria-valuemax"))!);
+        var holdButton = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("^Press and hold") });
+        await holdButton.FocusAsync();
+        await page.Keyboard.DownAsync("Space");
+        await page.WaitForTimeoutAsync(requestedBeats * 600);
+        await page.Keyboard.UpAsync("Space");
+
+        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("Wonderful", new() { Timeout = 1_000 });
+        await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
     public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

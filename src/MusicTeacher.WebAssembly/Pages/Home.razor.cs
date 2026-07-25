@@ -52,6 +52,7 @@ public partial class Home
         new(DrillMode.PlaceAccidental, "place-accidentals", "BadgePlaceAccidentalsTitle", "BadgePlaceAccidentalsDescription", "♭"),
         new(DrillMode.HearNotePlay, "ear-training", "BadgeEarTrainingTitle", "BadgeEarTrainingDescription", "♪"),
         new(DrillMode.BeatTap, "steady-beat", "BadgeSteadyBeatTitle", "BadgeSteadyBeatDescription", "●"),
+        new(DrillMode.HoldDuration, "hold-duration", "BadgeHoldDurationTitle", "BadgeHoldDurationDescription", "▬"),
         new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
@@ -141,6 +142,7 @@ public partial class Home
 
     private async Task ChangeMidiDevice(ChangeEventArgs args)
     {
+        await CancelDurationHold();
         await MidiInput.SelectDeviceAsync(args.Value?.ToString());
         pressedMidiNotes.Clear();
 
@@ -169,7 +171,18 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (change.IsPressed && mode == DrillMode.BeatTap)
+        if (mode == DrillMode.HoldDuration)
+        {
+            if (change.IsPressed)
+            {
+                await InvokeAsync(() => StartDurationHold(change.MidiNote));
+            }
+            else
+            {
+                await InvokeAsync(() => EndDurationHold(change.MidiNote));
+            }
+        }
+        else if (change.IsPressed && mode == DrillMode.BeatTap)
         {
             await InvokeAsync(RegisterBeatTap);
         }
@@ -190,6 +203,7 @@ public partial class Home
             !MidiInput.Devices.Any(device => device.Id == MidiInput.SelectedDeviceId))
         {
             pressedMidiNotes.Clear();
+            _ = InvokeAsync(CancelDurationHold);
         }
 
         _ = InvokeAsync(StateHasChanged);
@@ -208,7 +222,7 @@ public partial class Home
         MidiInput.NoteChanged -= OnMidiNoteChanged;
         MidiInput.DevicesChanged -= OnMidiDevicesChanged;
         MidiInput.DiagnosticsChanged -= OnMidiDiagnosticsChanged;
-        await Task.CompletedTask;
+        await CancelDurationHold();
     }
 
     private async Task SetPracticeMode(PracticeMode nextPracticeMode)
@@ -241,6 +255,8 @@ public partial class Home
     {
         melodyDemonstrationVersion++;
         beatRoundVersion++;
+        durationHoldVersion++;
+        _ = Audio.StopSustainedNoteAsync();
         isDemonstratingMelody = false;
         teacherDemonstratedMidiNote = null;
         hasStarted = false;
@@ -368,6 +384,7 @@ public partial class Home
         PlaceAccidental,
         HearNotePlay,
         BeatTap,
+        HoldDuration,
         MelodyEcho,
         MelodyEchoLong,
         HearAccidentalPlay,

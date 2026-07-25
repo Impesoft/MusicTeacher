@@ -322,6 +322,12 @@ else
                         @onclick="() => SetMode(DrillMode.BeatTap)">
                     @Localizer["BeatTapMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.HoldDuration)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.HoldDuration)"
+                        @onclick="() => SetMode(DrillMode.HoldDuration)">
+                    @Localizer["DurationHoldMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.MelodyEcho)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.MelodyEcho)"
@@ -460,6 +466,43 @@ else
                             <small>@Localizer["BeatTapInputHint"]</small>
                         </button>
                     }
+                </div>
+            }
+
+            @if (IsDurationHoldMode)
+            {
+                <div class="duration-hold-stage">
+                    <div class="duration-hold-target">
+                        <NoteValueSymbol Beats="@requestedDurationBeats"
+                                         AriaLabel="@Localizer[$"TheoryNoteValue{requestedDurationBeats}SymbolLabel"]" />
+                        <strong>@Localizer.Format("DurationHoldTarget", requestedDurationBeats)</strong>
+                    </div>
+                    <div class="duration-hold-ruler"
+                         style="@DurationRulerStyle"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="@requestedDurationBeats"
+                         aria-valuenow="@DurationProgressBeats"
+                         aria-label="@Localizer["DurationHoldProgressLabel"]">
+                        <span style="@DurationProgressStyle"></span>
+                        @for (var beat = 1; beat <= requestedDurationBeats; beat++)
+                        {
+                            <i aria-hidden="true">@beat</i>
+                        }
+                    </div>
+                    <button class="duration-hold-button @(isHoldingDuration ? "is-holding" : null)"
+                            type="button"
+                            aria-pressed="@isHoldingDuration"
+                            @onpointerdown="() => StartDurationHold()"
+                            @onpointerup="() => EndDurationHold()"
+                            @onpointercancel="() => EndDurationHold()"
+                            @onpointerleave="() => EndDurationHold()"
+                            @onkeydown="HandleDurationKeyDown"
+                            @onkeyup="HandleDurationKeyUp"
+                            @onkeydown:preventDefault>
+                        @(isHoldingDuration ? Localizer["DurationHoldReleaseButton"] : Localizer["DurationHoldPressButton"])
+                        <small>@Localizer["DurationHoldInputHint"]</small>
+                    </button>
                 </div>
             }
 

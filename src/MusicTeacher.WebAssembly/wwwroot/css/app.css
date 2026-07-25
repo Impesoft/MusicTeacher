@@ -1998,6 +1998,100 @@ h1:focus {
     }
 }
 
+.duration-hold-stage {
+    align-items: center;
+    background: var(--surface-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.duration-hold-target {
+    align-items: center;
+    color: var(--ink);
+    display: flex;
+    gap: 0.75rem;
+}
+
+.duration-hold-target .note-value-symbol {
+    height: 5rem;
+    width: 3.5rem;
+}
+
+.duration-hold-target strong {
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+}
+
+.duration-hold-ruler {
+    background: var(--surface-muted-strong);
+    border: 3px solid var(--border-strong);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 34rem;
+    min-height: 3.5rem;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.duration-hold-ruler > span {
+    background: var(--accent);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: width 80ms linear;
+}
+
+.duration-hold-ruler i {
+    align-items: center;
+    border-right: 1px dashed var(--border-soft);
+    color: var(--ink);
+    display: flex;
+    font-style: normal;
+    font-weight: 1000;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+
+.duration-hold-ruler i:last-child {
+    border-right: 0;
+}
+
+.duration-hold-button {
+    background: var(--accent);
+    border: 3px solid var(--border-strong);
+    border-radius: 14px;
+    box-shadow: 0 0.4rem 0 var(--border-soft);
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    font-weight: 1000;
+    min-height: 7rem;
+    padding: 1rem 1.5rem;
+    touch-action: none;
+    user-select: none;
+    width: min(100%, 28rem);
+}
+
+.duration-hold-button.is-holding {
+    box-shadow: 0 0.15rem 0 var(--border-soft);
+    filter: brightness(1.08);
+    transform: translateY(0.25rem);
+}
+
+.duration-hold-button small {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.35rem;
+}
+
 .midi-device-select {
     background: var(--surface);
     border: 2px solid var(--ink);

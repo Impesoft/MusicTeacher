@@ -26,6 +26,7 @@ The current v1 focuses on treble-clef note reading with fixed-do names (`do`, `r
   deliberately ignored at this stage.
 - `Long melody echo`: repeat four- and five-note phrases after mastering short echoes.
 - `Tap the beat`: follow a count-in and keep a steady pulse using touch, Space, or any MIDI key.
+- `Hold the sound`: press and release after one, two, or four beats using the hold pad, Space, or any MIDI key.
 - `Hear: place`: listen to a note and place it on the staff.
 
 The accidental selector is already present in placement drills, but sharps and flats are still disabled for the current beginner level.
