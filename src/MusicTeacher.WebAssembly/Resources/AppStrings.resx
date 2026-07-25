@@ -435,6 +435,24 @@
   <data name="TheorySteadyBeatPatternLabel" xml:space="preserve">
     <value>Four evenly spaced beats numbered 1 to 4</value>
   </data>
+  <data name="TheorySoundLengthTitle" xml:space="preserve">
+    <value>Sounds can be short or long</value>
+  </data>
+  <data name="TheorySoundLengthSummary" xml:space="preserve">
+    <value>A sound can stop quickly or keep going across several beats.</value>
+  </data>
+  <data name="TheorySoundLengthBody" xml:space="preserve">
+    <value>The beat keeps ticking steadily, but a sound does not always last for the same number of beats. A short sound can stop after one beat. A long sound can stretch across several beats. Keep counting while the sound continues.</value>
+  </data>
+  <data name="TheorySoundLengthCallout" xml:space="preserve">
+    <value>The beat tells when to count. The length tells how long the sound keeps going.</value>
+  </data>
+  <data name="TheoryShortSoundLabel" xml:space="preserve"><value>Short sound</value></data>
+  <data name="TheoryLongSoundLabel" xml:space="preserve"><value>Long sound</value></data>
+  <data name="TheoryShortSoundCount" xml:space="preserve"><value>Sound on 1, then stop</value></data>
+  <data name="TheoryLongSoundCount" xml:space="preserve"><value>Keep the sound going: 1, 2, 3, 4</value></data>
+  <data name="TheoryShortSoundPatternLabel" xml:space="preserve"><value>A short sound lasting one of four beats</value></data>
+  <data name="TheoryLongSoundPatternLabel" xml:space="preserve"><value>A long sound lasting all four beats</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Customize Profile</value>
   </data>

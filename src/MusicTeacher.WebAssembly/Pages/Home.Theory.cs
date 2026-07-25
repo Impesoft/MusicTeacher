@@ -11,7 +11,9 @@ public partial class Home
         .ToArray();
 
     private int CurrentAvailableTheoryLevel
-        => IsLevelComplete(DrillMode.HearNotePlay)
+        => IsLevelComplete(DrillMode.BeatTap)
+            ? 3
+            : IsLevelComplete(DrillMode.HearNotePlay)
             ? 2
             : IsModeUnlocked(DrillMode.NameAccidental)
                 ? 1
@@ -64,6 +66,7 @@ public partial class Home
         pages.Add(new TheoryPage(1, "TheoryAccidentalsTitle", "TheoryAccidentalsSummary", "TheoryAccidentalsBody", TheoryVisual.SingleNote, new Pitch(NoteLetter.C, 4, Accidental.Sharp)));
         pages.Add(new TheoryPage(1, "TheoryBlackKeysTitle", "TheoryBlackKeysSummary", "TheoryBlackKeysBody", TheoryVisual.Keyboard));
         pages.Add(new TheoryPage(2, "TheorySteadyBeatTitle", "TheorySteadyBeatSummary", "TheorySteadyBeatBody", TheoryVisual.Beat));
+        pages.Add(new TheoryPage(3, "TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast));
 
         return pages;
     }
@@ -76,6 +79,7 @@ public partial class Home
         TrebleClef,
         SingleNote,
         Keyboard,
-        Beat
+        Beat,
+        DurationContrast
     }
 }

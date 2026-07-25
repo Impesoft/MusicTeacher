@@ -302,6 +302,52 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task SoundLengthTheoryUnlocksAfterSteadyBeatPractice()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        },
+                        'beat-tap': {
+                            Attempts: 3,
+                            CorrectAnswers: 3,
+                            Streak: 3,
+                            BestStreak: 3
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 1/20")).ToBeVisibleAsync();
+
+        for (var index = 0; index < 19; index++)
+        {
+            await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Sounds can be short or long" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("A short sound lasting one of four beats")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("A long sound lasting all four beats")).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
     public async Task UnlockToastAnnouncesNewLevel()
     {
         await page!.GotoAsync(baseUrl);

@@ -435,6 +435,24 @@
   <data name="TheorySteadyBeatPatternLabel" xml:space="preserve">
     <value>Vier gelijkmatig verdeelde tellen, genummerd van 1 tot 4</value>
   </data>
+  <data name="TheorySoundLengthTitle" xml:space="preserve">
+    <value>Klanken kunnen kort of lang zijn</value>
+  </data>
+  <data name="TheorySoundLengthSummary" xml:space="preserve">
+    <value>Een klank kan snel stoppen of meerdere tellen doorgaan.</value>
+  </data>
+  <data name="TheorySoundLengthBody" xml:space="preserve">
+    <value>De tel blijft gelijkmatig tikken, maar een klank duurt niet altijd evenveel tellen. Een korte klank kan na één tel stoppen. Een lange klank kan meerdere tellen doorgaan. Blijf tellen zolang je de klank hoort.</value>
+  </data>
+  <data name="TheorySoundLengthCallout" xml:space="preserve">
+    <value>De tel zegt wanneer je telt. De lengte zegt hoelang de klank doorgaat.</value>
+  </data>
+  <data name="TheoryShortSoundLabel" xml:space="preserve"><value>Korte klank</value></data>
+  <data name="TheoryLongSoundLabel" xml:space="preserve"><value>Lange klank</value></data>
+  <data name="TheoryShortSoundCount" xml:space="preserve"><value>Klank op 1, daarna stop</value></data>
+  <data name="TheoryLongSoundCount" xml:space="preserve"><value>Houd de klank aan: 1, 2, 3, 4</value></data>
+  <data name="TheoryShortSoundPatternLabel" xml:space="preserve"><value>Een korte klank die één van vier tellen duurt</value></data>
+  <data name="TheoryLongSoundPatternLabel" xml:space="preserve"><value>Een lange klank die alle vier tellen duurt</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Profiel aanpassen</value>
   </data>

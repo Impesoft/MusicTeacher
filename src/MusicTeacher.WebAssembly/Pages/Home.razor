@@ -189,6 +189,32 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer["TheorySteadyBeatCallout"]</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.DurationContrast)
+            {
+                <div class="theory-visual duration-theory-visual">
+                    <div class="duration-example" aria-label="@Localizer["TheoryShortSoundPatternLabel"]">
+                        <strong>@Localizer["TheoryShortSoundLabel"]</strong>
+                        <div class="duration-beat-grid" aria-hidden="true">
+                            <span class="duration-block is-sounding"></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <small>@Localizer["TheoryShortSoundCount"]</small>
+                    </div>
+                    <div class="duration-example" aria-label="@Localizer["TheoryLongSoundPatternLabel"]">
+                        <strong>@Localizer["TheoryLongSoundLabel"]</strong>
+                        <div class="duration-beat-grid" aria-hidden="true">
+                            <span class="duration-block is-sounding"></span>
+                            <span class="duration-block is-sounding"></span>
+                            <span class="duration-block is-sounding"></span>
+                            <span class="duration-block is-sounding"></span>
+                        </div>
+                        <small>@Localizer["TheoryLongSoundCount"]</small>
+                    </div>
+                    <p class="theory-callout">@Localizer["TheorySoundLengthCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }

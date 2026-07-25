@@ -1394,6 +1394,67 @@ h1:focus {
     font-size: clamp(1rem, 3vw, 1.3rem);
 }
 
+.duration-theory-visual {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.duration-example {
+    background: var(--surface-muted-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 10px;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+}
+
+.duration-example strong {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+}
+
+.duration-example small {
+    color: var(--text-muted);
+    font-weight: 900;
+}
+
+.duration-beat-grid {
+    display: grid;
+    gap: 0.35rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.duration-beat-grid span {
+    background: var(--surface-strong);
+    border: 2px dashed var(--border-soft);
+    border-radius: 7px;
+    height: clamp(2.5rem, 8vw, 4rem);
+}
+
+.duration-beat-grid .duration-block.is-sounding {
+    background: var(--accent);
+    border-color: var(--border-strong);
+    border-style: solid;
+}
+
+.duration-theory-visual .theory-callout {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
+@media (max-width: 42rem) {
+    .duration-theory-visual {
+        grid-template-columns: 1fr;
+    }
+
+    .duration-theory-visual .theory-callout {
+        grid-column: auto;
+    }
+}
+
 .music-staff {
     display: block;
     height: auto;

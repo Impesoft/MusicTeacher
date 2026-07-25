@@ -198,6 +198,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Longer four- and five-note Melody Echo level.
 - [x] Steady-beat theory unlocked after single-note aural play.
 - [x] Beat tapping with touch, Space, and pitch-neutral MIDI input.
+- [x] Long-versus-short sound theory using beat-count visuals.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Duration theory and hold exercises.
 - [ ] Rhythm Echo.
