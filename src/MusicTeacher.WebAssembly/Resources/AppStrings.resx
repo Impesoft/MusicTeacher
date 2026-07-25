@@ -453,6 +453,18 @@
   <data name="TheoryLongSoundCount" xml:space="preserve"><value>Keep the sound going: 1, 2, 3, 4</value></data>
   <data name="TheoryShortSoundPatternLabel" xml:space="preserve"><value>A short sound lasting one of four beats</value></data>
   <data name="TheoryLongSoundPatternLabel" xml:space="preserve"><value>A long sound lasting all four beats</value></data>
+  <data name="TheoryBeatDurationsTitle" xml:space="preserve"><value>Count how long the sound lasts</value></data>
+  <data name="TheoryBeatDurationsSummary" xml:space="preserve"><value>Practice hearing sounds that last for one, two, or four beats.</value></data>
+  <data name="TheoryBeatDurationsBody" xml:space="preserve"><value>Start each sound on beat 1 and keep counting at the same speed. A one-beat sound stops before 2. A two-beat sound continues through 2. A four-beat sound continues through the whole count.</value></data>
+  <data name="TheoryBeatDurationsCallout" xml:space="preserve"><value>Listen with your eyes closed too. Can you hear when each sound stops?</value></data>
+  <data name="TheoryBeatDurationLabel" xml:space="preserve"><value>{0}-beat sound</value></data>
+  <data name="TheoryBeatDuration1Count" xml:space="preserve"><value>Play on 1, stop before 2</value></data>
+  <data name="TheoryBeatDuration2Count" xml:space="preserve"><value>Hold through 1–2</value></data>
+  <data name="TheoryBeatDuration4Count" xml:space="preserve"><value>Hold through 1–2–3–4</value></data>
+  <data name="TheoryBeatDuration1PatternLabel" xml:space="preserve"><value>One-beat sound shown across a four-beat ruler</value></data>
+  <data name="TheoryBeatDuration2PatternLabel" xml:space="preserve"><value>Two-beat sound shown across a four-beat ruler</value></data>
+  <data name="TheoryBeatDuration4PatternLabel" xml:space="preserve"><value>Four-beat sound shown across a four-beat ruler</value></data>
+  <data name="TheoryListenForBeats" xml:space="preserve"><value>Listen: {0} beats</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Customize Profile</value>
   </data>

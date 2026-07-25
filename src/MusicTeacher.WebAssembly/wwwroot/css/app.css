@@ -1445,12 +1445,44 @@ h1:focus {
     margin-top: 0;
 }
 
+.beat-duration-theory-visual {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.beat-duration-theory-visual .theory-callout {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
+.duration-listen-button {
+    align-self: start;
+    background: var(--accent);
+    border: 2px solid var(--border-strong);
+    border-radius: 8px;
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 900;
+    padding: 0.55rem 0.75rem;
+}
+
+.duration-listen-button:focus-visible,
+.duration-listen-button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+}
+
 @media (max-width: 42rem) {
-    .duration-theory-visual {
+    .duration-theory-visual,
+    .beat-duration-theory-visual {
         grid-template-columns: 1fr;
     }
 
-    .duration-theory-visual .theory-callout {
+    .duration-theory-visual .theory-callout,
+    .beat-duration-theory-visual .theory-callout {
         grid-column: auto;
     }
 }

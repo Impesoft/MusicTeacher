@@ -199,6 +199,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Steady-beat theory unlocked after single-note aural play.
 - [x] Beat tapping with touch, Space, and pitch-neutral MIDI input.
 - [x] Long-versus-short sound theory using beat-count visuals.
+- [x] Audible one-, two-, and four-beat duration theory.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Duration theory and hold exercises.
 - [ ] Rhythm Echo.

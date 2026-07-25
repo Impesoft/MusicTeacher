@@ -453,6 +453,18 @@
   <data name="TheoryLongSoundCount" xml:space="preserve"><value>Houd de klank aan: 1, 2, 3, 4</value></data>
   <data name="TheoryShortSoundPatternLabel" xml:space="preserve"><value>Een korte klank die één van vier tellen duurt</value></data>
   <data name="TheoryLongSoundPatternLabel" xml:space="preserve"><value>Een lange klank die alle vier tellen duurt</value></data>
+  <data name="TheoryBeatDurationsTitle" xml:space="preserve"><value>Tel hoelang de klank duurt</value></data>
+  <data name="TheoryBeatDurationsSummary" xml:space="preserve"><value>Oefen met klanken die één, twee of vier tellen duren.</value></data>
+  <data name="TheoryBeatDurationsBody" xml:space="preserve"><value>Start elke klank op tel 1 en blijf even snel tellen. Een klank van één tel stopt voor 2. Een klank van twee tellen gaat door tijdens 2. Een klank van vier tellen gaat de hele telling door.</value></data>
+  <data name="TheoryBeatDurationsCallout" xml:space="preserve"><value>Luister ook eens met je ogen dicht. Hoor je wanneer elke klank stopt?</value></data>
+  <data name="TheoryBeatDurationLabel" xml:space="preserve"><value>Klank van {0} tellen</value></data>
+  <data name="TheoryBeatDuration1Count" xml:space="preserve"><value>Speel op 1, stop voor 2</value></data>
+  <data name="TheoryBeatDuration2Count" xml:space="preserve"><value>Houd aan tijdens 1–2</value></data>
+  <data name="TheoryBeatDuration4Count" xml:space="preserve"><value>Houd aan tijdens 1–2–3–4</value></data>
+  <data name="TheoryBeatDuration1PatternLabel" xml:space="preserve"><value>Klank van één tel op een lijn van vier tellen</value></data>
+  <data name="TheoryBeatDuration2PatternLabel" xml:space="preserve"><value>Klank van twee tellen op een lijn van vier tellen</value></data>
+  <data name="TheoryBeatDuration4PatternLabel" xml:space="preserve"><value>Klank van vier tellen op een lijn van vier tellen</value></data>
+  <data name="TheoryListenForBeats" xml:space="preserve"><value>Luister: {0} tellen</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Profiel aanpassen</value>
   </data>

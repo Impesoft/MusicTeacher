@@ -35,6 +35,10 @@
     playNote(frequency) {
       playTone(frequency, 0.32, 0.045, "sine");
     },
+    playNoteForDuration(frequency, durationSeconds) {
+      const safeDuration = Math.min(Math.max(durationSeconds, 0.1), 4);
+      playTone(frequency, safeDuration, 0.045, "sine");
+    },
     playBuzzer() {
       const context = getAudioContext();
       const now = context.currentTime;

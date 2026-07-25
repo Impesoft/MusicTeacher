@@ -335,7 +335,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.ReloadAsync();
 
         await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
-        await Assertions.Expect(page.GetByText("Page 1/20")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 1/21")).ToBeVisibleAsync();
 
         for (var index = 0; index < 19; index++)
         {
@@ -345,6 +345,15 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Sounds can be short or long" })).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByLabel("A short sound lasting one of four beats")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByLabel("A long sound lasting all four beats")).ToBeVisibleAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 21/21")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Count how long the sound lasts" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("One-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("Two-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByLabel("Four-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Listen: 2 beats" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Listen with your eyes closed too.", new() { Exact = false })).ToBeVisibleAsync();
     }
 
     [E2EFact]

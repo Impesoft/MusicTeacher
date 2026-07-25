@@ -47,6 +47,9 @@ public partial class Home
         }
     }
 
+    private async Task PlayTheoryDuration(int beats)
+        => await Audio.PlayDurationExampleAsync(beats);
+
     private string GetTheoryText(string resourceKey)
         => CurrentTheoryPage.Pitch is { } pitch
             ? Localizer.Format(resourceKey, GetPromptName(pitch), pitch.ScientificName.ToLowerInvariant())
@@ -67,6 +70,7 @@ public partial class Home
         pages.Add(new TheoryPage(1, "TheoryBlackKeysTitle", "TheoryBlackKeysSummary", "TheoryBlackKeysBody", TheoryVisual.Keyboard));
         pages.Add(new TheoryPage(2, "TheorySteadyBeatTitle", "TheorySteadyBeatSummary", "TheorySteadyBeatBody", TheoryVisual.Beat));
         pages.Add(new TheoryPage(3, "TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast));
+        pages.Add(new TheoryPage(3, "TheoryBeatDurationsTitle", "TheoryBeatDurationsSummary", "TheoryBeatDurationsBody", TheoryVisual.BeatDurations));
 
         return pages;
     }
@@ -80,6 +84,7 @@ public partial class Home
         SingleNote,
         Keyboard,
         Beat,
-        DurationContrast
+        DurationContrast,
+        BeatDurations
     }
 }

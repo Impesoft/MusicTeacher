@@ -215,6 +215,31 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer["TheorySoundLengthCallout"]</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.BeatDurations)
+            {
+                <div class="theory-visual beat-duration-theory-visual">
+                    @foreach (var beatLength in new[] { 1, 2, 4 })
+                    {
+                        <div class="duration-example"
+                             aria-label="@Localizer[$"TheoryBeatDuration{beatLength}PatternLabel"]">
+                            <strong>@Localizer.Format("TheoryBeatDurationLabel", beatLength)</strong>
+                            <div class="duration-beat-grid" aria-hidden="true">
+                                @for (var beat = 1; beat <= 4; beat++)
+                                {
+                                    <span class="@(beat <= beatLength ? "duration-block is-sounding" : null)"></span>
+                                }
+                            </div>
+                            <small>@Localizer[$"TheoryBeatDuration{beatLength}Count"]</small>
+                            <button class="duration-listen-button"
+                                    type="button"
+                                    @onclick="() => PlayTheoryDuration(beatLength)">
+                                @Localizer.Format("TheoryListenForBeats", beatLength)
+                            </button>
+                        </div>
+                    }
+                    <p class="theory-callout">@Localizer["TheoryBeatDurationsCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }
