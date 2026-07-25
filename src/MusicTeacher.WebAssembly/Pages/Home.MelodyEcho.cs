@@ -17,6 +17,18 @@ public partial class Home
         [new(NoteLetter.C, 5), new(NoteLetter.G, 4), new(NoteLetter.C, 5)]
     ];
 
+    private static readonly IReadOnlyList<IReadOnlyList<Pitch>> LongerMelodyPhrases =
+    [
+        [new(NoteLetter.C, 4), new(NoteLetter.D, 4), new(NoteLetter.E, 4), new(NoteLetter.D, 4)],
+        [new(NoteLetter.E, 4), new(NoteLetter.F, 4), new(NoteLetter.G, 4), new(NoteLetter.E, 4)],
+        [new(NoteLetter.G, 4), new(NoteLetter.A, 4), new(NoteLetter.B, 4), new(NoteLetter.G, 4)],
+        [new(NoteLetter.C, 5), new(NoteLetter.B, 4), new(NoteLetter.A, 4), new(NoteLetter.G, 4)],
+        [new(NoteLetter.C, 4), new(NoteLetter.E, 4), new(NoteLetter.G, 4), new(NoteLetter.E, 4), new(NoteLetter.C, 4)],
+        [new(NoteLetter.G, 4), new(NoteLetter.A, 4), new(NoteLetter.G, 4), new(NoteLetter.E, 4), new(NoteLetter.C, 4)],
+        [new(NoteLetter.C, 5), new(NoteLetter.G, 4), new(NoteLetter.A, 4), new(NoteLetter.B, 4), new(NoteLetter.C, 5)],
+        [new(NoteLetter.E, 4), new(NoteLetter.G, 4), new(NoteLetter.F, 4), new(NoteLetter.D, 4), new(NoteLetter.C, 4)]
+    ];
+
     private PitchSequenceEvaluator? melodyEvaluator;
     private IReadOnlyList<Pitch> melodyPhrase = [];
     private IReadOnlyList<Pitch>? previousMelodyPhrase;
@@ -24,14 +36,15 @@ public partial class Home
     private bool isDemonstratingMelody;
     private int melodyDemonstrationVersion;
 
-    private bool IsMelodyEchoMode => mode == DrillMode.MelodyEcho;
+    private bool IsMelodyEchoMode => mode is DrillMode.MelodyEcho or DrillMode.MelodyEchoLong;
     private bool KeyboardInputDisabled => IsMelodyEchoMode && isDemonstratingMelody;
     private int MelodyPosition => melodyEvaluator?.Position ?? 0;
     private int MelodyLength => melodyEvaluator?.ExpectedMidiNotes.Count ?? 0;
 
     private void StartNewMelodyPhrase()
     {
-        var candidates = BeginnerMelodyPhrases
+        var phrasePool = mode == DrillMode.MelodyEchoLong ? LongerMelodyPhrases : BeginnerMelodyPhrases;
+        var candidates = phrasePool
             .Where(phrase => previousMelodyPhrase is null || !phrase.SequenceEqual(previousMelodyPhrase))
             .ToArray();
 

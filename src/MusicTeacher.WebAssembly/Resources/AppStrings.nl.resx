@@ -478,6 +478,11 @@
   <data name="MelodyEchoProgress" xml:space="preserve"><value>{0} van {1}</value></data>
   <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melodiegeheugen</value></data>
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Korte melodieën naspelen ontgrendeld.</value></data>
+  <data name="MelodyEchoLongMode" xml:space="preserve"><value>Lange melodie nazeggen</value></data>
+  <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Onthoud een langere melodie</value></data>
+  <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Luister naar alle vier of vijf noten en speel ze daarna in volgorde.</value></data>
+  <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
+  <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

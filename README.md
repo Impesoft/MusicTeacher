@@ -24,6 +24,7 @@ The current v1 focuses on treble-clef note reading with fixed-do names (`do`, `r
 - `Hear: play`: listen to a note and play it on the keyboard.
 - `Melody echo`: listen to a short phrase and repeat its pitches in order; timing is
   deliberately ignored at this stage.
+- `Long melody echo`: repeat four- and five-note phrases after mastering short echoes.
 - `Hear: place`: listen to a note and place it on the staff.
 
 The accidental selector is already present in placement drills, but sharps and flats are still disabled for the current beginner level.

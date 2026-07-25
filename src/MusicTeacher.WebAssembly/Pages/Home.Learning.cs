@@ -12,6 +12,7 @@ public partial class Home
         new(DrillMode.PlaceAccidental, 5),
         new(DrillMode.HearNotePlay, 5),
         new(DrillMode.MelodyEcho, 5),
+        new(DrillMode.MelodyEchoLong, 5),
         new(DrillMode.HearAccidentalPlay, 5),
         new(DrillMode.HearNotePlace, 0)
     ];
@@ -96,7 +97,8 @@ public partial class Home
             DrillMode.PlaceAccidental => GetLevelProgress(DrillMode.NameAccidental).BestStreak >= 5,
             DrillMode.HearNotePlay => GetLevelProgress(DrillMode.PlaceAccidental).BestStreak >= 5,
             DrillMode.MelodyEcho => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
-            DrillMode.HearAccidentalPlay => GetLevelProgress(DrillMode.MelodyEcho).BestStreak >= 5,
+            DrillMode.MelodyEchoLong => GetLevelProgress(DrillMode.MelodyEcho).BestStreak >= 5,
+            DrillMode.HearAccidentalPlay => GetLevelProgress(DrillMode.MelodyEchoLong).BestStreak >= 5,
             DrillMode.HearNotePlace => GetLevelProgress(DrillMode.HearAccidentalPlay).BestStreak >= 5,
             _ => false
         };
@@ -144,6 +146,7 @@ public partial class Home
             DrillMode.PlaceAccidental => "place-accidental",
             DrillMode.HearNotePlay => "hear-note-play",
             DrillMode.MelodyEcho => "melody-echo",
+            DrillMode.MelodyEchoLong => "melody-echo-long",
             DrillMode.HearAccidentalPlay => "hear-accidental-play",
             DrillMode.HearNotePlace => "hear-note-place",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -158,6 +161,7 @@ public partial class Home
             DrillMode.PlaceAccidental => "PlaceAccidentalMode",
             DrillMode.HearNotePlay => "HearPlayMode",
             DrillMode.MelodyEcho => "MelodyEchoMode",
+            DrillMode.MelodyEchoLong => "MelodyEchoLongMode",
             DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",
             DrillMode.HearNotePlace => "HearPlaceMode",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")

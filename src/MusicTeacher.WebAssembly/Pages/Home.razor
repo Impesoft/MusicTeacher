@@ -234,6 +234,12 @@ else
                         @onclick="() => SetMode(DrillMode.MelodyEcho)">
                     @Localizer["MelodyEchoMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.MelodyEchoLong)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.MelodyEchoLong)"
+                        @onclick="() => SetMode(DrillMode.MelodyEchoLong)">
+                    @Localizer["MelodyEchoLongMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.HearAccidentalPlay)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.HearAccidentalPlay)"

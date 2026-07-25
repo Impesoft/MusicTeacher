@@ -195,6 +195,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Release 1 evaluator unit tests.
 - [x] Melody Echo activity UI and playback.
 - [x] Melody Echo unlock and progress persistence.
+- [x] Longer four- and five-note Melody Echo level.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Beat theory and tapping activity.
 - [ ] Duration theory and hold exercises.

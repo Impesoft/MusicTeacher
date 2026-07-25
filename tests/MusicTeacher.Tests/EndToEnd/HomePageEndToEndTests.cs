@@ -57,6 +57,27 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task LongerMelodyEchoUsesFourOrFiveNotes()
+    {
+        await StartFreeExploreAsync();
+
+        await page!.GetByRole(AriaRole.Button, new() { Name = "Long melody echo", Exact = true }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new()
+        {
+            Name = "Listen to all four or five notes, then play them in order."
+        })).ToBeVisibleAsync();
+
+        var progress = page.GetByRole(AriaRole.Progressbar, new() { Name = "Melody progress" });
+        await Assertions.Expect(progress).ToHaveAttributeAsync("aria-valuemax", new Regex("^[45]$"));
+        await Assertions.Expect(page.GetByText("Your turn! Timing does not matter yet.")).ToBeVisibleAsync(new()
+        {
+            Timeout = 5_000
+        });
+        await Assertions.Expect(page.Locator(".piano-white-key").First).ToBeEnabledAsync();
+    }
+
+    [E2EFact]
     public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

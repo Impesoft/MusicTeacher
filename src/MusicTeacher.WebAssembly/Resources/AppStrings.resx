@@ -478,6 +478,11 @@
   <data name="MelodyEchoProgress" xml:space="preserve"><value>{0} of {1}</value></data>
   <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melody Memory</value></data>
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Unlocked repeating short melodies.</value></data>
+  <data name="MelodyEchoLongMode" xml:space="preserve"><value>Long melody echo</value></data>
+  <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Remember a longer melody</value></data>
+  <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Listen to all four or five notes, then play them in order.</value></data>
+  <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melody Explorer</value></data>
+  <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>
