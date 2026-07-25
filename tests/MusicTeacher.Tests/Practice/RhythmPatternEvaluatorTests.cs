@@ -36,7 +36,22 @@ public sealed class RhythmPatternEvaluatorTests
         var early = new RhythmPatternEvaluator([1], TimeSpan.FromMilliseconds(600));
         var late = new RhythmPatternEvaluator([1], TimeSpan.FromMilliseconds(600));
 
-        Assert.True(early.SubmitTap(TimeSpan.FromMilliseconds(410)).IsSuccessful);
-        Assert.True(late.SubmitTap(TimeSpan.FromMilliseconds(790)).IsSuccessful);
+        Assert.True(early.SubmitTap(TimeSpan.FromMilliseconds(360)).IsSuccessful);
+        Assert.True(late.SubmitTap(TimeSpan.FromMilliseconds(840)).IsSuccessful);
+    }
+
+    [Theory]
+    [InlineData(359, RhythmTapGuidance.Early)]
+    [InlineData(841, RhythmTapGuidance.Late)]
+    public void TimesJustOutsideChildFriendlyWindowNeedAnotherTry(
+        int milliseconds,
+        RhythmTapGuidance guidance)
+    {
+        var evaluator = new RhythmPatternEvaluator([1], TimeSpan.FromMilliseconds(600));
+
+        var result = evaluator.SubmitTap(TimeSpan.FromMilliseconds(milliseconds));
+
+        Assert.Equal(guidance, result.Guidance);
+        Assert.False(result.IsSuccessful);
     }
 }

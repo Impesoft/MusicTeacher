@@ -591,8 +591,8 @@
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tap!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Click, touch, press Space, or play any MIDI key</value></data>
   <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start when you are ready to hear the rhythm.</value></data>
-  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Get ready: {0}</value></data>
-  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Listen: sound or rest?</value></data>
+  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Count in: {0}</value></data>
+  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Listen and count: {0}</value></data>
   <data name="RhythmEchoYourCountInFeedback" xml:space="preserve"><value>Your count-in: {0}</value></data>
   <data name="RhythmEchoYourTurnFeedback" xml:space="preserve"><value>Your turn—tap the sound beats!</value></data>
   <data name="RhythmEchoEarlyFeedback" xml:space="preserve"><value>A little early. Keep following the beat.</value></data>

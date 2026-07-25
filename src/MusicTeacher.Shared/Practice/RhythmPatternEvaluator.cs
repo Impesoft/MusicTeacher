@@ -8,7 +8,7 @@ public sealed class RhythmPatternEvaluator(
     private readonly IReadOnlyList<TimeSpan> expectedOffsets = soundedBeats
         .Select(beat => beatInterval * beat)
         .ToArray();
-    private readonly TimeSpan acceptedTolerance = tolerance ?? TimeSpan.FromMilliseconds(190);
+    private readonly TimeSpan acceptedTolerance = tolerance ?? TimeSpan.FromMilliseconds(240);
     private int position;
     private int mistakes;
 

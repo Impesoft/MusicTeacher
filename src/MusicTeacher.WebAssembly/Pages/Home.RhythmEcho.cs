@@ -47,7 +47,7 @@ public partial class Home
         isRhythmInputActive = false;
         feedbackClass = "feedback";
 
-        for (var count = 4; count >= 1; count--)
+        for (var count = 1; count <= 4; count++)
         {
             if (!IsCurrentRhythmVersion(version)) return;
             feedbackKey = "RhythmEchoCountInFeedback";
@@ -57,12 +57,12 @@ public partial class Home
             await Task.Delay(BeatInterval);
         }
 
-        feedbackKey = "RhythmEchoListenFeedback";
-        feedbackArguments = [];
         for (var beat = 0; beat < 4; beat++)
         {
             if (!IsCurrentRhythmVersion(version)) return;
             rhythmActiveBeat = beat + 1;
+            feedbackKey = "RhythmEchoListenFeedback";
+            feedbackArguments = [beat + 1];
             await Audio.PlayMidiNoteAsync(84);
             if (rhythmPattern.Contains(beat))
             {
@@ -72,30 +72,33 @@ public partial class Home
             await Task.Delay(BeatInterval);
         }
 
-        for (var count = 4; count >= 1; count--)
+        for (var count = 1; count <= 4; count++)
         {
             if (!IsCurrentRhythmVersion(version)) return;
             rhythmActiveBeat = 0;
             feedbackKey = "RhythmEchoYourCountInFeedback";
             feedbackArguments = [count];
             await Audio.PlayMidiNoteAsync(84);
+
+            if (count == 4)
+            {
+                isDemonstratingRhythm = false;
+                isRhythmInputActive = true;
+                rhythmEvaluator = new RhythmPatternEvaluator(
+                    rhythmPattern.Select(beat => beat + 1).ToArray(),
+                    BeatInterval);
+                rhythmStartedTimestamp = Stopwatch.GetTimestamp();
+                _ = TrackRhythmAttempt(version);
+            }
+
             await InvokeAsync(StateHasChanged);
             await Task.Delay(BeatInterval);
         }
 
-        if (!IsCurrentRhythmVersion(version)) return;
-        isDemonstratingRhythm = false;
-        isRhythmInputActive = true;
-        rhythmEvaluator = new RhythmPatternEvaluator(
-            rhythmPattern.Select(beat => beat + 1).ToArray(),
-            BeatInterval);
-        rhythmStartedTimestamp = Stopwatch.GetTimestamp();
-        rhythmActiveBeat = 0;
+        if (!IsCurrentRhythmVersion(version) || !isRhythmInputActive) return;
         feedbackKey = "RhythmEchoYourTurnFeedback";
         feedbackArguments = [];
-        await Audio.PlayMidiNoteAsync(84);
         await InvokeAsync(StateHasChanged);
-        _ = TrackRhythmAttempt(version);
     }
 
     private async Task TrackRhythmAttempt(int version)

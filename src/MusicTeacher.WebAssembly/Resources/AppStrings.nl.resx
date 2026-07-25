@@ -591,8 +591,8 @@
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tik!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
   <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent om naar het ritme te luisteren.</value></data>
-  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Maak je klaar: {0}</value></data>
-  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Luister: klank of rust?</value></data>
+  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Tel mee: {0}</value></data>
+  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Luister en tel mee: {0}</value></data>
   <data name="RhythmEchoYourCountInFeedback" xml:space="preserve"><value>Jouw aftelling: {0}</value></data>
   <data name="RhythmEchoYourTurnFeedback" xml:space="preserve"><value>Jij bent aan de beurt—tik op de tellen met klank!</value></data>
   <data name="RhythmEchoEarlyFeedback" xml:space="preserve"><value>Een beetje te vroeg. Blijf de tel volgen.</value></data>
