@@ -407,16 +407,28 @@ public partial class Home
         {
             var beatBadge = BadgeAwards.First(award => award.Mode == DrillMode.BeatTap);
             earnedBadgeIds.Add(beatBadge.Id);
+            var heardPlacementBadge = BadgeAwards.First(award => award.Mode == DrillMode.HearNotePlace);
+            earnedBadgeIds.Add(heardPlacementBadge.Id);
+        }
+        else if (unlockedMode == DrillMode.HearNotePlay)
+        {
+            var accidentalsBadge = BadgeAwards.First(award => award.Mode == DrillMode.NameAccidental);
+            earnedBadgeIds.Add(accidentalsBadge.Id);
         }
         await SaveEarnedBadges();
 
         var message = unlockedMode switch
         {
             DrillMode.NameAccidental => Localizer.Format("UnlockToastAccidentalsMessage", modeName),
+            DrillMode.HearNotePlay => Localizer.Format(
+                "UnlockToastEarAndAccidentalsMessage",
+                modeName,
+                Localizer[GetModeLabelKey(DrillMode.NameAccidental)]),
             DrillMode.MelodyEcho => Localizer.Format(
                 "UnlockToastMelodyAndBeatMessage",
                 modeName,
-                Localizer[GetModeLabelKey(DrillMode.BeatTap)]),
+                Localizer[GetModeLabelKey(DrillMode.BeatTap)],
+                Localizer[GetModeLabelKey(DrillMode.HearNotePlace)]),
             _ => Localizer.Format("UnlockToastMessage", modeName)
         };
 

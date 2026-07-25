@@ -32,15 +32,18 @@ flowchart TD
     A["Read and name notes"] --> B["Play single heard notes"]
     B --> C["Melody Echo: 2–3 notes"]
     C --> D["Melody Echo: longer phrases"]
+    D --> J["Read short staff phrases: pitch only"]
     B --> E["Theory: steady beat"]
     E --> F["Tap the beat"]
     F --> G["Theory: long and short sounds"]
     G --> H["Theory: 1-, 2-, and 4-beat notes"]
     H --> I["Rhythm Echo on one sound"]
-    D --> J["Guided song melodies"]
-    I --> K["Melody and rhythm together"]
-    J --> K
-    K --> L["Complete song"]
+    J --> M["Staff phrases with note lengths"]
+    H --> M
+    M --> K["Staff phrases with melody and rhythm"]
+    I --> K
+    K --> N["Guided song sections"]
+    N --> L["Complete song"]
 ```
 
 The melody and rhythm branches advance independently. A full rhythmic song requires
@@ -89,10 +92,28 @@ last 10, rather than a perfect unbroken streak.
 Use beat counts as the primary language; conventional English and Dutch note-value
 names can be secondary labels.
 
-### Release 4 — Guided songs
+### Release 4 — Staff-read phrase bridge
+
+- Show short phrases on the staff instead of demonstrating them for imitation.
+- First assess pitch order only; note lengths, start time, gaps, and tempo are ignored.
+- Keep MIDI and the on-screen piano equivalent because the intended answer control is
+  still a piano key, not staff placement.
+- Add note-length requirements only after duration theory and held-sound practice.
+- Add steady timing and rests only after Rhythm Echo.
+- Treat staff reading, pitch performance, duration, and pulse as separate earned
+  skills so later activities can require an explicit combination.
+
+| Step | Staff notation | Pitch | Duration | Pulse/rests |
+|---|---|---|---|---|
+| Read 1 | Short phrase | Assessed | Ignored | Ignored |
+| Read 2 | Short phrase | Assessed | Assessed | Ignored |
+| Read 3 | Short phrase | Assessed | Assessed | Assessed |
+
+### Release 5 — Guided songs
 
 - Model songs as sections containing short phrases.
-- First teach pitch order with timing ignored.
+- Unlock the song path after the staff-read phrase prerequisites, rather than directly
+  after Melody Echo.
 - Offer full, partial, and no-hint variants.
 - Unlock rhythmic variants only after rhythm prerequisites.
 - Join phrases into sections, then into a complete song.
@@ -159,9 +180,12 @@ staff-placement
 single-note-ear-play
 melody-echo-short
 melody-echo-long
+staff-phrase-pitch
 steady-beat
 duration-basic
 rhythm-echo
+staff-phrase-duration
+staff-phrase-timed
 guided-song-melody
 guided-song-rhythm
 ```
@@ -204,5 +228,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Pitch-neutral press-and-hold exercise with count-in and metronome guidance using pointer, Space, or MIDI note-off.
 - [x] Rest theory showing that the steady beat continues through silence.
 - [x] Four-beat Rhythm Echo foundation using one-beat sounds and rests.
-- [ ] Explicit skill/prerequisite unlock model.
+- [x] Explicit skill/prerequisite unlock model for current activities and theory.
+- [ ] Staff-read pitch phrases with timing ignored.
+- [ ] Staff-read phrase duration and timing layers.
 - [ ] Song content and section progression.

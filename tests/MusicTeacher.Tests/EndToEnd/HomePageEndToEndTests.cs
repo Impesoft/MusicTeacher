@@ -62,6 +62,61 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task LearningPathUnlocksIndependentBranchesFromExplicitPrerequisites()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'place-note': {
+                            Attempts: 10,
+                            CorrectAnswers: 10,
+                            Streak: 10,
+                            BestStreak: 10
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Hear: play", Exact = true })).ToBeEnabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Sharps/flats", Exact = true })).ToBeEnabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Melody echo", Exact = true })).ToBeDisabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Tap the beat", Exact = true })).ToBeDisabledAsync();
+
+        await page.EvaluateAsync(
+            """
+            () => {
+                const key = 'music-teacher-progress:treble-clef-start';
+                const progress = JSON.parse(localStorage.getItem(key));
+                progress.DrillProgress['hear-note-play'] = {
+                    Attempts: 5,
+                    CorrectAnswers: 5,
+                    Streak: 5,
+                    BestStreak: 5
+                };
+                localStorage.setItem(key, JSON.stringify(progress));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Melody echo", Exact = true })).ToBeEnabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Tap the beat", Exact = true })).ToBeEnabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Hear: place", Exact = true })).ToBeEnabledAsync();
+    }
+
+    [E2EFact]
     public async Task DutchAccidentalPathLabelsFitInsideTheirButtons()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

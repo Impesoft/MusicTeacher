@@ -4,22 +4,6 @@ namespace MusicTeacher.WebAssembly.Pages;
 
 public partial class Home
 {
-    private static readonly IReadOnlyList<LearningLevel> LearningLevels =
-    [
-        new(DrillMode.NameNote, 5),
-        new(DrillMode.PlaceNote, 10),
-        new(DrillMode.NameAccidental, 5),
-        new(DrillMode.PlaceAccidental, 5),
-        new(DrillMode.HearNotePlay, 5),
-        new(DrillMode.BeatTap, 3),
-        new(DrillMode.HoldDuration, 3),
-        new(DrillMode.RhythmEcho, 3),
-        new(DrillMode.MelodyEcho, 5),
-        new(DrillMode.MelodyEchoLong, 5),
-        new(DrillMode.HearAccidentalPlay, 5),
-        new(DrillMode.HearNotePlace, 0)
-    ];
-
     private DrillLevelProgress CurrentLevelProgress => GetLevelProgress(mode);
 
     private int DisplayAttempts => practiceMode == PracticeMode.LearningPath
@@ -34,13 +18,14 @@ public partial class Home
         ? CurrentLevelProgress.Streak
         : progress.Streak;
 
-    private int CurrentLevelNumber => LearningLevels
-        .Select((level, index) => new { level, index })
-        .FirstOrDefault(item => item.level.Mode == mode)?.index + 1 ?? 1;
+    private int CurrentLevelNumber => LearningCurriculum.Activities
+        .Select((activity, index) => new { activity, index })
+        .FirstOrDefault(item => item.activity.Id == GetModeKey(mode))?.index + 1 ?? 1;
 
-    private LearningLevel CurrentLearningLevel => LearningLevels.First(level => level.Mode == mode);
+    private LearningActivityDefinition CurrentLearningActivity
+        => LearningCurriculum.GetActivity(GetModeKey(mode));
 
-    private string LearningGoalText => CurrentLearningLevel.RequiredStreak == 0
+    private string LearningGoalText => CurrentLearningActivity.RequiredStreak == 0
         ? Localizer["FinalLevelGoal"]
         : mode is DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho
             ? Localizer.Format(
@@ -51,11 +36,11 @@ public partial class Home
                     _ => "RhythmEchoLearningGoal"
                 },
                 CurrentLevelProgress.BestStreak,
-                CurrentLearningLevel.RequiredStreak)
+                CurrentLearningActivity.RequiredStreak)
         : Localizer.Format(
             "LearningGoal",
             CurrentLevelProgress.BestStreak,
-            CurrentLearningLevel.RequiredStreak,
+            CurrentLearningActivity.RequiredStreak,
             Localizer[GetModeLabelKey(GetNextMode(mode) ?? mode)]);
 
     private async Task ResetProgress()
@@ -102,32 +87,18 @@ public partial class Home
         => practiceMode == PracticeMode.LearningPath && !IsModeUnlocked(drillMode);
 
     private bool IsModeUnlocked(DrillMode drillMode)
-        => drillMode switch
-        {
-            DrillMode.NameNote => true,
-            DrillMode.PlaceNote => GetLevelProgress(DrillMode.NameNote).BestStreak >= 5,
-            DrillMode.NameAccidental => GetLevelProgress(DrillMode.PlaceNote).BestStreak >= 10,
-            DrillMode.PlaceAccidental => GetLevelProgress(DrillMode.NameAccidental).BestStreak >= 5,
-            DrillMode.HearNotePlay => GetLevelProgress(DrillMode.PlaceAccidental).BestStreak >= 5,
-            DrillMode.BeatTap => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
-            DrillMode.HoldDuration => GetLevelProgress(DrillMode.BeatTap).BestStreak >= 3,
-            DrillMode.RhythmEcho => GetLevelProgress(DrillMode.HoldDuration).BestStreak >= 3,
-            DrillMode.MelodyEcho => GetLevelProgress(DrillMode.HearNotePlay).BestStreak >= 5,
-            DrillMode.MelodyEchoLong => GetLevelProgress(DrillMode.MelodyEcho).BestStreak >= 5,
-            DrillMode.HearAccidentalPlay => GetLevelProgress(DrillMode.MelodyEchoLong).BestStreak >= 5,
-            DrillMode.HearNotePlace => GetLevelProgress(DrillMode.HearAccidentalPlay).BestStreak >= 5,
-            _ => false
-        };
+        => LearningCurriculum.IsActivityUnlocked(GetModeKey(drillMode), GetBestStreak);
 
     private DrillMode GetRecommendedLearningMode()
-        => LearningLevels.FirstOrDefault(level => IsModeUnlocked(level.Mode) && !IsLevelComplete(level.Mode))?.Mode
-            ?? LearningLevels.Last(level => IsModeUnlocked(level.Mode)).Mode;
+        => LearningCurriculum.Activities
+            .Where(activity => IsModeUnlocked(GetDrillMode(activity.Id)))
+            .FirstOrDefault(activity => !IsLevelComplete(GetDrillMode(activity.Id))) is { } nextActivity
+                ? GetDrillMode(nextActivity.Id)
+                : GetDrillMode(LearningCurriculum.Activities.Last(
+                    activity => IsModeUnlocked(GetDrillMode(activity.Id))).Id);
 
     private bool IsLevelComplete(DrillMode drillMode)
-    {
-        var requiredStreak = LearningLevels.First(level => level.Mode == drillMode).RequiredStreak;
-        return requiredStreak > 0 && GetLevelProgress(drillMode).BestStreak >= requiredStreak;
-    }
+        => LearningCurriculum.IsActivityComplete(GetModeKey(drillMode), GetBestStreak);
 
     private DrillMode? GetNextMode(DrillMode drillMode)
     {
@@ -146,17 +117,20 @@ public partial class Home
             return null;
         }
 
-        var pitchLearningLevels = LearningLevels
-            .Where(level => level.Mode is not (DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho))
-            .ToArray();
-        var index = pitchLearningLevels
-            .Select((level, levelIndex) => new { level, levelIndex })
-            .FirstOrDefault(item => item.level.Mode == drillMode)?.levelIndex;
-
-        return index is null || index.Value >= pitchLearningLevels.Length - 1
-            ? null
-            : pitchLearningLevels[index.Value + 1].Mode;
+        return drillMode switch
+        {
+            DrillMode.NameNote => DrillMode.PlaceNote,
+            DrillMode.PlaceNote => DrillMode.HearNotePlay,
+            DrillMode.HearNotePlay => DrillMode.MelodyEcho,
+            DrillMode.MelodyEcho => DrillMode.MelodyEchoLong,
+            DrillMode.NameAccidental => DrillMode.PlaceAccidental,
+            DrillMode.PlaceAccidental => DrillMode.HearAccidentalPlay,
+            _ => null
+        };
     }
+
+    private int GetBestStreak(string activityId)
+        => GetLevelProgress(GetDrillMode(activityId)).BestStreak;
 
     private DrillLevelProgress GetLevelProgress(DrillMode drillMode)
     {
@@ -207,5 +181,21 @@ public partial class Home
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
         };
 
-    private sealed record LearningLevel(DrillMode Mode, int RequiredStreak);
+    private static DrillMode GetDrillMode(string activityId)
+        => activityId switch
+        {
+            "name-note" => DrillMode.NameNote,
+            "place-note" => DrillMode.PlaceNote,
+            "name-accidental" => DrillMode.NameAccidental,
+            "place-accidental" => DrillMode.PlaceAccidental,
+            "hear-note-play" => DrillMode.HearNotePlay,
+            "beat-tap" => DrillMode.BeatTap,
+            "hold-duration" => DrillMode.HoldDuration,
+            "rhythm-echo" => DrillMode.RhythmEcho,
+            "melody-echo" => DrillMode.MelodyEcho,
+            "melody-echo-long" => DrillMode.MelodyEchoLong,
+            "hear-accidental-play" => DrillMode.HearAccidentalPlay,
+            "hear-note-place" => DrillMode.HearNotePlace,
+            _ => throw new InvalidOperationException($"Unsupported activity '{activityId}'.")
+        };
 }

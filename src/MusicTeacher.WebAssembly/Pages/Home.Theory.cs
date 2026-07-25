@@ -1,4 +1,5 @@
 using MusicTeacher.Shared.MusicTheory;
+using MusicTeacher.Shared.Progress;
 
 namespace MusicTeacher.WebAssembly.Pages;
 
@@ -7,19 +8,11 @@ public partial class Home
     private static readonly IReadOnlyList<TheoryPage> TheoryPages = BuildTheoryPages();
 
     private IReadOnlyList<TheoryPage> AvailableTheoryPages => TheoryPages
-        .Where(page => page.Level <= CurrentAvailableTheoryLevel)
+        .Where(page => page.Prerequisites.All(IsSkillEarned))
         .ToArray();
 
-    private int CurrentAvailableTheoryLevel
-        => IsLevelComplete(DrillMode.HoldDuration)
-            ? 4
-            : IsLevelComplete(DrillMode.BeatTap)
-            ? 3
-            : IsLevelComplete(DrillMode.HearNotePlay)
-            ? 2
-            : IsModeUnlocked(DrillMode.NameAccidental)
-                ? 1
-                : 0;
+    private bool IsSkillEarned(LearningSkill skill)
+        => LearningCurriculum.IsSkillEarned(skill, GetBestStreak);
 
     private TheoryPage CurrentTheoryPage => AvailableTheoryPages[Math.Clamp(theoryPageIndex, 0, AvailableTheoryPages.Count - 1)];
 
@@ -100,25 +93,31 @@ public partial class Home
     {
         var pages = new List<TheoryPage>
         {
-            new(0, "TheoryStaffTitle", "TheoryStaffSummary", "TheoryStaffBody", TheoryVisual.Staff),
-            new(0, "TheoryTrebleClefTitle", "TheoryTrebleClefSummary", "TheoryTrebleClefBody", TheoryVisual.TrebleClef)
+            new("TheoryStaffTitle", "TheoryStaffSummary", "TheoryStaffBody", TheoryVisual.Staff),
+            new("TheoryTrebleClefTitle", "TheoryTrebleClefSummary", "TheoryTrebleClefBody", TheoryVisual.TrebleClef)
         };
 
         pages.AddRange(TrebleClef.BeginnerStaffNotes.Select(pitch =>
-            new TheoryPage(0, "TheorySingleNoteTitle", "TheorySingleNoteSummary", "TheorySingleNoteBody", TheoryVisual.SingleNote, pitch)));
+            new TheoryPage("TheorySingleNoteTitle", "TheorySingleNoteSummary", "TheorySingleNoteBody", TheoryVisual.SingleNote, pitch)));
 
-        pages.Add(new TheoryPage(1, "TheoryAccidentalsTitle", "TheoryAccidentalsSummary", "TheoryAccidentalsBody", TheoryVisual.SingleNote, new Pitch(NoteLetter.C, 4, Accidental.Sharp)));
-        pages.Add(new TheoryPage(1, "TheoryBlackKeysTitle", "TheoryBlackKeysSummary", "TheoryBlackKeysBody", TheoryVisual.Keyboard));
-        pages.Add(new TheoryPage(2, "TheorySteadyBeatTitle", "TheorySteadyBeatSummary", "TheorySteadyBeatBody", TheoryVisual.Beat));
-        pages.Add(new TheoryPage(3, "TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast));
-        pages.Add(new TheoryPage(3, "TheoryBeatDurationsTitle", "TheoryBeatDurationsSummary", "TheoryBeatDurationsBody", TheoryVisual.BeatDurations));
-        pages.Add(new TheoryPage(3, "TheoryNoteValuesTitle", "TheoryNoteValuesSummary", "TheoryNoteValuesBody", TheoryVisual.NoteValues));
-        pages.Add(new TheoryPage(4, "TheoryRestsTitle", "TheoryRestsSummary", "TheoryRestsBody", TheoryVisual.Rests));
+        pages.Add(new TheoryPage("TheoryAccidentalsTitle", "TheoryAccidentalsSummary", "TheoryAccidentalsBody", TheoryVisual.SingleNote, new Pitch(NoteLetter.C, 4, Accidental.Sharp), LearningSkill.StaffPlacement));
+        pages.Add(new TheoryPage("TheoryBlackKeysTitle", "TheoryBlackKeysSummary", "TheoryBlackKeysBody", TheoryVisual.Keyboard, null, LearningSkill.StaffPlacement));
+        pages.Add(new TheoryPage("TheorySteadyBeatTitle", "TheorySteadyBeatSummary", "TheorySteadyBeatBody", TheoryVisual.Beat, null, LearningSkill.SingleNoteEarPlay));
+        pages.Add(new TheoryPage("TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast, null, LearningSkill.SteadyBeat));
+        pages.Add(new TheoryPage("TheoryBeatDurationsTitle", "TheoryBeatDurationsSummary", "TheoryBeatDurationsBody", TheoryVisual.BeatDurations, null, LearningSkill.SteadyBeat));
+        pages.Add(new TheoryPage("TheoryNoteValuesTitle", "TheoryNoteValuesSummary", "TheoryNoteValuesBody", TheoryVisual.NoteValues, null, LearningSkill.SteadyBeat));
+        pages.Add(new TheoryPage("TheoryRestsTitle", "TheoryRestsSummary", "TheoryRestsBody", TheoryVisual.Rests, null, LearningSkill.DurationBasic));
 
         return pages;
     }
 
-    private sealed record TheoryPage(int Level, string TitleKey, string SummaryKey, string BodyKey, TheoryVisual Visual, Pitch? Pitch = null);
+    private sealed record TheoryPage(
+        string TitleKey,
+        string SummaryKey,
+        string BodyKey,
+        TheoryVisual Visual,
+        Pitch? Pitch = null,
+        params LearningSkill[] Prerequisites);
 
     private enum TheoryVisual
     {

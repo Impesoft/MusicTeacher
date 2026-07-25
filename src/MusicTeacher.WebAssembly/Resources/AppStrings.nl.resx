@@ -183,8 +183,11 @@
   <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
     <value>{0} is nu open. Nieuwe theorie over kruisen, mollen en zwarte toetsen is ook open.</value>
   </data>
+  <data name="UnlockToastEarAndAccidentalsMessage" xml:space="preserve">
+    <value>{0} en {1} zijn nu open. Je kunt verder luisteren of kruisen en mollen ontdekken.</value>
+  </data>
   <data name="UnlockToastMelodyAndBeatMessage" xml:space="preserve">
-    <value>{0} en {1} zijn nu open. Je kunt melodie en ritme los van elkaar oefenen.</value>
+    <value>{0}, {1} en {2} zijn nu open. Je kunt luisteren, melodie en ritme los van elkaar oefenen.</value>
   </data>
   <data name="DismissToast" xml:space="preserve">
     <value>Melding sluiten</value>
@@ -350,6 +353,9 @@
   </data>
   <data name="TheoryLevelLabel" xml:space="preserve">
     <value>Level {0}</value>
+  </data>
+  <data name="TheoryTopicLabel" xml:space="preserve">
+    <value>Theorieonderwerp</value>
   </data>
   <data name="TheoryPageCounter" xml:space="preserve">
     <value>Pagina {0}/{1}</value>

@@ -183,8 +183,11 @@
   <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
     <value>{0} is open now. New theory pages for sharps, flats, and black keys are open too.</value>
   </data>
+  <data name="UnlockToastEarAndAccidentalsMessage" xml:space="preserve">
+    <value>{0} and {1} are open now. You can continue with listening or explore sharps and flats.</value>
+  </data>
   <data name="UnlockToastMelodyAndBeatMessage" xml:space="preserve">
-    <value>{0} and {1} are open now. You can grow your melody and rhythm skills separately.</value>
+    <value>{0}, {1}, and {2} are open now. You can grow listening, melody, and rhythm skills separately.</value>
   </data>
   <data name="DismissToast" xml:space="preserve">
     <value>Dismiss message</value>
@@ -350,6 +353,9 @@
   </data>
   <data name="TheoryLevelLabel" xml:space="preserve">
     <value>Level {0}</value>
+  </data>
+  <data name="TheoryTopicLabel" xml:space="preserve">
+    <value>Theory topic</value>
   </data>
   <data name="TheoryPageCounter" xml:space="preserve">
     <value>Page {0}/{1}</value>
