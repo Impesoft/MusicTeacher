@@ -160,7 +160,9 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
 
         var progress = page.GetByRole(AriaRole.Progressbar, new() { Name = "Held sound duration in beats" });
         var requestedBeats = int.Parse((await progress.GetAttributeAsync("aria-valuemax"))!);
+        await page.GetByRole(AriaRole.Button, new() { Name = "Start 4-beat count-in" }).ClickAsync();
         var holdButton = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("^Press and hold") });
+        await Assertions.Expect(holdButton).ToBeVisibleAsync(new() { Timeout = 5_000 });
         await holdButton.FocusAsync();
         await page.Keyboard.DownAsync("Space");
         await page.WaitForTimeoutAsync(requestedBeats * 600);

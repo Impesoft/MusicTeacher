@@ -472,6 +472,10 @@ else
             @if (IsDurationHoldMode)
             {
                 <div class="duration-hold-stage">
+                    <div class="duration-metronome-count @(durationCountIn > 0 ? "is-counting" : null)"
+                         aria-live="polite">
+                        @(durationCountIn > 0 ? durationCountIn.ToString() : "●")
+                    </div>
                     <div class="duration-hold-target">
                         <NoteValueSymbol Beats="@requestedDurationBeats"
                                          AriaLabel="@Localizer[$"TheoryNoteValue{requestedDurationBeats}SymbolLabel"]" />
@@ -490,19 +494,31 @@ else
                             <i aria-hidden="true">@beat</i>
                         }
                     </div>
-                    <button class="duration-hold-button @(isHoldingDuration ? "is-holding" : null)"
-                            type="button"
-                            aria-pressed="@isHoldingDuration"
-                            @onpointerdown="() => StartDurationHold()"
-                            @onpointerup="() => EndDurationHold()"
-                            @onpointercancel="() => EndDurationHold()"
-                            @onpointerleave="() => EndDurationHold()"
-                            @onkeydown="HandleDurationKeyDown"
-                            @onkeyup="HandleDurationKeyUp"
-                            @onkeydown:preventDefault>
-                        @(isHoldingDuration ? Localizer["DurationHoldReleaseButton"] : Localizer["DurationHoldPressButton"])
-                        <small>@Localizer["DurationHoldInputHint"]</small>
-                    </button>
+                    @if (!isDurationReadyToHold)
+                    {
+                        <button class="duration-count-in-button"
+                                type="button"
+                                disabled="@(durationCountIn > 0)"
+                                @onclick="StartDurationCountIn">
+                            @(durationCountIn > 0 ? Localizer["DurationHoldListen"] : Localizer["DurationHoldStartCountIn"])
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="duration-hold-button @(isHoldingDuration ? "is-holding" : null)"
+                                type="button"
+                                aria-pressed="@isHoldingDuration"
+                                @onpointerdown="() => StartDurationHold()"
+                                @onpointerup="() => EndDurationHold()"
+                                @onpointercancel="() => EndDurationHold()"
+                                @onpointerleave="() => EndDurationHold()"
+                                @onkeydown="HandleDurationKeyDown"
+                                @onkeyup="HandleDurationKeyUp"
+                                @onkeydown:preventDefault>
+                            @(isHoldingDuration ? Localizer["DurationHoldReleaseButton"] : Localizer["DurationHoldPressButton"])
+                            <small>@Localizer["DurationHoldInputHint"]</small>
+                        </button>
+                    }
                 </div>
             }
 

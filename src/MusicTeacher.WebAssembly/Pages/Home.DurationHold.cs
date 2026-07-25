@@ -14,6 +14,8 @@ public partial class Home
     private long durationHoldStartedTimestamp;
     private int durationHoldVersion;
     private bool isHoldingDuration;
+    private bool isDurationReadyToHold;
+    private int durationCountIn;
     private TimeSpan currentHeldDuration;
 
     private string DurationProgressStyle
@@ -41,6 +43,8 @@ public partial class Home
         isHoldingDuration = false;
         heldDurationMidiNote = null;
         currentHeldDuration = TimeSpan.Zero;
+        isDurationReadyToHold = false;
+        durationCountIn = 0;
         _ = Audio.StopSustainedNoteAsync();
 
         var choices = DurationBeatChoices
@@ -53,18 +57,58 @@ public partial class Home
         feedbackClass = "feedback";
     }
 
+    private async Task StartDurationCountIn()
+    {
+        if (mode != DrillMode.HoldDuration || isHoldingDuration || durationCountIn > 0)
+        {
+            return;
+        }
+
+        var version = ++durationHoldVersion;
+        isDurationReadyToHold = false;
+        feedbackClass = "feedback";
+
+        for (var count = 4; count >= 1; count--)
+        {
+            if (version != durationHoldVersion || mode != DrillMode.HoldDuration)
+            {
+                return;
+            }
+
+            durationCountIn = count;
+            feedbackKey = "DurationHoldCountInFeedback";
+            feedbackArguments = [count];
+            await Audio.PlayMidiNoteAsync(72);
+            await InvokeAsync(StateHasChanged);
+            await Task.Delay(BeatInterval);
+        }
+
+        if (version != durationHoldVersion || mode != DrillMode.HoldDuration)
+        {
+            return;
+        }
+
+        durationCountIn = 0;
+        isDurationReadyToHold = true;
+        feedbackKey = "DurationHoldNowFeedback";
+        feedbackArguments = [requestedDurationBeats];
+        await InvokeAsync(StateHasChanged);
+    }
+
     private async Task CancelDurationHold()
     {
         durationHoldVersion++;
         isHoldingDuration = false;
         heldDurationMidiNote = null;
         currentHeldDuration = TimeSpan.Zero;
+        isDurationReadyToHold = false;
+        durationCountIn = 0;
         await Audio.StopSustainedNoteAsync();
     }
 
     private async Task StartDurationHold(int? midiNote = null)
     {
-        if (mode != DrillMode.HoldDuration || isHoldingDuration)
+        if (mode != DrillMode.HoldDuration || isHoldingDuration || !isDurationReadyToHold)
         {
             return;
         }
@@ -78,6 +122,7 @@ public partial class Home
         feedbackArguments = [requestedDurationBeats];
         feedbackClass = "feedback";
         await Audio.StartSustainedNoteAsync();
+        await Audio.PlayMidiNoteAsync(72);
         _ = TrackHeldDuration(version);
     }
 
@@ -99,11 +144,17 @@ public partial class Home
 
     private async Task TrackHeldDuration(int version)
     {
+        var nextMetronomeBeat = 1;
         while (version == durationHoldVersion && isHoldingDuration && mode == DrillMode.HoldDuration)
         {
             currentHeldDuration = Stopwatch.GetElapsedTime(durationHoldStartedTimestamp);
+            if (currentHeldDuration >= BeatInterval * nextMetronomeBeat)
+            {
+                await Audio.PlayMidiNoteAsync(72);
+                nextMetronomeBeat++;
+            }
             await InvokeAsync(StateHasChanged);
-            await Task.Delay(80);
+            await Task.Delay(50);
         }
     }
 

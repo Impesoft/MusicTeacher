@@ -565,10 +565,14 @@
   <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Juiste lengtes: {0}/{1}. De toonhoogte telt niet mee in deze ritme-oefening.</value></data>
   <data name="DurationHoldTarget" xml:space="preserve"><value>Klank van {0} tellen</value></data>
   <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Aangehouden klanklengte in tellen</value></data>
+  <data name="DurationHoldStartCountIn" xml:space="preserve"><value>Start aftellen van 4 tellen</value></data>
+  <data name="DurationHoldListen" xml:space="preserve"><value>Luister naar de tel…</value></data>
   <data name="DurationHoldPressButton" xml:space="preserve"><value>Druk en houd vast</value></data>
   <data name="DurationHoldReleaseButton" xml:space="preserve"><value>Laat los!</value></data>
   <data name="DurationHoldInputHint" xml:space="preserve"><value>Houd dit vlak, Spatie of een MIDI-toets ingedrukt</value></data>
   <data name="DurationHoldReadyFeedback" xml:space="preserve"><value>Houd de klank aan voor het getoonde aantal tellen.</value></data>
+  <data name="DurationHoldCountInFeedback" xml:space="preserve"><value>Luister en tel: {0}</value></data>
+  <data name="DurationHoldNowFeedback" xml:space="preserve"><value>Jij bent aan de beurt. Druk op een tik, tel {0} tellen en laat los.</value></data>
   <data name="DurationHoldHoldingFeedback" xml:space="preserve"><value>Blijf tellen tot {0}…</value></data>
   <data name="DurationHoldTooShortFeedback" xml:space="preserve"><value>Dat was wat te kort. Tel alle {0} tellen voor je loslaat.</value></data>
   <data name="DurationHoldTooLongFeedback" xml:space="preserve"><value>Dat was wat te lang. Laat net na tel {0} los.</value></data>

@@ -565,10 +565,14 @@
   <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Accurate holds: {0}/{1}. Pitch does not matter in this rhythm exercise.</value></data>
   <data name="DurationHoldTarget" xml:space="preserve"><value>{0}-beat sound</value></data>
   <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Held sound duration in beats</value></data>
+  <data name="DurationHoldStartCountIn" xml:space="preserve"><value>Start 4-beat count-in</value></data>
+  <data name="DurationHoldListen" xml:space="preserve"><value>Listen to the beat…</value></data>
   <data name="DurationHoldPressButton" xml:space="preserve"><value>Press and hold</value></data>
   <data name="DurationHoldReleaseButton" xml:space="preserve"><value>Release!</value></data>
   <data name="DurationHoldInputHint" xml:space="preserve"><value>Hold this pad, hold Space, or hold any MIDI key</value></data>
   <data name="DurationHoldReadyFeedback" xml:space="preserve"><value>Hold the sound for the number of beats shown.</value></data>
+  <data name="DurationHoldCountInFeedback" xml:space="preserve"><value>Listen and count: {0}</value></data>
+  <data name="DurationHoldNowFeedback" xml:space="preserve"><value>Your turn. Press on a click, count {0} beats, then release.</value></data>
   <data name="DurationHoldHoldingFeedback" xml:space="preserve"><value>Keep counting to {0}…</value></data>
   <data name="DurationHoldTooShortFeedback" xml:space="preserve"><value>That was a little short. Count all {0} beats before releasing.</value></data>
   <data name="DurationHoldTooLongFeedback" xml:space="preserve"><value>That was a little long. Release just after beat {0}.</value></data>
