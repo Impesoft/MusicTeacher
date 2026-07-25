@@ -228,6 +228,12 @@ else
                         @onclick="() => SetMode(DrillMode.HearNotePlay)">
                     @Localizer["HearPlayMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.MelodyEcho)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.MelodyEcho)"
+                        @onclick="() => SetMode(DrillMode.MelodyEcho)">
+                    @Localizer["MelodyEchoMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.HearAccidentalPlay)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.HearAccidentalPlay)"
@@ -296,6 +302,15 @@ else
                             @Localizer["PlayAssignmentNote"]
                         </button>
                     }
+                    else if (IsMelodyEchoMode)
+                    {
+                        <button class="listen-button"
+                                type="button"
+                                disabled="@isDemonstratingMelody"
+                                @onclick="DemonstrateMelodyPhrase">
+                            @Localizer["MelodyEchoReplay"]
+                        </button>
+                    }
                     <button class="next-button" type="button" @onclick="AdvanceRound" aria-label="@Localizer["NextNote"]">@Localizer["Next"]</button>
                 </div>
             </div>
@@ -336,9 +351,26 @@ else
 
             @if (ShowsKeyboard)
             {
+                @if (IsMelodyEchoMode)
+                {
+                    <div class="melody-echo-progress"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="@MelodyLength"
+                         aria-valuenow="@MelodyPosition"
+                         aria-label="@Localizer["MelodyEchoProgressLabel"]">
+                        @for (var noteIndex = 0; noteIndex < MelodyLength; noteIndex++)
+                        {
+                            <span class="@(noteIndex < MelodyPosition ? "is-complete" : null)" aria-hidden="true">♪</span>
+                        }
+                        <small>@Localizer.Format("MelodyEchoProgress", MelodyPosition, MelodyLength)</small>
+                    </div>
+                }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"
                                HighlightedPitch="@KeyboardHighlightedPitch"
                                PressedMidiNotes="@pressedMidiNotes"
+                               DemonstratedMidiNote="@teacherDemonstratedMidiNote"
+                               IsDisabled="@KeyboardInputDisabled"
                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"
                                OnPitchSelected="SelectKeyboardPitch" />

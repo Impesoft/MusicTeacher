@@ -464,6 +464,20 @@
   <data name="MidiInvitationManageAction" xml:space="preserve"><value>Manage</value></data>
   <data name="MidiConnectShort" xml:space="preserve"><value>Connect MIDI keyboard</value></data>
   <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI keyboard connected</value></data>
+  <data name="MelodyEchoMode" xml:space="preserve"><value>Melody echo</value></data>
+  <data name="MelodyEchoTitle" xml:space="preserve"><value>Repeat the melody</value></data>
+  <data name="MelodyEchoPrompt" xml:space="preserve"><value>Listen, then play the notes in the same order.</value></data>
+  <data name="MelodyEchoReplay" xml:space="preserve"><value>Hear melody again</value></data>
+  <data name="MelodyEchoListenFeedback" xml:space="preserve"><value>Listen carefully…</value></data>
+  <data name="MelodyEchoYourTurnFeedback" xml:space="preserve"><value>Your turn! Timing does not matter yet.</value></data>
+  <data name="MelodyEchoTryAgainFeedback" xml:space="preserve"><value>Try note {0} again. You can take your time.</value></data>
+  <data name="MelodyEchoProgressFeedback" xml:space="preserve"><value>Good! {0} of {1} notes matched.</value></data>
+  <data name="MelodyEchoCompleteFeedback" xml:space="preserve"><value>Perfect melody!</value></data>
+  <data name="MelodyEchoCompleteWithMistakesFeedback" xml:space="preserve"><value>You completed the melody. Let’s try another one!</value></data>
+  <data name="MelodyEchoProgressLabel" xml:space="preserve"><value>Melody progress</value></data>
+  <data name="MelodyEchoProgress" xml:space="preserve"><value>{0} of {1}</value></data>
+  <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melody Memory</value></data>
+  <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Unlocked repeating short melodies.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>

@@ -41,6 +41,22 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task LearnerCanOpenMelodyEchoAndWaitForTheirTurn()
+    {
+        await StartFreeExploreAsync();
+
+        await page!.GetByRole(AriaRole.Button, new() { Name = "Melody echo", Exact = true }).ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Listen, then play the notes in the same order." })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Progressbar, new() { Name = "Melody progress" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Your turn! Timing does not matter yet.")).ToBeVisibleAsync(new()
+        {
+            Timeout = 4_000
+        });
+        await Assertions.Expect(page.Locator(".piano-white-key").First).ToBeEnabledAsync();
+    }
+
+    [E2EFact]
     public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

@@ -19,7 +19,7 @@ public partial class Home
 
     private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
-    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.HearAccidentalPlay;
+    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.HearAccidentalPlay;
 
     private bool ShowsAccidentalSelector => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
@@ -29,6 +29,7 @@ public partial class Home
         DrillMode.NameNote or
         DrillMode.NameAccidental or
         DrillMode.HearNotePlay or
+        DrillMode.MelodyEcho or
         DrillMode.HearAccidentalPlay;
 
     private Pitch? KeyboardHighlightedPitch => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental ? currentPitch : null;
@@ -44,6 +45,7 @@ public partial class Home
         DrillMode.NameAccidental => Localizer["NameAccidentalTitle"],
         DrillMode.PlaceAccidental => Localizer["PlaceAccidentalTitle"],
         DrillMode.HearNotePlay => Localizer["HearPlayTitle"],
+        DrillMode.MelodyEcho => Localizer["MelodyEchoTitle"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayTitle"],
         DrillMode.HearNotePlace => Localizer["HearPlaceTitle"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
@@ -56,6 +58,7 @@ public partial class Home
         DrillMode.NameAccidental => Localizer["NameAccidentalPrompt"],
         DrillMode.PlaceAccidental => Localizer.Format("PlaceAccidentalPrompt", GetPromptName(currentPitch)),
         DrillMode.HearNotePlay => Localizer["HearPlayPrompt"],
+        DrillMode.MelodyEcho => Localizer["MelodyEchoPrompt"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
         DrillMode.HearNotePlace => Localizer["HearPlacePrompt"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
@@ -64,7 +67,7 @@ public partial class Home
     private IReadOnlyList<Pitch> CurrentNotes => mode switch
     {
         DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearAccidentalPlay => TrebleClef.BeginnerAccidentalNotes,
-        DrillMode.NameNote or DrillMode.HearNotePlay => TrebleClef.BeginnerReadingNotes,
+        DrillMode.NameNote or DrillMode.HearNotePlay or DrillMode.MelodyEcho => TrebleClef.BeginnerReadingNotes,
         DrillMode.PlaceNote or DrillMode.HearNotePlace => TrebleClef.BeginnerPlacementNotes,
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
     };
@@ -79,9 +82,17 @@ public partial class Home
         }
 
         mode = nextMode;
+        melodyDemonstrationVersion++;
         previousPitch = null;
         NextRound();
-        await PlayAssignmentNoteIfNeeded();
+        if (IsMelodyEchoMode)
+        {
+            await DemonstrateMelodyPhrase();
+        }
+        else
+        {
+            await PlayAssignmentNoteIfNeeded();
+        }
     }
 
     private async Task SelectKeyboardPitch(Pitch pitch)
@@ -92,16 +103,27 @@ public partial class Home
             return;
         }
 
-        await ChoosePitch(pitch);
+        await HandlePlayedMidiNote(pitch.MidiNote);
     }
 
     private async Task ChoosePitch(Pitch pitch)
     {
-        await ChooseMidiNote(pitch.MidiNote);
+        await HandlePlayedMidiNote(pitch.MidiNote);
     }
 
-    private async Task ChooseMidiNote(int midiNote)
+    private async Task HandlePlayedMidiNote(int midiNote, bool playInputSound = false)
     {
+        if (playInputSound)
+        {
+            await Audio.PlayMidiNoteAsync(midiNote);
+        }
+
+        if (IsMelodyEchoMode)
+        {
+            await SubmitMelodyNote(midiNote);
+            return;
+        }
+
         var isCorrect = midiNote == currentPitch.MidiNote;
         await PlayClickCue(isCorrect, currentPitch);
         await RecordAnswer(isCorrect);
@@ -197,12 +219,26 @@ public partial class Home
 
     private async Task AdvanceRound()
     {
+        melodyDemonstrationVersion++;
         NextRound();
-        await PlayAssignmentNoteIfNeeded();
+        if (IsMelodyEchoMode)
+        {
+            await DemonstrateMelodyPhrase();
+        }
+        else
+        {
+            await PlayAssignmentNoteIfNeeded();
+        }
     }
 
     private void NextRound()
     {
+        if (IsMelodyEchoMode)
+        {
+            StartNewMelodyPhrase();
+            return;
+        }
+
         var notes = CurrentNotes;
         currentPitch = PickRandomPitch(notes);
         previousPitch = currentPitch;
@@ -215,6 +251,7 @@ public partial class Home
             DrillMode.NameAccidental => "PickAccidentalNameFeedback",
             DrillMode.PlaceAccidental => "PickAccidentalStaffFeedback",
             DrillMode.HearNotePlay => "PickHeardKeyFeedback",
+            DrillMode.MelodyEcho => "MelodyEchoListenFeedback",
             DrillMode.HearAccidentalPlay => "PickHeardBlackKeyFeedback",
             DrillMode.HearNotePlace => "PickHeardStaffFeedback",
             _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
@@ -305,6 +342,12 @@ public partial class Home
 
     private async Task PlayAssignmentNoteIfNeeded()
     {
+        if (IsMelodyEchoMode)
+        {
+            await DemonstrateMelodyPhrase();
+            return;
+        }
+
         if (IsHearingMode)
         {
             await PlayAssignmentNote();

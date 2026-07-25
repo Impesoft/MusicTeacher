@@ -464,6 +464,20 @@
   <data name="MidiInvitationManageAction" xml:space="preserve"><value>Beheren</value></data>
   <data name="MidiConnectShort" xml:space="preserve"><value>MIDI-keyboard verbinden</value></data>
   <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI-keyboard verbonden</value></data>
+  <data name="MelodyEchoMode" xml:space="preserve"><value>Melodie nazeggen</value></data>
+  <data name="MelodyEchoTitle" xml:space="preserve"><value>Speel de melodie na</value></data>
+  <data name="MelodyEchoPrompt" xml:space="preserve"><value>Luister en speel daarna de noten in dezelfde volgorde.</value></data>
+  <data name="MelodyEchoReplay" xml:space="preserve"><value>Melodie opnieuw horen</value></data>
+  <data name="MelodyEchoListenFeedback" xml:space="preserve"><value>Luister goed…</value></data>
+  <data name="MelodyEchoYourTurnFeedback" xml:space="preserve"><value>Jouw beurt! Het tempo maakt nog niet uit.</value></data>
+  <data name="MelodyEchoTryAgainFeedback" xml:space="preserve"><value>Probeer noot {0} opnieuw. Neem gerust je tijd.</value></data>
+  <data name="MelodyEchoProgressFeedback" xml:space="preserve"><value>Goed! {0} van {1} noten kloppen.</value></data>
+  <data name="MelodyEchoCompleteFeedback" xml:space="preserve"><value>Perfecte melodie!</value></data>
+  <data name="MelodyEchoCompleteWithMistakesFeedback" xml:space="preserve"><value>Je hebt de melodie voltooid. Probeer nu een nieuwe!</value></data>
+  <data name="MelodyEchoProgressLabel" xml:space="preserve"><value>Voortgang van de melodie</value></data>
+  <data name="MelodyEchoProgress" xml:space="preserve"><value>{0} van {1}</value></data>
+  <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melodiegeheugen</value></data>
+  <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Korte melodieën naspelen ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

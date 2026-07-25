@@ -76,6 +76,17 @@ public sealed class PitchSequenceEvaluatorTests
         Assert.Throws<ArgumentException>(() => new PitchSequenceEvaluator([]));
     }
 
+    [Fact]
+    public void SequenceIsCopiedAtConstruction()
+    {
+        var notes = new List<int> { 60, 62 };
+        var evaluator = new PitchSequenceEvaluator(notes);
+
+        notes[0] = 72;
+
+        Assert.Equal(PitchSequenceStepResult.Correct, evaluator.SubmitNote(60).Result);
+    }
+
     [Theory]
     [InlineData(-1)]
     [InlineData(128)]

@@ -51,6 +51,7 @@ public partial class Home
         new(DrillMode.NameAccidental, "accidentals", "BadgeAccidentalsTitle", "BadgeAccidentalsDescription", "♯"),
         new(DrillMode.PlaceAccidental, "place-accidentals", "BadgePlaceAccidentalsTitle", "BadgePlaceAccidentalsDescription", "♭"),
         new(DrillMode.HearNotePlay, "ear-training", "BadgeEarTrainingTitle", "BadgeEarTrainingDescription", "♪"),
+        new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
         new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
@@ -168,7 +169,7 @@ public partial class Home
 
         if (change.IsPressed && AcceptsMidiKeyAnswers && IsMidiNoteInVisibleRange(change.MidiNote))
         {
-            await InvokeAsync(() => ChooseMidiNote(change.MidiNote));
+            await InvokeAsync(() => HandlePlayedMidiNote(change.MidiNote, playInputSound: true));
         }
     }
 
@@ -232,6 +233,9 @@ public partial class Home
 
     private void ReturnToStart()
     {
+        melodyDemonstrationVersion++;
+        isDemonstratingMelody = false;
+        teacherDemonstratedMidiNote = null;
         hasStarted = false;
     }
 
@@ -356,6 +360,7 @@ public partial class Home
         NameAccidental,
         PlaceAccidental,
         HearNotePlay,
+        MelodyEcho,
         HearAccidentalPlay,
         HearNotePlace
     }

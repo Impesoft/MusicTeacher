@@ -193,8 +193,8 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Curriculum and staged release plan documented.
 - [x] Release 1 phrase model and evaluator.
 - [x] Release 1 evaluator unit tests.
-- [ ] Melody Echo activity UI and playback.
-- [ ] Melody Echo unlock and progress persistence.
+- [x] Melody Echo activity UI and playback.
+- [x] Melody Echo unlock and progress persistence.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Beat theory and tapping activity.
 - [ ] Duration theory and hold exercises.

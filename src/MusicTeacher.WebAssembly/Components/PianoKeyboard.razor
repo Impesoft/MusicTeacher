@@ -12,6 +12,7 @@
         {
             <button type="button"
                     class="@GetWhiteKeyClass(pitch)"
+                    disabled="@IsDisabled"
                     data-pitch="@pitch.ScientificName"
                     aria-label="@GetPitchLabel(pitch)"
                     @onpointerenter="() => PreviewPitch(pitch)"
@@ -25,6 +26,7 @@
         {
             <button type="button"
                     class="@GetBlackKeyClass(key)"
+                    disabled="@IsDisabled"
                     data-pitch="@key.SharpPitch.ScientificName"
                     aria-label="@GetBlackKeyLabel(key)"
                     style="@GetBlackKeyStyle(key.WhiteKeyIndex)"
@@ -62,6 +64,12 @@
 
     [Parameter]
     public IReadOnlySet<int> PressedMidiNotes { get; set; } = new HashSet<int>();
+
+    [Parameter]
+    public int? DemonstratedMidiNote { get; set; }
+
+    [Parameter]
+    public bool IsDisabled { get; set; }
 
     [Parameter]
     public bool UseAlphabeticalNoteNames { get; set; }
@@ -108,6 +116,7 @@
     {
         var classes = new List<string> { baseClass };
         if (highlighted) classes.Add("is-highlighted");
+        if (DemonstratedMidiNote == midiNote) classes.Add("is-demonstrated");
         if (PressedMidiNotes.Contains(midiNote)) classes.Add("is-pressed");
         return string.Join(' ', classes);
     }

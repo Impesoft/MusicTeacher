@@ -1603,6 +1603,12 @@ h1:focus {
     transform: translateY(4px);
 }
 
+.piano-white-key.is-demonstrated {
+    background: linear-gradient(180deg, #fff9d7 0%, #ffc857 100%);
+    box-shadow: inset 0 -4px 0 #b87800;
+    transform: translateY(3px);
+}
+
 .piano-white-key span {
     color: var(--key-label);
     font-size: clamp(0.76rem, 1.6vw, 1.1rem);
@@ -1669,6 +1675,45 @@ h1:focus {
     outline: 2px solid #d8f7ff;
     outline-offset: -2px;
     transform: translateY(3px);
+}
+
+.piano-black-key.is-demonstrated {
+    background: linear-gradient(180deg, #ffd870 0%, #a96b00 100%);
+    outline: 2px solid #fff3b0;
+    outline-offset: -2px;
+    transform: translateY(2px);
+}
+
+.melody-echo-progress {
+    align-items: center;
+    display: flex;
+    gap: 0.45rem;
+    justify-content: center;
+    margin: 0.25rem 0 0.7rem;
+}
+
+.melody-echo-progress span {
+    align-items: center;
+    background: var(--surface-muted-strong);
+    border: 2px solid var(--border-medium);
+    border-radius: 50%;
+    color: var(--text-muted);
+    display: inline-flex;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+}
+
+.melody-echo-progress span.is-complete {
+    background: var(--success-highlight);
+    border-color: #2f9a44;
+    color: #17212b;
+}
+
+.melody-echo-progress small {
+    color: var(--text-muted);
+    font-weight: 900;
+    margin-left: 0.35rem;
 }
 
 .midi-device-select {
