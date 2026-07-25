@@ -335,7 +335,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.ReloadAsync();
 
         await page.GetByRole(AriaRole.Button, new() { Name = "Theory" }).ClickAsync();
-        await Assertions.Expect(page.GetByText("Page 1/21")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 1/22")).ToBeVisibleAsync();
 
         for (var index = 0; index < 19; index++)
         {
@@ -347,13 +347,23 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByLabel("A long sound lasting all four beats")).ToBeVisibleAsync();
 
         await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
-        await Assertions.Expect(page.GetByText("Page 21/21")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Page 21/22")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Count how long the sound lasts" })).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByLabel("One-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByLabel("Two-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
         await Assertions.Expect(page.GetByLabel("Four-beat sound shown across a four-beat ruler")).ToBeVisibleAsync();
         await page.GetByRole(AriaRole.Button, new() { Name = "Listen: 2 beats" }).ClickAsync();
         await Assertions.Expect(page.GetByText("Listen with your eyes closed too.", new() { Exact = false })).ToBeVisibleAsync();
+
+        await page.GetByRole(AriaRole.Button, new() { Name = "Next theory page" }).ClickAsync();
+        await Assertions.Expect(page.GetByText("Page 22/22")).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Meet the note-value symbols" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Img, new() { Name = "Quarter-note symbol: filled note head with a stem" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Img, new() { Name = "Half-note symbol: open note head with a stem" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Img, new() { Name = "Whole-note symbol: open note head without a stem" })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Quarter note", new() { Exact = true })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Half note", new() { Exact = true })).ToBeVisibleAsync();
+        await Assertions.Expect(page.GetByText("Whole note", new() { Exact = true })).ToBeVisibleAsync();
     }
 
     [E2EFact]

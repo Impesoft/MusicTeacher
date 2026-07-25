@@ -71,6 +71,7 @@ public partial class Home
         pages.Add(new TheoryPage(2, "TheorySteadyBeatTitle", "TheorySteadyBeatSummary", "TheorySteadyBeatBody", TheoryVisual.Beat));
         pages.Add(new TheoryPage(3, "TheorySoundLengthTitle", "TheorySoundLengthSummary", "TheorySoundLengthBody", TheoryVisual.DurationContrast));
         pages.Add(new TheoryPage(3, "TheoryBeatDurationsTitle", "TheoryBeatDurationsSummary", "TheoryBeatDurationsBody", TheoryVisual.BeatDurations));
+        pages.Add(new TheoryPage(3, "TheoryNoteValuesTitle", "TheoryNoteValuesSummary", "TheoryNoteValuesBody", TheoryVisual.NoteValues));
 
         return pages;
     }
@@ -85,6 +86,7 @@ public partial class Home
         Keyboard,
         Beat,
         DurationContrast,
-        BeatDurations
+        BeatDurations,
+        NoteValues
     }
 }

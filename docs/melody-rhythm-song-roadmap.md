@@ -200,6 +200,7 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Beat tapping with touch, Space, and pitch-neutral MIDI input.
 - [x] Long-versus-short sound theory using beat-count visuals.
 - [x] Audible one-, two-, and four-beat duration theory.
+- [x] Quarter-, half-, and whole-note symbols introduced after beat counts.
 - [ ] Explicit skill/prerequisite unlock model.
 - [ ] Duration theory and hold exercises.
 - [ ] Rhythm Echo.

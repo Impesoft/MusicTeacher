@@ -465,6 +465,16 @@
   <data name="TheoryBeatDuration2PatternLabel" xml:space="preserve"><value>Klank van twee tellen op een lijn van vier tellen</value></data>
   <data name="TheoryBeatDuration4PatternLabel" xml:space="preserve"><value>Klank van vier tellen op een lijn van vier tellen</value></data>
   <data name="TheoryListenForBeats" xml:space="preserve"><value>Luister: {0} tellen</value></data>
+  <data name="TheoryNoteValuesTitle" xml:space="preserve"><value>Maak kennis met de nootwaarden</value></data>
+  <data name="TheoryNoteValuesSummary" xml:space="preserve"><value>Muzikanten gebruiken verschillende symbolen voor klanken van één, twee en vier tellen.</value></data>
+  <data name="TheoryNoteValuesBody" xml:space="preserve"><value>Je kent deze klanklengtes al. Nu krijgt elke lengte haar geschreven naam en vorm. Een gevulde noot met een stok duurt één tel, een open noot met een stok duurt twee tellen en een open noot zonder stok duurt vier tellen.</value></data>
+  <data name="TheoryNoteValuesCallout" xml:space="preserve"><value>Tel eerst de tellen. Het symbool helpt je snel onthouden hoelang de klank moet doorgaan.</value></data>
+  <data name="TheoryNoteValue1Name" xml:space="preserve"><value>Kwartnoot</value></data>
+  <data name="TheoryNoteValue2Name" xml:space="preserve"><value>Halve noot</value></data>
+  <data name="TheoryNoteValue4Name" xml:space="preserve"><value>Hele noot</value></data>
+  <data name="TheoryNoteValue1SymbolLabel" xml:space="preserve"><value>Symbool van een kwartnoot: gevulde nootkop met een stok</value></data>
+  <data name="TheoryNoteValue2SymbolLabel" xml:space="preserve"><value>Symbool van een halve noot: open nootkop met een stok</value></data>
+  <data name="TheoryNoteValue4SymbolLabel" xml:space="preserve"><value>Symbool van een hele noot: open nootkop zonder stok</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Profiel aanpassen</value>
   </data>

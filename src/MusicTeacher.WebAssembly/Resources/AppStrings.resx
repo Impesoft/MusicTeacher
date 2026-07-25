@@ -465,6 +465,16 @@
   <data name="TheoryBeatDuration2PatternLabel" xml:space="preserve"><value>Two-beat sound shown across a four-beat ruler</value></data>
   <data name="TheoryBeatDuration4PatternLabel" xml:space="preserve"><value>Four-beat sound shown across a four-beat ruler</value></data>
   <data name="TheoryListenForBeats" xml:space="preserve"><value>Listen: {0} beats</value></data>
+  <data name="TheoryNoteValuesTitle" xml:space="preserve"><value>Meet the note-value symbols</value></data>
+  <data name="TheoryNoteValuesSummary" xml:space="preserve"><value>Musicians use different symbols for one-, two-, and four-beat sounds.</value></data>
+  <data name="TheoryNoteValuesBody" xml:space="preserve"><value>You already know these sound lengths. Now give each one its written name and shape. A filled note with a stem lasts one beat, an open note with a stem lasts two beats, and an open note without a stem lasts four beats.</value></data>
+  <data name="TheoryNoteValuesCallout" xml:space="preserve"><value>First count the beats. The symbol is a quick way to remember how long to keep the sound going.</value></data>
+  <data name="TheoryNoteValue1Name" xml:space="preserve"><value>Quarter note</value></data>
+  <data name="TheoryNoteValue2Name" xml:space="preserve"><value>Half note</value></data>
+  <data name="TheoryNoteValue4Name" xml:space="preserve"><value>Whole note</value></data>
+  <data name="TheoryNoteValue1SymbolLabel" xml:space="preserve"><value>Quarter-note symbol: filled note head with a stem</value></data>
+  <data name="TheoryNoteValue2SymbolLabel" xml:space="preserve"><value>Half-note symbol: open note head with a stem</value></data>
+  <data name="TheoryNoteValue4SymbolLabel" xml:space="preserve"><value>Whole-note symbol: open note head without a stem</value></data>
   <data name="CustomizeProfileTitle" xml:space="preserve">
     <value>Customize Profile</value>
   </data>

@@ -1475,14 +1475,65 @@ h1:focus {
     transform: translateY(-1px);
 }
 
+.note-values-theory-visual {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.note-value-card {
+    align-items: center;
+    background: var(--surface-muted-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 10px;
+    color: var(--ink);
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: auto 1fr;
+    padding: 1rem;
+}
+
+.note-value-symbol {
+    color: var(--ink);
+    height: 6rem;
+    width: 4rem;
+}
+
+.note-value-card div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.note-value-card strong {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
+}
+
+.note-value-card span {
+    color: var(--text-muted);
+    font-weight: 900;
+}
+
+.note-value-card .duration-listen-button {
+    grid-column: 1 / -1;
+}
+
+.note-values-theory-visual .theory-callout {
+    grid-column: 1 / -1;
+    margin-top: 0;
+}
+
 @media (max-width: 42rem) {
     .duration-theory-visual,
-    .beat-duration-theory-visual {
+    .beat-duration-theory-visual,
+    .note-values-theory-visual {
         grid-template-columns: 1fr;
     }
 
     .duration-theory-visual .theory-callout,
-    .beat-duration-theory-visual .theory-callout {
+    .beat-duration-theory-visual .theory-callout,
+    .note-values-theory-visual .theory-callout {
         grid-column: auto;
     }
 }

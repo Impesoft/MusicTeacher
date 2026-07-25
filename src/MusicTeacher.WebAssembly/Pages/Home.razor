@@ -240,6 +240,28 @@ else if (practiceMode == PracticeMode.Theory)
                     <p class="theory-callout">@Localizer["TheoryBeatDurationsCallout"]</p>
                 </div>
             }
+            else if (CurrentTheoryPage.Visual == TheoryVisual.NoteValues)
+            {
+                <div class="theory-visual note-values-theory-visual">
+                    @foreach (var beatLength in new[] { 1, 2, 4 })
+                    {
+                        <div class="note-value-card">
+                            <NoteValueSymbol Beats="@beatLength"
+                                             AriaLabel="@Localizer[$"TheoryNoteValue{beatLength}SymbolLabel"]" />
+                            <div>
+                                <strong>@Localizer[$"TheoryNoteValue{beatLength}Name"]</strong>
+                                <span>@Localizer.Format("TheoryBeatDurationLabel", beatLength)</span>
+                            </div>
+                            <button class="duration-listen-button"
+                                    type="button"
+                                    @onclick="() => PlayTheoryDuration(beatLength)">
+                                @Localizer.Format("TheoryListenForBeats", beatLength)
+                            </button>
+                        </div>
+                    }
+                    <p class="theory-callout">@Localizer["TheoryNoteValuesCallout"]</p>
+                </div>
+            }
         </div>
     </section>
 }
