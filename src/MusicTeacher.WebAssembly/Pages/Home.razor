@@ -243,6 +243,12 @@ else
                         @onclick="() => SetMode(DrillMode.HearNotePlay)">
                     @Localizer["HearPlayMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.BeatTap)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.BeatTap)"
+                        @onclick="() => SetMode(DrillMode.BeatTap)">
+                    @Localizer["BeatTapMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.MelodyEcho)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.MelodyEcho)"
@@ -345,6 +351,43 @@ else
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
+            }
+
+            @if (IsBeatTapMode)
+            {
+                <div class="beat-tap-stage">
+                    <div class="beat-tap-pulse @(isBeatTapActive ? "is-active" : null)" aria-hidden="true">
+                        @(beatCountIn > 0 ? beatCountIn : "●")
+                    </div>
+                    <div class="beat-tap-progress"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="@RequiredBeatTaps"
+                         aria-valuenow="@BeatTapCount"
+                         aria-label="@Localizer["BeatTapProgressLabel"]">
+                        @for (var tapIndex = 0; tapIndex < RequiredBeatTaps; tapIndex++)
+                        {
+                            <span class="@(tapIndex < BeatTapCount ? "is-complete" : null)" aria-hidden="true"></span>
+                        }
+                        <small>@Localizer.Format("BeatTapProgress", BeatTapCount, RequiredBeatTaps)</small>
+                    </div>
+                    @if (!isBeatTapActive)
+                    {
+                        <button class="beat-start-button"
+                                type="button"
+                                disabled="@(beatCountIn > 0)"
+                                @onclick="StartBeatRound">
+                            @(beatCountIn > 0 ? Localizer["BeatTapCountIn"] : Localizer["BeatTapStart"])
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="beat-tap-button" type="button" @onclick="RegisterBeatTap">
+                            @Localizer["BeatTapButton"]
+                            <small>@Localizer["BeatTapInputHint"]</small>
+                        </button>
+                    }
+                </div>
             }
 
             @if (ShowsAccidentalSelector)

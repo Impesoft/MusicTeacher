@@ -1755,6 +1755,105 @@ h1:focus {
     margin-left: 0.35rem;
 }
 
+.beat-tap-stage {
+    align-items: center;
+    background: var(--surface-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.beat-tap-pulse {
+    align-items: center;
+    aspect-ratio: 1;
+    background: var(--surface-muted-strong);
+    border: 4px solid var(--border-strong);
+    border-radius: 50%;
+    color: var(--ink);
+    display: flex;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 1000;
+    justify-content: center;
+    width: clamp(5rem, 18vw, 8rem);
+}
+
+.beat-tap-pulse.is-active {
+    animation: beat-pulse 600ms ease-in-out infinite;
+    background: var(--accent);
+}
+
+.beat-tap-progress {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    justify-content: center;
+}
+
+.beat-tap-progress span {
+    background: var(--surface-muted-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 50%;
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
+.beat-tap-progress span.is-complete {
+    background: var(--accent);
+    border-color: var(--border-strong);
+}
+
+.beat-tap-progress small {
+    color: var(--text-muted);
+    flex-basis: 100%;
+    font-weight: 900;
+    text-align: center;
+}
+
+.beat-start-button,
+.beat-tap-button {
+    background: var(--accent);
+    border: 3px solid var(--border-strong);
+    border-radius: 12px;
+    box-shadow: 0 0.3rem 0 var(--border-soft);
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: clamp(1.15rem, 3vw, 1.5rem);
+    font-weight: 1000;
+    min-height: 4.5rem;
+    padding: 0.8rem 1.4rem;
+}
+
+.beat-tap-button {
+    min-width: min(100%, 24rem);
+}
+
+.beat-tap-button small {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.beat-start-button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+@keyframes beat-pulse {
+    0%, 100% { transform: scale(0.88); }
+    20% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .beat-tap-pulse.is-active {
+        animation: none;
+    }
+}
+
 .midi-device-select {
     background: var(--surface);
     border: 2px solid var(--ink);

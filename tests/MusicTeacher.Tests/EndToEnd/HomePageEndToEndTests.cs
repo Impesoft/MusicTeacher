@@ -78,6 +78,49 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task TapTheBeatUnlocksAndAcceptsTheSpaceKey()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var beatMode = page.GetByRole(AriaRole.Button, new() { Name = "Tap the beat", Exact = true });
+        await Assertions.Expect(beatMode).ToBeEnabledAsync();
+        await beatMode.ClickAsync();
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Listen to the count-in, then keep tapping at the same speed." })).ToBeVisibleAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Start count-in" }).ClickAsync();
+
+        var tapButton = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("^Tap!") });
+        await Assertions.Expect(tapButton).ToBeVisibleAsync(new() { Timeout = 5_000 });
+        await tapButton.PressAsync("Space");
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Progressbar, new() { Name = "Beat tap progress" }))
+            .ToHaveAttributeAsync("aria-valuenow", "1");
+    }
+
+    [E2EFact]
     public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

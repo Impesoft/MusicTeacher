@@ -183,6 +183,9 @@
   <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
     <value>{0} is open now. New theory pages for sharps, flats, and black keys are open too.</value>
   </data>
+  <data name="UnlockToastMelodyAndBeatMessage" xml:space="preserve">
+    <value>{0} and {1} are open now. You can grow your melody and rhythm skills separately.</value>
+  </data>
   <data name="DismissToast" xml:space="preserve">
     <value>Dismiss message</value>
   </data>
@@ -498,6 +501,26 @@
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Listen to all four or five notes, then play them in order.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melody Explorer</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
+  <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>
+  <data name="BeatTapTitle" xml:space="preserve"><value>Keep a steady beat</value></data>
+  <data name="BeatTapPrompt" xml:space="preserve"><value>Listen to the count-in, then keep tapping at the same speed.</value></data>
+  <data name="BeatTapStart" xml:space="preserve"><value>Start count-in</value></data>
+  <data name="BeatTapCountIn" xml:space="preserve"><value>Listen…</value></data>
+  <data name="BeatTapButton" xml:space="preserve"><value>Tap!</value></data>
+  <data name="BeatTapInputHint" xml:space="preserve"><value>Click, touch, press Space, or play any MIDI key</value></data>
+  <data name="BeatTapProgressLabel" xml:space="preserve"><value>Beat tap progress</value></data>
+  <data name="BeatTapProgress" xml:space="preserve"><value>{0} of {1} taps</value></data>
+  <data name="BeatTapReadyFeedback" xml:space="preserve"><value>Start when you are ready.</value></data>
+  <data name="BeatTapCountInFeedback" xml:space="preserve"><value>Listen and feel the pulse: {0}</value></data>
+  <data name="BeatTapNowFeedback" xml:space="preserve"><value>Your turn—keep that beat going!</value></data>
+  <data name="BeatTapEarlyFeedback" xml:space="preserve"><value>A little early. Keep going! {0}/{1}</value></data>
+  <data name="BeatTapLateFeedback" xml:space="preserve"><value>A little late. Keep going! {0}/{1}</value></data>
+  <data name="BeatTapOnBeatFeedback" xml:space="preserve"><value>Right on the beat! {0}/{1}</value></data>
+  <data name="BeatTapCompleteFeedback" xml:space="preserve"><value>Great steady beat!</value></data>
+  <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Good try! Listen to the count-in and make the spaces between taps more even.</value></data>
+  <data name="BeatTapLearningGoal" xml:space="preserve"><value>Steady rounds: {0}/{1}. This rhythm path grows separately from melody practice.</value></data>
+  <data name="BadgeSteadyBeatTitle" xml:space="preserve"><value>Beat Keeper</value></data>
+  <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Unlocked steady-beat practice.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>

@@ -17,6 +17,8 @@ public partial class Home
 
     private bool IsHearingMode => mode is DrillMode.HearNotePlay or DrillMode.HearAccidentalPlay or DrillMode.HearNotePlace;
 
+    private bool IsBeatTapMode => mode == DrillMode.BeatTap;
+
     private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
     private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.HearAccidentalPlay;
@@ -46,6 +48,7 @@ public partial class Home
         DrillMode.NameAccidental => Localizer["NameAccidentalTitle"],
         DrillMode.PlaceAccidental => Localizer["PlaceAccidentalTitle"],
         DrillMode.HearNotePlay => Localizer["HearPlayTitle"],
+        DrillMode.BeatTap => Localizer["BeatTapTitle"],
         DrillMode.MelodyEcho => Localizer["MelodyEchoTitle"],
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongTitle"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayTitle"],
@@ -60,6 +63,7 @@ public partial class Home
         DrillMode.NameAccidental => Localizer["NameAccidentalPrompt"],
         DrillMode.PlaceAccidental => Localizer.Format("PlaceAccidentalPrompt", GetPromptName(currentPitch)),
         DrillMode.HearNotePlay => Localizer["HearPlayPrompt"],
+        DrillMode.BeatTap => Localizer["BeatTapPrompt"],
         DrillMode.MelodyEcho => Localizer["MelodyEchoPrompt"],
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongPrompt"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
@@ -86,6 +90,7 @@ public partial class Home
 
         mode = nextMode;
         melodyDemonstrationVersion++;
+        beatRoundVersion++;
         previousPitch = null;
         NextRound();
         if (IsMelodyEchoMode)
@@ -223,6 +228,7 @@ public partial class Home
     private async Task AdvanceRound()
     {
         melodyDemonstrationVersion++;
+        beatRoundVersion++;
         NextRound();
         if (IsMelodyEchoMode)
         {
@@ -236,6 +242,12 @@ public partial class Home
 
     private void NextRound()
     {
+        if (IsBeatTapMode)
+        {
+            ResetBeatRound();
+            return;
+        }
+
         if (IsMelodyEchoMode)
         {
             StartNewMelodyPhrase();
@@ -365,11 +377,22 @@ public partial class Home
             ?? new BadgeAward(unlockedMode, GetModeKey(unlockedMode), GetModeLabelKey(unlockedMode), GetModeLabelKey(unlockedMode), "★");
 
         earnedBadgeIds.Add(badge.Id);
+        if (unlockedMode == DrillMode.MelodyEcho)
+        {
+            var beatBadge = BadgeAwards.First(award => award.Mode == DrillMode.BeatTap);
+            earnedBadgeIds.Add(beatBadge.Id);
+        }
         await SaveEarnedBadges();
 
-        var message = unlockedMode == DrillMode.NameAccidental
-            ? Localizer.Format("UnlockToastAccidentalsMessage", modeName)
-            : Localizer.Format("UnlockToastMessage", modeName);
+        var message = unlockedMode switch
+        {
+            DrillMode.NameAccidental => Localizer.Format("UnlockToastAccidentalsMessage", modeName),
+            DrillMode.MelodyEcho => Localizer.Format(
+                "UnlockToastMelodyAndBeatMessage",
+                modeName,
+                Localizer[GetModeLabelKey(DrillMode.BeatTap)]),
+            _ => Localizer.Format("UnlockToastMessage", modeName)
+        };
 
         unlockToast = new UnlockToastViewModel(
             message,

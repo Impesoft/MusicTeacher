@@ -183,6 +183,9 @@
   <data name="UnlockToastAccidentalsMessage" xml:space="preserve">
     <value>{0} is nu open. Nieuwe theorie over kruisen, mollen en zwarte toetsen is ook open.</value>
   </data>
+  <data name="UnlockToastMelodyAndBeatMessage" xml:space="preserve">
+    <value>{0} en {1} zijn nu open. Je kunt melodie en ritme los van elkaar oefenen.</value>
+  </data>
   <data name="DismissToast" xml:space="preserve">
     <value>Melding sluiten</value>
   </data>
@@ -498,6 +501,26 @@
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Luister naar alle vier of vijf noten en speel ze daarna in volgorde.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
+  <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>
+  <data name="BeatTapTitle" xml:space="preserve"><value>Houd een vaste tel</value></data>
+  <data name="BeatTapPrompt" xml:space="preserve"><value>Luister naar het aftellen en blijf daarna even snel tikken.</value></data>
+  <data name="BeatTapStart" xml:space="preserve"><value>Start aftellen</value></data>
+  <data name="BeatTapCountIn" xml:space="preserve"><value>Luister…</value></data>
+  <data name="BeatTapButton" xml:space="preserve"><value>Tik!</value></data>
+  <data name="BeatTapInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
+  <data name="BeatTapProgressLabel" xml:space="preserve"><value>Voortgang van de tellen</value></data>
+  <data name="BeatTapProgress" xml:space="preserve"><value>{0} van {1} tikken</value></data>
+  <data name="BeatTapReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent.</value></data>
+  <data name="BeatTapCountInFeedback" xml:space="preserve"><value>Luister en voel de tel: {0}</value></data>
+  <data name="BeatTapNowFeedback" xml:space="preserve"><value>Jij bent aan de beurt—houd die tel vast!</value></data>
+  <data name="BeatTapEarlyFeedback" xml:space="preserve"><value>Een beetje te vroeg. Ga door! {0}/{1}</value></data>
+  <data name="BeatTapLateFeedback" xml:space="preserve"><value>Een beetje te laat. Ga door! {0}/{1}</value></data>
+  <data name="BeatTapOnBeatFeedback" xml:space="preserve"><value>Precies op de tel! {0}/{1}</value></data>
+  <data name="BeatTapCompleteFeedback" xml:space="preserve"><value>Knap, dat was een vaste tel!</value></data>
+  <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Goed geprobeerd! Luister naar het aftellen en maak de tijd tussen je tikken gelijkmatiger.</value></data>
+  <data name="BeatTapLearningGoal" xml:space="preserve"><value>Vaste rondes: {0}/{1}. Dit ritmepad groeit los van de melodie-oefeningen.</value></data>
+  <data name="BadgeSteadyBeatTitle" xml:space="preserve"><value>Maatmaatje</value></data>
+  <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Oefenen met een vaste tel ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

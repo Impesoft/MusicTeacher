@@ -51,6 +51,7 @@ public partial class Home
         new(DrillMode.NameAccidental, "accidentals", "BadgeAccidentalsTitle", "BadgeAccidentalsDescription", "♯"),
         new(DrillMode.PlaceAccidental, "place-accidentals", "BadgePlaceAccidentalsTitle", "BadgePlaceAccidentalsDescription", "♭"),
         new(DrillMode.HearNotePlay, "ear-training", "BadgeEarTrainingTitle", "BadgeEarTrainingDescription", "♪"),
+        new(DrillMode.BeatTap, "steady-beat", "BadgeSteadyBeatTitle", "BadgeSteadyBeatDescription", "●"),
         new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
@@ -168,7 +169,11 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (change.IsPressed && AcceptsMidiKeyAnswers && IsMidiNoteInVisibleRange(change.MidiNote))
+        if (change.IsPressed && mode == DrillMode.BeatTap)
+        {
+            await InvokeAsync(RegisterBeatTap);
+        }
+        else if (change.IsPressed && AcceptsMidiKeyAnswers && IsMidiNoteInVisibleRange(change.MidiNote))
         {
             await InvokeAsync(() => HandlePlayedMidiNote(change.MidiNote, playInputSound: true));
         }
@@ -235,6 +240,7 @@ public partial class Home
     private void ReturnToStart()
     {
         melodyDemonstrationVersion++;
+        beatRoundVersion++;
         isDemonstratingMelody = false;
         teacherDemonstratedMidiNote = null;
         hasStarted = false;
@@ -361,6 +367,7 @@ public partial class Home
         NameAccidental,
         PlaceAccidental,
         HearNotePlay,
+        BeatTap,
         MelodyEcho,
         MelodyEchoLong,
         HearAccidentalPlay,
