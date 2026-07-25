@@ -1329,6 +1329,27 @@ h1:focus {
         color-mix(in srgb, var(--paper) 94%, transparent);
 }
 
+.theory-board .prompt-row > :first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.theory-board .prompt-row {
+    align-items: flex-start;
+}
+
+.theory-board .prompt-actions {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    min-width: max-content;
+}
+
+.theory-nav-icon {
+    display: none;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
 .theory-copy {
     color: var(--text-muted);
     font-size: clamp(1rem, 2vw, 1.18rem);
@@ -2444,6 +2465,24 @@ h1:focus {
     .listen-button,
     .next-button {
         width: 100%;
+    }
+
+    .theory-board .prompt-actions {
+        min-width: 0;
+    }
+
+    .theory-board .next-button {
+        flex: 1 1 0;
+        padding-inline: 0.75rem;
+        width: auto;
+    }
+
+    .theory-nav-text {
+        display: none;
+    }
+
+    .theory-nav-icon {
+        display: inline;
     }
 
     .piano-keyboard {

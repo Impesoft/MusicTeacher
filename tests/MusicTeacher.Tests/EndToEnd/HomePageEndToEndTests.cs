@@ -218,6 +218,62 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task TheoryNavigationStaysSideBySideWithLongDutchTitles()
+    {
+        await page!.SetViewportSizeAsync(850, 700);
+        await page.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'nl');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'place-note': {
+                            Attempts: 10,
+                            CorrectAnswers: 10,
+                            Streak: 10,
+                            BestStreak: 10
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Theorie" }).ClickAsync();
+
+        var previous = page.GetByRole(AriaRole.Button, new() { Name = "Vorige theoriepagina" });
+        var next = page.GetByRole(AriaRole.Button, new() { Name = "Volgende theoriepagina" });
+        var previousBox = await previous.BoundingBoxAsync();
+        var nextBox = await next.BoundingBoxAsync();
+
+        Assert.NotNull(previousBox);
+        Assert.NotNull(nextBox);
+        Assert.True(Math.Abs(previousBox.Y - nextBox.Y) < 2);
+        await Assertions.Expect(previous.Locator(".theory-nav-text")).ToBeVisibleAsync();
+        await Assertions.Expect(next.Locator(".theory-nav-text")).ToBeVisibleAsync();
+
+        var initialActionY = previousBox.Y;
+        for (var index = 0; index < 16; index++)
+        {
+            await next.ClickAsync();
+        }
+
+        await Assertions.Expect(page.GetByRole(AriaRole.Heading, new() { Name = "Maak kennis met kruisen en mollen" })).ToBeVisibleAsync();
+        var longTitleActionBox = await previous.BoundingBoxAsync();
+        Assert.NotNull(longTitleActionBox);
+        Assert.True(Math.Abs(initialActionY - longTitleActionBox.Y) < 2);
+
+        await page.SetViewportSizeAsync(440, 700);
+        await Assertions.Expect(previous.Locator(".theory-nav-icon")).ToBeVisibleAsync();
+        await Assertions.Expect(next.Locator(".theory-nav-icon")).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
     public async Task DutchCanBeSelectedWithoutRefreshAfterStartingInEnglish()
     {
         await page!.GotoAsync(baseUrl);

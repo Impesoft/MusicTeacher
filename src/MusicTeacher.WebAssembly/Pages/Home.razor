@@ -130,14 +130,16 @@ else if (practiceMode == PracticeMode.Theory)
                             disabled="@IsFirstTheoryPage"
                             @onclick="PreviousTheoryPage"
                             aria-label="@Localizer["PreviousTheoryPage"]">
-                        @Localizer["Previous"]
+                        <span class="theory-nav-text">@Localizer["Previous"]</span>
+                        <span class="theory-nav-icon" aria-hidden="true">‹</span>
                     </button>
                     <button class="next-button"
                             type="button"
                             disabled="@IsLastTheoryPage"
                             @onclick="NextTheoryPage"
                             aria-label="@Localizer["NextTheoryPage"]">
-                        @Localizer["Next"]
+                        <span class="theory-nav-text">@Localizer["Next"]</span>
+                        <span class="theory-nav-icon" aria-hidden="true">›</span>
                     </button>
                 </div>
             </div>
