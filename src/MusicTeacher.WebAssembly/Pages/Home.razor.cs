@@ -56,6 +56,7 @@ public partial class Home
         new(DrillMode.RhythmEcho, "rhythm-echo", "BadgeRhythmEchoTitle", "BadgeRhythmEchoDescription", "◌"),
         new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
+        new(DrillMode.StaffPhrasePitch, "staff-phrase-pitch", "BadgeStaffPhraseTitle", "BadgeStaffPhraseDescription", "𝄞"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
         new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
@@ -395,6 +396,7 @@ public partial class Home
         RhythmEcho,
         MelodyEcho,
         MelodyEchoLong,
+        StaffPhrasePitch,
         HearAccidentalPlay,
         HearNotePlace
     }

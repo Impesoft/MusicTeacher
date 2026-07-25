@@ -366,6 +366,12 @@ else
                                 @onclick="() => SetMode(DrillMode.MelodyEchoLong)">
                             @Localizer["MelodyEchoLongMode"]
                         </button>
+                        <button class="@GetModeClass(DrillMode.StaffPhrasePitch)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.StaffPhrasePitch)"
+                                @onclick="() => SetMode(DrillMode.StaffPhrasePitch)">
+                            @Localizer["StaffPhraseMode"]
+                        </button>
                     </div>
                 </section>
 
@@ -491,6 +497,8 @@ else
                             IsPlacementMode="@IsPlacementMode"
                             SelectableSteps="@SelectableSteps"
                             SelectedStep="@selectedStep"
+                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : Array.Empty<Pitch>())"
+                            CurrentPhraseIndex="@StaffPhrasePosition"
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
@@ -661,6 +669,21 @@ else
                             <span class="@(noteIndex < MelodyPosition ? "is-complete" : null)" aria-hidden="true">♪</span>
                         }
                         <small>@Localizer.Format("MelodyEchoProgress", MelodyPosition, MelodyLength)</small>
+                    </div>
+                }
+                else if (IsStaffPhraseMode)
+                {
+                    <div class="melody-echo-progress"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="@StaffPhraseLength"
+                         aria-valuenow="@StaffPhrasePosition"
+                         aria-label="@Localizer["StaffPhraseProgressLabel"]">
+                        @for (var noteIndex = 0; noteIndex < StaffPhraseLength; noteIndex++)
+                        {
+                            <span class="@(noteIndex < StaffPhrasePosition ? "is-complete" : null)" aria-hidden="true">♪</span>
+                        }
+                        <small>@Localizer.Format("StaffPhraseProgress", StaffPhrasePosition, StaffPhraseLength)</small>
                     </div>
                 }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"

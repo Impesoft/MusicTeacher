@@ -54,7 +54,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(modeNavigation.Locator(".mode-group-basics .mode-button")).ToHaveTextAsync(
             ["Name", "Place", "Hear: play", "Hear: place"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-melody .mode-button")).ToHaveTextAsync(
-            ["Melody echo", "Long melody echo"]);
+            ["Melody echo", "Long melody echo", "Read a phrase"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-rhythm .mode-button")).ToHaveTextAsync(
             ["Tap the beat", "Hold the sound", "Rhythm echo"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-accidentals .mode-button")).ToHaveTextAsync(
@@ -114,6 +114,58 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Melody echo", Exact = true })).ToBeEnabledAsync();
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Tap the beat", Exact = true })).ToBeEnabledAsync();
         await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Hear: place", Exact = true })).ToBeEnabledAsync();
+        await Assertions.Expect(page.GetByRole(AriaRole.Button, new() { Name = "Read a phrase", Exact = true })).ToBeDisabledAsync();
+    }
+
+    [E2EFact]
+    public async Task StaffPhraseUnlocksAfterLongMelodyAndIgnoresTimeBetweenNotes()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'melody-echo-long': {
+                            Attempts: 5,
+                            CorrectAnswers: 5,
+                            Streak: 5,
+                            BestStreak: 5
+                        }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Read a phrase", Exact = true });
+        await Assertions.Expect(modeButton).ToBeEnabledAsync();
+        await modeButton.ClickAsync();
+
+        var writtenNotes = page.Locator(".music-staff .staff-phrase-note[data-pitch]");
+        await Assertions.Expect(writtenNotes).ToHaveCountAsync(2);
+        await Assertions.Expect(writtenNotes.First).ToHaveClassAsync(new Regex("is-current"));
+        var noteXCoordinates = await writtenNotes.Locator("ellipse.note-head").EvaluateAllAsync<double[]>(
+            "notes => notes.map(note => Number(note.getAttribute('cx')))");
+        Assert.All(noteXCoordinates, x => Assert.InRange(x, 190, 350));
+        Assert.True(noteXCoordinates[0] >= 190);
+        Assert.True(noteXCoordinates[1] - noteXCoordinates[0] >= 50);
+
+        var pitches = await writtenNotes.EvaluateAllAsync<string[]>(
+            "notes => notes.map(note => note.getAttribute('data-pitch'))");
+        await page.Locator($"button.piano-white-key[data-pitch='{pitches[0]}']").ClickAsync();
+        await page.WaitForTimeoutAsync(1_100);
+        await page.Locator($"button.piano-white-key[data-pitch='{pitches[1]}']").ClickAsync();
+
+        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("You read the whole phrase!");
+        await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
     }
 
     [E2EFact]

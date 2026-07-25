@@ -1711,6 +1711,28 @@ h1:focus {
     stroke-width: 2.2;
 }
 
+.staff-phrase-note {
+    transition: opacity 140ms ease, filter 140ms ease;
+}
+
+.staff-phrase-note.is-upcoming {
+    opacity: 0.52;
+}
+
+.staff-phrase-note.is-current .note-head {
+    fill: var(--sun);
+    filter: drop-shadow(0 0 5px color-mix(in srgb, var(--sun) 75%, transparent));
+    stroke-width: 4;
+}
+
+.staff-phrase-note.is-complete .note-head {
+    fill: var(--success-highlight);
+}
+
+.ledger-line.staff-phrase-note.is-upcoming {
+    opacity: 0.52;
+}
+
 .theory-note-label {
     fill: var(--key-label);
     font-size: 9px;

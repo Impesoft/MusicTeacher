@@ -63,6 +63,51 @@
         <svg:text class="theory-note-label" x="@SvgNumber(noteX)" y="195">@GetTheoryNoteLabel(note.pitch)</svg:text>
     }
 
+    @foreach (var note in GetPhraseNotes())
+    {
+        var staffStep = TrebleClef.GetStaffStep(note.pitch);
+        var noteY = StepToY(staffStep);
+        var noteX = PhraseNoteX(note.index);
+        var noteTransform = FormattableString.Invariant($"rotate(-18 {noteX:0.###} {noteY:0.###})");
+        var phraseClass = note.index < CurrentPhraseIndex
+            ? "staff-phrase-note is-complete"
+            : note.index == CurrentPhraseIndex
+                ? "staff-phrase-note is-current"
+                : "staff-phrase-note is-upcoming";
+
+        foreach (var ledgerStep in GetLedgerSteps(staffStep))
+        {
+            var ledgerY = StepToY(ledgerStep);
+            <line class="ledger-line @phraseClass"
+                  x1="@SvgNumber(noteX - 18)"
+                  y1="@SvgNumber(ledgerY)"
+                  x2="@SvgNumber(noteX + 18)"
+                  y2="@SvgNumber(ledgerY)" />
+        }
+
+        <g class="@phraseClass"
+           data-phrase-index="@note.index"
+           data-pitch="@note.pitch.ScientificName">
+            <ellipse class="note-head"
+                     cx="@SvgNumber(noteX)"
+                     cy="@SvgNumber(noteY)"
+                     rx="12"
+                     ry="8"
+                     transform="@noteTransform" />
+            <line class="note-stem"
+                  x1="@SvgNumber(noteX + 10)"
+                  y1="@SvgNumber(noteY)"
+                  x2="@SvgNumber(noteX + 10)"
+                  y2="@SvgNumber(noteY - 48)" />
+            @if (note.pitch.Accidental != Accidental.Natural)
+            {
+                <svg:text class="note-accidental"
+                          x="@SvgNumber(noteX - 23)"
+                          y="@SvgNumber(noteY + 7)">@GetAccidentalSymbol(note.pitch.Accidental)</svg:text>
+            }
+        </g>
+    }
+
     @if (DisplayedPitch is not null)
     {
         var staffStep = TrebleClef.GetStaffStep(DisplayedPitch.Value);
@@ -92,6 +137,8 @@
     private const double LineGap = 24;
     private const double PlacementStartX = 112;
     private const double PlacementEndX = 360;
+    private const double PhraseStartX = 190;
+    private const double PhraseEndX = 350;
     [Parameter]
     public Pitch? DisplayedPitch { get; set; }
 
@@ -108,6 +155,12 @@
     public IReadOnlyList<Pitch> TheoryPitches { get; set; } = [];
 
     [Parameter]
+    public IReadOnlyList<Pitch> PhrasePitches { get; set; } = [];
+
+    [Parameter]
+    public int CurrentPhraseIndex { get; set; }
+
+    [Parameter]
     public bool UseAlphabeticalNoteNames { get; set; }
 
     [Parameter]
@@ -116,9 +169,11 @@
     [Parameter]
     public EventCallback<int> OnStepPreviewed { get; set; }
 
-    private string AriaLabel => DisplayedPitch is null
-        ? Localizer["StaffPlacementAriaLabel"]
-        : Localizer.Format("StaffShowingNoteAriaLabel", GetPrimaryNoteName(DisplayedPitch.Value));
+    private string AriaLabel => PhrasePitches.Count > 0
+        ? Localizer.Format("StaffPhraseAriaLabel", PhrasePitches.Count, Math.Min(CurrentPhraseIndex + 1, PhrasePitches.Count))
+        : DisplayedPitch is null
+            ? Localizer["StaffPlacementAriaLabel"]
+            : Localizer.Format("StaffShowingNoteAriaLabel", GetPrimaryNoteName(DisplayedPitch.Value));
 
     private static double StaffLineY(int lineFromTop) => BottomLineY - (4 - lineFromTop) * LineGap;
 
@@ -158,8 +213,18 @@
         return PlacementStartX + (PlacementEndX - PlacementStartX) * progress;
     }
 
+    private double PhraseNoteX(int index)
+    {
+        var noteCount = Math.Max(PhrasePitches.Count, 2);
+        var progress = index / (double)(noteCount - 1);
+        return PhraseStartX + (PhraseEndX - PhraseStartX) * progress;
+    }
+
     private IEnumerable<(Pitch pitch, int index)> GetTheoryNotes()
         => TheoryPitches.Select((pitch, index) => (pitch, index));
+
+    private IEnumerable<(Pitch pitch, int index)> GetPhraseNotes()
+        => PhrasePitches.Select((pitch, index) => (pitch, index));
 
     private async Task SelectStep(int step) => await OnStepSelected.InvokeAsync(step);
 

@@ -551,8 +551,22 @@
   <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melodiegeheugen</value></data>
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Korte melodieën naspelen ontgrendeld.</value></data>
   <data name="MelodyEchoLongMode" xml:space="preserve"><value>Lange melodie herhalen</value></data>
+  <data name="StaffPhraseMode" xml:space="preserve"><value>Lees een frase</value></data>
   <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Onthoud een langere melodie</value></data>
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Luister naar alle vier of vijf noten en speel ze daarna in volgorde.</value></data>
+  <data name="StaffPhraseTitle" xml:space="preserve"><value>Speel wat je leest</value></data>
+  <data name="StaffPhrasePrompt" xml:space="preserve"><value>Lees de noten van links naar rechts en speel ze in volgorde. Het tempo telt nog niet mee.</value></data>
+  <data name="StaffPhraseReadyFeedback" xml:space="preserve"><value>Begin met de gemarkeerde noot. Neem rustig de tijd.</value></data>
+  <data name="StaffPhraseTryAgainFeedback" xml:space="preserve"><value>Kijk opnieuw naar noot {0}. De gemarkeerde noot blijft staan.</value></data>
+  <data name="StaffPhraseProgressFeedback" xml:space="preserve"><value>Goed gelezen: {0}/{1} noten.</value></data>
+  <data name="StaffPhraseCompleteFeedback" xml:space="preserve"><value>Je hebt de hele frase gelezen!</value></data>
+  <data name="StaffPhraseCompleteWithMistakesFeedback" xml:space="preserve"><value>Frase voltooid. Lees de volgende rustig van links naar rechts.</value></data>
+  <data name="StaffPhraseProgressLabel" xml:space="preserve"><value>Voortgang van de geschreven frase</value></data>
+  <data name="StaffPhraseProgress" xml:space="preserve"><value>{0} van {1} noten gelezen</value></data>
+  <data name="StaffPhraseAriaLabel" xml:space="preserve"><value>Geschreven frase met {0} noten; noot {1} is als volgende gemarkeerd</value></data>
+  <data name="StaffPhraseLearningGoal" xml:space="preserve"><value>Juist gelezen frases: {0}/{1}. Nootlengte en tempo tellen nog niet mee.</value></data>
+  <data name="BadgeStaffPhraseTitle" xml:space="preserve"><value>Fraselezer</value></data>
+  <data name="BadgeStaffPhraseDescription" xml:space="preserve"><value>Korte geschreven frases lezen en spelen ontgrendeld.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>

@@ -229,6 +229,6 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Rest theory showing that the steady beat continues through silence.
 - [x] Four-beat Rhythm Echo foundation using one-beat sounds and rests.
 - [x] Explicit skill/prerequisite unlock model for current activities and theory.
-- [ ] Staff-read pitch phrases with timing ignored.
+- [x] Staff-read pitch phrases with timing ignored.
 - [ ] Staff-read phrase duration and timing layers.
 - [ ] Song content and section progression.

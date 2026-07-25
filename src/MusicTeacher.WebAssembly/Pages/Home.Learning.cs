@@ -27,6 +27,11 @@ public partial class Home
 
     private string LearningGoalText => CurrentLearningActivity.RequiredStreak == 0
         ? Localizer["FinalLevelGoal"]
+        : mode == DrillMode.StaffPhrasePitch
+            ? Localizer.Format(
+                "StaffPhraseLearningGoal",
+                CurrentLevelProgress.BestStreak,
+                CurrentLearningActivity.RequiredStreak)
         : mode is DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho
             ? Localizer.Format(
                 mode switch
@@ -123,6 +128,7 @@ public partial class Home
             DrillMode.PlaceNote => DrillMode.HearNotePlay,
             DrillMode.HearNotePlay => DrillMode.MelodyEcho,
             DrillMode.MelodyEcho => DrillMode.MelodyEchoLong,
+            DrillMode.MelodyEchoLong => DrillMode.StaffPhrasePitch,
             DrillMode.NameAccidental => DrillMode.PlaceAccidental,
             DrillMode.PlaceAccidental => DrillMode.HearAccidentalPlay,
             _ => null
@@ -158,6 +164,7 @@ public partial class Home
             DrillMode.RhythmEcho => "rhythm-echo",
             DrillMode.MelodyEcho => "melody-echo",
             DrillMode.MelodyEchoLong => "melody-echo-long",
+            DrillMode.StaffPhrasePitch => "staff-phrase-pitch",
             DrillMode.HearAccidentalPlay => "hear-accidental-play",
             DrillMode.HearNotePlace => "hear-note-place",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -176,6 +183,7 @@ public partial class Home
             DrillMode.RhythmEcho => "RhythmEchoMode",
             DrillMode.MelodyEcho => "MelodyEchoMode",
             DrillMode.MelodyEchoLong => "MelodyEchoLongMode",
+            DrillMode.StaffPhrasePitch => "StaffPhraseMode",
             DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",
             DrillMode.HearNotePlace => "HearPlaceMode",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -194,6 +202,7 @@ public partial class Home
             "rhythm-echo" => DrillMode.RhythmEcho,
             "melody-echo" => DrillMode.MelodyEcho,
             "melody-echo-long" => DrillMode.MelodyEchoLong,
+            "staff-phrase-pitch" => DrillMode.StaffPhrasePitch,
             "hear-accidental-play" => DrillMode.HearAccidentalPlay,
             "hear-note-place" => DrillMode.HearNotePlace,
             _ => throw new InvalidOperationException($"Unsupported activity '{activityId}'.")

@@ -19,6 +19,21 @@ public sealed class LearningCurriculumTests
     }
 
     [Fact]
+    public void StaffPhraseReadingUnlocksOnlyAfterLongMelodyEcho()
+    {
+        var streaks = new Dictionary<string, int>
+        {
+            ["melody-echo"] = 5
+        };
+
+        Assert.False(IsUnlocked("staff-phrase-pitch", streaks));
+
+        streaks["melody-echo-long"] = 5;
+
+        Assert.True(IsUnlocked("staff-phrase-pitch", streaks));
+    }
+
+    [Fact]
     public void AccidentalsAdvanceWithoutDependingOnMelodySkills()
     {
         var streaks = new Dictionary<string, int>

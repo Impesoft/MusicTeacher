@@ -8,6 +8,7 @@ public enum LearningSkill
     HeardNotePlacement,
     MelodyEchoShort,
     MelodyEchoLong,
+    StaffPhrasePitch,
     SteadyBeat,
     DurationBasic,
     RhythmEcho,
@@ -32,6 +33,7 @@ public static class LearningCurriculum
 
         Activity("melody-echo", LearningSkill.MelodyEchoShort, 5, LearningSkill.SingleNoteEarPlay),
         Activity("melody-echo-long", LearningSkill.MelodyEchoLong, 5, LearningSkill.MelodyEchoShort),
+        Activity("staff-phrase-pitch", LearningSkill.StaffPhrasePitch, 5, LearningSkill.MelodyEchoLong),
 
         Activity("beat-tap", LearningSkill.SteadyBeat, 3, LearningSkill.SingleNoteEarPlay),
         Activity("hold-duration", LearningSkill.DurationBasic, 3, LearningSkill.SteadyBeat),

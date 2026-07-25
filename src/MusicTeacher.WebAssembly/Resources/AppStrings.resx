@@ -551,8 +551,22 @@
   <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melody Memory</value></data>
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Unlocked repeating short melodies.</value></data>
   <data name="MelodyEchoLongMode" xml:space="preserve"><value>Long melody echo</value></data>
+  <data name="StaffPhraseMode" xml:space="preserve"><value>Read a phrase</value></data>
   <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Remember a longer melody</value></data>
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Listen to all four or five notes, then play them in order.</value></data>
+  <data name="StaffPhraseTitle" xml:space="preserve"><value>Play what you read</value></data>
+  <data name="StaffPhrasePrompt" xml:space="preserve"><value>Read the notes from left to right and play them in order. Timing does not matter yet.</value></data>
+  <data name="StaffPhraseReadyFeedback" xml:space="preserve"><value>Start with the highlighted note. Take all the time you need.</value></data>
+  <data name="StaffPhraseTryAgainFeedback" xml:space="preserve"><value>Look again at note {0}. The highlighted note stays in place.</value></data>
+  <data name="StaffPhraseProgressFeedback" xml:space="preserve"><value>Good reading: {0}/{1} notes.</value></data>
+  <data name="StaffPhraseCompleteFeedback" xml:space="preserve"><value>You read the whole phrase!</value></data>
+  <data name="StaffPhraseCompleteWithMistakesFeedback" xml:space="preserve"><value>Phrase complete. Try the next one carefully from left to right.</value></data>
+  <data name="StaffPhraseProgressLabel" xml:space="preserve"><value>Written phrase progress</value></data>
+  <data name="StaffPhraseProgress" xml:space="preserve"><value>{0} of {1} notes read</value></data>
+  <data name="StaffPhraseAriaLabel" xml:space="preserve"><value>Written phrase with {0} notes; note {1} is highlighted next</value></data>
+  <data name="StaffPhraseLearningGoal" xml:space="preserve"><value>Correctly read phrases: {0}/{1}. Note length and timing are not assessed yet.</value></data>
+  <data name="BadgeStaffPhraseTitle" xml:space="preserve"><value>Phrase reader</value></data>
+  <data name="BadgeStaffPhraseDescription" xml:space="preserve"><value>Reading and playing short written phrases unlocked.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melody Explorer</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>
