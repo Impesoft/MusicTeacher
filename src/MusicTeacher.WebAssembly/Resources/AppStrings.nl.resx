@@ -552,6 +552,10 @@
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>
   <data name="DurationHoldMode" xml:space="preserve"><value>Houd de klank aan</value></data>
   <data name="RhythmEchoMode" xml:space="preserve"><value>Ritme herhalen</value></data>
+  <data name="LearningPathBasics" xml:space="preserve"><value>Noten</value></data>
+  <data name="LearningPathMelody" xml:space="preserve"><value>Melodie</value></data>
+  <data name="LearningPathRhythm" xml:space="preserve"><value>Ritme</value></data>
+  <data name="LearningPathAccidentals" xml:space="preserve"><value>Kruisen en mollen</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Houd een vaste tel</value></data>
   <data name="DurationHoldTitle" xml:space="preserve"><value>Laat de klank duren</value></data>
   <data name="RhythmEchoTitle" xml:space="preserve"><value>Herhaal het ritme</value></data>

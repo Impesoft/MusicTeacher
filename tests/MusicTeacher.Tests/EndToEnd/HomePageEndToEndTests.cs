@@ -41,6 +41,45 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task PracticeModesAreGroupedIntoRecognizableLearningPaths()
+    {
+        await StartFreeExploreAsync();
+
+        var modeNavigation = page!.Locator("nav.mode-switch");
+        await Assertions.Expect(modeNavigation.GetByRole(AriaRole.Heading, new() { Name = "Notes", Exact = true })).ToBeVisibleAsync();
+        await Assertions.Expect(modeNavigation.GetByRole(AriaRole.Heading, new() { Name = "Melody", Exact = true })).ToBeVisibleAsync();
+        await Assertions.Expect(modeNavigation.GetByRole(AriaRole.Heading, new() { Name = "Rhythm", Exact = true })).ToBeVisibleAsync();
+        await Assertions.Expect(modeNavigation.GetByRole(AriaRole.Heading, new() { Name = "Sharps and flats", Exact = true })).ToBeVisibleAsync();
+
+        await Assertions.Expect(modeNavigation.Locator(".mode-group-basics .mode-button")).ToHaveTextAsync(
+            ["Name", "Place", "Hear: play", "Hear: place"]);
+        await Assertions.Expect(modeNavigation.Locator(".mode-group-melody .mode-button")).ToHaveTextAsync(
+            ["Melody echo", "Long melody echo"]);
+        await Assertions.Expect(modeNavigation.Locator(".mode-group-rhythm .mode-button")).ToHaveTextAsync(
+            ["Tap the beat", "Hold the sound", "Rhythm echo"]);
+        await Assertions.Expect(modeNavigation.Locator(".mode-group-accidentals .mode-button")).ToHaveTextAsync(
+            ["Sharps/flats", "Place ♯/♭", "Hear: black keys"]);
+    }
+
+    [E2EFact]
+    public async Task DutchAccidentalPathLabelsFitInsideTheirButtons()
+    {
+        await StartFreeExploreAsync("nl", "Vrij oefenen");
+
+        var buttons = page!.Locator(".mode-group-accidentals .mode-button");
+        await Assertions.Expect(buttons).ToHaveCountAsync(3);
+
+        var labelsFit = await buttons.EvaluateAllAsync<bool>(
+            """
+            elements => elements.every(element =>
+                element.scrollWidth <= element.clientWidth &&
+                element.scrollHeight <= element.clientHeight)
+            """);
+
+        Assert.True(labelsFit);
+    }
+
+    [E2EFact]
     public async Task LearnerCanOpenMelodyEchoAndWaitForTheirTurn()
     {
         await StartFreeExploreAsync();

@@ -552,6 +552,10 @@
   <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>
   <data name="DurationHoldMode" xml:space="preserve"><value>Hold the sound</value></data>
   <data name="RhythmEchoMode" xml:space="preserve"><value>Rhythm echo</value></data>
+  <data name="LearningPathBasics" xml:space="preserve"><value>Notes</value></data>
+  <data name="LearningPathMelody" xml:space="preserve"><value>Melody</value></data>
+  <data name="LearningPathRhythm" xml:space="preserve"><value>Rhythm</value></data>
+  <data name="LearningPathAccidentals" xml:space="preserve"><value>Sharps and flats</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Keep a steady beat</value></data>
   <data name="DurationHoldTitle" xml:space="preserve"><value>Make the sound last</value></data>
   <data name="RhythmEchoTitle" xml:space="preserve"><value>Repeat the rhythm</value></data>

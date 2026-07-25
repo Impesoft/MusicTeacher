@@ -1084,13 +1084,35 @@ h1:focus {
 }
 
 .mode-switch {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+}
+
+.mode-group {
     background: var(--surface);
     border: 2px solid var(--border-strong);
-    border-radius: 8px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin-top: 2rem;
+    border-radius: 10px;
+    min-width: 0;
     overflow: hidden;
+}
+
+.mode-group h2 {
+    background: var(--surface-strong);
+    border-bottom: 2px solid var(--border-strong);
+    color: var(--reed);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.06rem;
+    margin: 0;
+    padding: 0.6rem 0.75rem;
+    text-transform: uppercase;
+}
+
+.mode-group-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .mode-button {
@@ -1103,12 +1125,35 @@ h1:focus {
     padding: 0 0.4rem;
 }
 
-.mode-button:nth-child(even) {
+.mode-group-buttons .mode-button:nth-child(even) {
     border-left: 2px solid var(--border-strong);
 }
 
-.mode-button:nth-child(n + 3) {
+.mode-group-buttons .mode-button:nth-child(n + 3) {
     border-top: 2px solid var(--border-strong);
+}
+
+.mode-group-buttons .mode-button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+}
+
+.mode-group-accidentals .mode-group-buttons {
+    grid-template-columns: 1fr;
+}
+
+.mode-group-accidentals .mode-group-buttons .mode-button {
+    border-left: 0;
+    grid-column: 1;
+}
+
+.mode-group-accidentals .mode-group-buttons .mode-button:nth-child(n + 2) {
+    border-top: 2px solid var(--border-strong);
+}
+
+@media (max-width: 600px) {
+    .mode-switch {
+        grid-template-columns: 1fr;
+    }
 }
 
 .mode-button.is-active {

@@ -320,80 +320,103 @@ else
                 </button>
             }
 
-            <div class="mode-switch" role="tablist" aria-label="@Localizer["DrillModeLabel"]">
-                <button class="@GetModeClass(DrillMode.NameNote)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.NameNote)"
-                        @onclick="() => SetMode(DrillMode.NameNote)">
-                    @Localizer["NameMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.PlaceNote)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.PlaceNote)"
-                        @onclick="() => SetMode(DrillMode.PlaceNote)">
-                    @Localizer["PlaceMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.NameAccidental)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.NameAccidental)"
-                        @onclick="() => SetMode(DrillMode.NameAccidental)">
-                    @Localizer["NameAccidentalMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.PlaceAccidental)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.PlaceAccidental)"
-                        @onclick="() => SetMode(DrillMode.PlaceAccidental)">
-                    @Localizer["PlaceAccidentalMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.HearNotePlay)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.HearNotePlay)"
-                        @onclick="() => SetMode(DrillMode.HearNotePlay)">
-                    @Localizer["HearPlayMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.BeatTap)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.BeatTap)"
-                        @onclick="() => SetMode(DrillMode.BeatTap)">
-                    @Localizer["BeatTapMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.HoldDuration)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.HoldDuration)"
-                        @onclick="() => SetMode(DrillMode.HoldDuration)">
-                    @Localizer["DurationHoldMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.RhythmEcho)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.RhythmEcho)"
-                        @onclick="() => SetMode(DrillMode.RhythmEcho)">
-                    @Localizer["RhythmEchoMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.MelodyEcho)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.MelodyEcho)"
-                        @onclick="() => SetMode(DrillMode.MelodyEcho)">
-                    @Localizer["MelodyEchoMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.MelodyEchoLong)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.MelodyEchoLong)"
-                        @onclick="() => SetMode(DrillMode.MelodyEchoLong)">
-                    @Localizer["MelodyEchoLongMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.HearAccidentalPlay)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.HearAccidentalPlay)"
-                        @onclick="() => SetMode(DrillMode.HearAccidentalPlay)">
-                    @Localizer["HearAccidentalPlayMode"]
-                </button>
-                <button class="@GetModeClass(DrillMode.HearNotePlace)"
-                        type="button"
-                        disabled="@IsModeLocked(DrillMode.HearNotePlace)"
-                        @onclick="() => SetMode(DrillMode.HearNotePlace)">
-                    @Localizer["HearPlaceMode"]
-                </button>
-            </div>
+            <nav class="mode-switch" aria-label="@Localizer["DrillModeLabel"]">
+                <section class="mode-group mode-group-basics" aria-labelledby="mode-group-basics">
+                    <h2 id="mode-group-basics">@Localizer["LearningPathBasics"]</h2>
+                    <div class="mode-group-buttons">
+                        <button class="@GetModeClass(DrillMode.NameNote)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.NameNote)"
+                                @onclick="() => SetMode(DrillMode.NameNote)">
+                            @Localizer["NameMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.PlaceNote)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.PlaceNote)"
+                                @onclick="() => SetMode(DrillMode.PlaceNote)">
+                            @Localizer["PlaceMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.HearNotePlay)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.HearNotePlay)"
+                                @onclick="() => SetMode(DrillMode.HearNotePlay)">
+                            @Localizer["HearPlayMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.HearNotePlace)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.HearNotePlace)"
+                                @onclick="() => SetMode(DrillMode.HearNotePlace)">
+                            @Localizer["HearPlaceMode"]
+                        </button>
+                    </div>
+                </section>
+
+                <section class="mode-group mode-group-melody" aria-labelledby="mode-group-melody">
+                    <h2 id="mode-group-melody">@Localizer["LearningPathMelody"]</h2>
+                    <div class="mode-group-buttons">
+                        <button class="@GetModeClass(DrillMode.MelodyEcho)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.MelodyEcho)"
+                                @onclick="() => SetMode(DrillMode.MelodyEcho)">
+                            @Localizer["MelodyEchoMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.MelodyEchoLong)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.MelodyEchoLong)"
+                                @onclick="() => SetMode(DrillMode.MelodyEchoLong)">
+                            @Localizer["MelodyEchoLongMode"]
+                        </button>
+                    </div>
+                </section>
+
+                <section class="mode-group mode-group-rhythm" aria-labelledby="mode-group-rhythm">
+                    <h2 id="mode-group-rhythm">@Localizer["LearningPathRhythm"]</h2>
+                    <div class="mode-group-buttons">
+                        <button class="@GetModeClass(DrillMode.BeatTap)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.BeatTap)"
+                                @onclick="() => SetMode(DrillMode.BeatTap)">
+                            @Localizer["BeatTapMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.HoldDuration)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.HoldDuration)"
+                                @onclick="() => SetMode(DrillMode.HoldDuration)">
+                            @Localizer["DurationHoldMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.RhythmEcho)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.RhythmEcho)"
+                                @onclick="() => SetMode(DrillMode.RhythmEcho)">
+                            @Localizer["RhythmEchoMode"]
+                        </button>
+                    </div>
+                </section>
+
+                <section class="mode-group mode-group-accidentals" aria-labelledby="mode-group-accidentals">
+                    <h2 id="mode-group-accidentals">@Localizer["LearningPathAccidentals"]</h2>
+                    <div class="mode-group-buttons">
+                        <button class="@GetModeClass(DrillMode.NameAccidental)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.NameAccidental)"
+                                @onclick="() => SetMode(DrillMode.NameAccidental)">
+                            @Localizer["NameAccidentalMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.PlaceAccidental)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.PlaceAccidental)"
+                                @onclick="() => SetMode(DrillMode.PlaceAccidental)">
+                            @Localizer["PlaceAccidentalMode"]
+                        </button>
+                        <button class="@GetModeClass(DrillMode.HearAccidentalPlay)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.HearAccidentalPlay)"
+                                @onclick="() => SetMode(DrillMode.HearAccidentalPlay)">
+                            @Localizer["HearAccidentalPlayMode"]
+                        </button>
+                    </div>
+                </section>
+            </nav>
 
             @if (practiceMode == PracticeMode.LearningPath)
             {
