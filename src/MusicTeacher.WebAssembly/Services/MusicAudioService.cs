@@ -39,6 +39,17 @@ public sealed class MusicAudioService(IJSRuntime jsRuntime)
     public ValueTask StartSustainedNoteAsync()
         => jsRuntime.InvokeVoidAsync("musicTeacherAudio.startSustainedNote", 523.25);
 
+    public ValueTask StartSustainedMidiNoteAsync(int midiNote)
+    {
+        if (midiNote is < 0 or > 127)
+        {
+            throw new ArgumentOutOfRangeException(nameof(midiNote));
+        }
+
+        var frequencyHz = 440d * Math.Pow(2d, (midiNote - 69) / 12d);
+        return jsRuntime.InvokeVoidAsync("musicTeacherAudio.startSustainedNote", frequencyHz);
+    }
+
     public ValueTask StopSustainedNoteAsync()
         => jsRuntime.InvokeVoidAsync("musicTeacherAudio.stopSustainedNote");
 }

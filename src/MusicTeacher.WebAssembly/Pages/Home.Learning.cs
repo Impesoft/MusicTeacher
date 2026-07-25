@@ -32,6 +32,11 @@ public partial class Home
                 "StaffPhraseLearningGoal",
                 CurrentLevelProgress.BestStreak,
                 CurrentLearningActivity.RequiredStreak)
+        : mode == DrillMode.WrittenMeasureTwoFour
+            ? Localizer.Format(
+                "WrittenMeasureLearningGoal",
+                CurrentLevelProgress.BestStreak,
+                CurrentLearningActivity.RequiredStreak)
         : mode is DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho
             ? Localizer.Format(
                 mode switch
@@ -129,6 +134,7 @@ public partial class Home
             DrillMode.HearNotePlay => DrillMode.MelodyEcho,
             DrillMode.MelodyEcho => DrillMode.MelodyEchoLong,
             DrillMode.MelodyEchoLong => DrillMode.StaffPhrasePitch,
+            DrillMode.StaffPhrasePitch => DrillMode.WrittenMeasureTwoFour,
             DrillMode.NameAccidental => DrillMode.PlaceAccidental,
             DrillMode.PlaceAccidental => DrillMode.HearAccidentalPlay,
             _ => null
@@ -165,6 +171,7 @@ public partial class Home
             DrillMode.MelodyEcho => "melody-echo",
             DrillMode.MelodyEchoLong => "melody-echo-long",
             DrillMode.StaffPhrasePitch => "staff-phrase-pitch",
+            DrillMode.WrittenMeasureTwoFour => "written-measure-two-four",
             DrillMode.HearAccidentalPlay => "hear-accidental-play",
             DrillMode.HearNotePlace => "hear-note-place",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -184,6 +191,7 @@ public partial class Home
             DrillMode.MelodyEcho => "MelodyEchoMode",
             DrillMode.MelodyEchoLong => "MelodyEchoLongMode",
             DrillMode.StaffPhrasePitch => "StaffPhraseMode",
+            DrillMode.WrittenMeasureTwoFour => "WrittenMeasureMode",
             DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",
             DrillMode.HearNotePlace => "HearPlaceMode",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -203,6 +211,7 @@ public partial class Home
             "melody-echo" => DrillMode.MelodyEcho,
             "melody-echo-long" => DrillMode.MelodyEchoLong,
             "staff-phrase-pitch" => DrillMode.StaffPhrasePitch,
+            "written-measure-two-four" => DrillMode.WrittenMeasureTwoFour,
             "hear-accidental-play" => DrillMode.HearAccidentalPlay,
             "hear-note-place" => DrillMode.HearNotePlace,
             _ => throw new InvalidOperationException($"Unsupported activity '{activityId}'.")

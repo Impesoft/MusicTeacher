@@ -34,6 +34,21 @@ public sealed class LearningCurriculumTests
     }
 
     [Fact]
+    public void TwoFourMeasureRequiresReadingAndDurationSkills()
+    {
+        var streaks = new Dictionary<string, int>
+        {
+            ["staff-phrase-pitch"] = 5
+        };
+
+        Assert.False(IsUnlocked("written-measure-two-four", streaks));
+
+        streaks["hold-duration"] = 3;
+
+        Assert.True(IsUnlocked("written-measure-two-four", streaks));
+    }
+
+    [Fact]
     public void AccidentalsAdvanceWithoutDependingOnMelodySkills()
     {
         var streaks = new Dictionary<string, int>

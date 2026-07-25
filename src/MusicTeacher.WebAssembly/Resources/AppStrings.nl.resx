@@ -552,6 +552,7 @@
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Korte melodieën naspelen ontgrendeld.</value></data>
   <data name="MelodyEchoLongMode" xml:space="preserve"><value>Lange melodie herhalen</value></data>
   <data name="StaffPhraseMode" xml:space="preserve"><value>Lees een notenreeks</value></data>
+  <data name="WrittenMeasureMode" xml:space="preserve"><value>Speel een maat in 2/4</value></data>
   <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Onthoud een langere melodie</value></data>
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Luister naar alle vier of vijf noten en speel ze daarna in volgorde.</value></data>
   <data name="StaffPhraseTitle" xml:space="preserve"><value>Speel de geschreven noten</value></data>
@@ -567,6 +568,22 @@
   <data name="StaffPhraseLearningGoal" xml:space="preserve"><value>Juist gelezen notenreeksen: {0}/{1}. Nootlengte en tempo tellen nog niet mee.</value></data>
   <data name="BadgeStaffPhraseTitle" xml:space="preserve"><value>Notenlezer</value></data>
   <data name="BadgeStaffPhraseDescription" xml:space="preserve"><value>Korte geschreven notenreeksen lezen en spelen ontgrendeld.</value></data>
+  <data name="WrittenMeasureTitle" xml:space="preserve"><value>Vul één maat in 2/4</value></data>
+  <data name="WrittenMeasurePrompt" xml:space="preserve"><value>Speel beide geschreven toonhoogtes. Houd elke kwartnoot aan tot de piep; je mag tussen de noten pauzeren.</value></data>
+  <data name="WrittenMeasureReadyFeedback" xml:space="preserve"><value>Druk de gemarkeerde noot in. Laat los wanneer je de piep hoort.</value></data>
+  <data name="WrittenMeasureWrongPitchFeedback" xml:space="preserve"><value>Kijk opnieuw naar geschreven noot {0}.</value></data>
+  <data name="WrittenMeasureHoldingFeedback" xml:space="preserve"><value>Houd geschreven noot {0} één tel aan…</value></data>
+  <data name="WrittenMeasureReleaseFeedback" xml:space="preserve"><value>Laat nu los!</value></data>
+  <data name="WrittenMeasureTooShortFeedback" xml:space="preserve"><value>Noot {0} was te kort. Houd ze aan tot de piep.</value></data>
+  <data name="WrittenMeasureTooLongFeedback" xml:space="preserve"><value>Noot {0} was te lang. Laat ze los wanneer de piep klinkt.</value></data>
+  <data name="WrittenMeasureProgressFeedback" xml:space="preserve"><value>Goed: {0}/{1} kwartnoten voltooid.</value></data>
+  <data name="WrittenMeasureCompleteFeedback" xml:space="preserve"><value>Je hebt de maat in 2/4 voltooid!</value></data>
+  <data name="WrittenMeasureCompleteWithMistakesFeedback" xml:space="preserve"><value>Maat voltooid. Probeer een nieuwe en volg elke piep.</value></data>
+  <data name="WrittenMeasureProgressLabel" xml:space="preserve"><value>Voortgang van de maat in 2/4</value></data>
+  <data name="WrittenMeasureProgress" xml:space="preserve"><value>{0} van {1} kwartnoten</value></data>
+  <data name="WrittenMeasureLearningGoal" xml:space="preserve"><value>Juiste maten in 2/4: {0}/{1}. Pauzes tussen de noten tellen nog niet mee.</value></data>
+  <data name="BadgeWrittenMeasureTitle" xml:space="preserve"><value>Matenmaker</value></data>
+  <data name="BadgeWrittenMeasureDescription" xml:space="preserve"><value>Twee kwartnoten in een maat van 2/4 spelen ontgrendeld.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>

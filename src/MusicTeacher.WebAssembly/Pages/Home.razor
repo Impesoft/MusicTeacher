@@ -372,6 +372,12 @@ else
                                 @onclick="() => SetMode(DrillMode.StaffPhrasePitch)">
                             @Localizer["StaffPhraseMode"]
                         </button>
+                        <button class="@GetModeClass(DrillMode.WrittenMeasureTwoFour)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.WrittenMeasureTwoFour)"
+                                @onclick="() => SetMode(DrillMode.WrittenMeasureTwoFour)">
+                            @Localizer["WrittenMeasureMode"]
+                        </button>
                     </div>
                 </section>
 
@@ -497,8 +503,9 @@ else
                             IsPlacementMode="@IsPlacementMode"
                             SelectableSteps="@SelectableSteps"
                             SelectedStep="@selectedStep"
-                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : Array.Empty<Pitch>())"
-                            CurrentPhraseIndex="@StaffPhrasePosition"
+                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : Array.Empty<Pitch>())"
+                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : null)"
+                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : StaffPhrasePosition)"
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
@@ -686,14 +693,32 @@ else
                         <small>@Localizer.Format("StaffPhraseProgress", StaffPhrasePosition, StaffPhraseLength)</small>
                     </div>
                 }
+                else if (IsWrittenMeasureMode)
+                {
+                    <div class="melody-echo-progress"
+                         role="progressbar"
+                         aria-valuemin="0"
+                         aria-valuemax="@writtenMeasure.Notes.Count"
+                         aria-valuenow="@WrittenMeasurePosition"
+                         aria-label="@Localizer["WrittenMeasureProgressLabel"]">
+                        @for (var noteIndex = 0; noteIndex < writtenMeasure.Notes.Count; noteIndex++)
+                        {
+                            <span class="@(noteIndex < WrittenMeasurePosition ? "is-complete" : null)" aria-hidden="true">♩</span>
+                        }
+                        <small>@Localizer.Format("WrittenMeasureProgress", WrittenMeasurePosition, writtenMeasure.Notes.Count)</small>
+                    </div>
+                }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"
                                HighlightedPitch="@KeyboardHighlightedPitch"
-                               PressedMidiNotes="@pressedMidiNotes"
+                               PressedMidiNotes="@KeyboardPressedNotes"
                                DemonstratedMidiNote="@teacherDemonstratedMidiNote"
                                IsDisabled="@KeyboardInputDisabled"
+                               UsePressReleaseInput="@IsWrittenMeasureMode"
                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"
-                               OnPitchSelected="SelectKeyboardPitch" />
+                               OnPitchSelected="SelectKeyboardPitch"
+                               OnPitchPressed="StartWrittenMeasureNote"
+                               OnPitchReleased="EndWrittenMeasureNote" />
             }
 
             <div class="@feedbackClass" aria-live="polite">@FeedbackText</div>

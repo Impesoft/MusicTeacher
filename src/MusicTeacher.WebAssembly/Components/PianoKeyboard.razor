@@ -16,6 +16,11 @@
                     data-pitch="@pitch.ScientificName"
                     aria-label="@GetPitchLabel(pitch)"
                     @onpointerenter="() => PreviewPitch(pitch)"
+                    @onpointerdown="() => PressPitch(pitch)"
+                    @onpointerup="() => ReleasePitch(pitch)"
+                    @onpointercancel="() => ReleasePitch(pitch)"
+                    @onpointerleave="() => ReleasePitch(pitch)"
+                    @onpointerdown:preventDefault="@UsePressReleaseInput"
                     @onclick="() => SelectPitch(pitch)">
             </button>
         }
@@ -31,6 +36,11 @@
                     aria-label="@GetBlackKeyLabel(key)"
                     style="@GetBlackKeyStyle(key.WhiteKeyIndex)"
                     @onpointerenter="() => PreviewPitch(key.SharpPitch)"
+                    @onpointerdown="() => PressPitch(key.SharpPitch)"
+                    @onpointerup="() => ReleasePitch(key.SharpPitch)"
+                    @onpointercancel="() => ReleasePitch(key.SharpPitch)"
+                    @onpointerleave="() => ReleasePitch(key.SharpPitch)"
+                    @onpointerdown:preventDefault="@UsePressReleaseInput"
                     @onclick="() => SelectPitch(key.SharpPitch)">
                 <span>@GetPrimaryNoteName(key.SharpPitch)</span>
                 <span>@GetPrimaryNoteName(key.FlatPitch)</span>
@@ -75,10 +85,19 @@
     public bool UseAlphabeticalNoteNames { get; set; }
 
     [Parameter]
+    public bool UsePressReleaseInput { get; set; }
+
+    [Parameter]
     public EventCallback<Pitch> OnPitchPreviewed { get; set; }
 
     [Parameter]
     public EventCallback<Pitch> OnPitchSelected { get; set; }
+
+    [Parameter]
+    public EventCallback<Pitch> OnPitchPressed { get; set; }
+
+    [Parameter]
+    public EventCallback<Pitch> OnPitchReleased { get; set; }
 
     private IReadOnlyList<BlackPianoKey> BlackKeys => Pitches
         .Select((pitch, index) => new { pitch, index })
@@ -89,9 +108,37 @@
             GetFlatPitchAfter(item.pitch)))
         .ToArray();
 
-    private async Task PreviewPitch(Pitch pitch) => await OnPitchPreviewed.InvokeAsync(pitch);
+    private async Task PreviewPitch(Pitch pitch)
+    {
+        if (!UsePressReleaseInput)
+        {
+            await OnPitchPreviewed.InvokeAsync(pitch);
+        }
+    }
 
-    private async Task SelectPitch(Pitch pitch) => await OnPitchSelected.InvokeAsync(pitch);
+    private async Task SelectPitch(Pitch pitch)
+    {
+        if (!UsePressReleaseInput)
+        {
+            await OnPitchSelected.InvokeAsync(pitch);
+        }
+    }
+
+    private async Task PressPitch(Pitch pitch)
+    {
+        if (UsePressReleaseInput)
+        {
+            await OnPitchPressed.InvokeAsync(pitch);
+        }
+    }
+
+    private async Task ReleasePitch(Pitch pitch)
+    {
+        if (UsePressReleaseInput)
+        {
+            await OnPitchReleased.InvokeAsync(pitch);
+        }
+    }
 
     private int LowestVisibleMidiNote => Pitches.Count == 0 ? 0 : Pitches.Min(pitch => pitch.MidiNote);
 

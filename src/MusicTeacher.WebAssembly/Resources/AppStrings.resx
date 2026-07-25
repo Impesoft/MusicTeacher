@@ -552,6 +552,7 @@
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Unlocked repeating short melodies.</value></data>
   <data name="MelodyEchoLongMode" xml:space="preserve"><value>Long melody echo</value></data>
   <data name="StaffPhraseMode" xml:space="preserve"><value>Read notes</value></data>
+  <data name="WrittenMeasureMode" xml:space="preserve"><value>Play a 2/4 measure</value></data>
   <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Remember a longer melody</value></data>
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Listen to all four or five notes, then play them in order.</value></data>
   <data name="StaffPhraseTitle" xml:space="preserve"><value>Play the written notes</value></data>
@@ -567,6 +568,22 @@
   <data name="StaffPhraseLearningGoal" xml:space="preserve"><value>Correctly read note patterns: {0}/{1}. Note length and timing are not assessed yet.</value></data>
   <data name="BadgeStaffPhraseTitle" xml:space="preserve"><value>Note reader</value></data>
   <data name="BadgeStaffPhraseDescription" xml:space="preserve"><value>Reading and playing short written note patterns unlocked.</value></data>
+  <data name="WrittenMeasureTitle" xml:space="preserve"><value>Fill one measure in 2/4</value></data>
+  <data name="WrittenMeasurePrompt" xml:space="preserve"><value>Play both written pitches. Hold each quarter note until the release beep; you may pause between notes.</value></data>
+  <data name="WrittenMeasureReadyFeedback" xml:space="preserve"><value>Press and hold the highlighted note. Release it when you hear the beep.</value></data>
+  <data name="WrittenMeasureWrongPitchFeedback" xml:space="preserve"><value>Look again at written note {0}.</value></data>
+  <data name="WrittenMeasureHoldingFeedback" xml:space="preserve"><value>Hold written note {0} for one beat…</value></data>
+  <data name="WrittenMeasureReleaseFeedback" xml:space="preserve"><value>Release now!</value></data>
+  <data name="WrittenMeasureTooShortFeedback" xml:space="preserve"><value>Note {0} was too short. Hold it until the beep.</value></data>
+  <data name="WrittenMeasureTooLongFeedback" xml:space="preserve"><value>Note {0} was too long. Release it when the beep sounds.</value></data>
+  <data name="WrittenMeasureProgressFeedback" xml:space="preserve"><value>Good: {0}/{1} quarter notes completed.</value></data>
+  <data name="WrittenMeasureCompleteFeedback" xml:space="preserve"><value>You completed the 2/4 measure!</value></data>
+  <data name="WrittenMeasureCompleteWithMistakesFeedback" xml:space="preserve"><value>Measure complete. Try another and follow each release beep.</value></data>
+  <data name="WrittenMeasureProgressLabel" xml:space="preserve"><value>Two-four measure progress</value></data>
+  <data name="WrittenMeasureProgress" xml:space="preserve"><value>{0} of {1} quarter notes</value></data>
+  <data name="WrittenMeasureLearningGoal" xml:space="preserve"><value>Correct 2/4 measures: {0}/{1}. Pauses between notes do not count yet.</value></data>
+  <data name="BadgeWrittenMeasureTitle" xml:space="preserve"><value>Measure maker</value></data>
+  <data name="BadgeWrittenMeasureDescription" xml:space="preserve"><value>Playing two quarter notes in a 2/4 measure unlocked.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melody Explorer</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>

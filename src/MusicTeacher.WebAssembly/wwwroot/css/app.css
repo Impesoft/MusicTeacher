@@ -1711,6 +1711,18 @@ h1:focus {
     stroke-width: 2.2;
 }
 
+.staff-time-signature {
+    fill: var(--staff-ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 42px;
+    font-weight: 900;
+    text-anchor: middle;
+}
+
+.staff-end-barline {
+    stroke-width: 4;
+}
+
 .staff-phrase-note {
     transition: opacity 140ms ease, filter 140ms ease;
 }

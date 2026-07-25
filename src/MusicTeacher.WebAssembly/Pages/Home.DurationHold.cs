@@ -186,6 +186,7 @@ public partial class Home
     private async Task RecordDurationResult(HeldDurationResult result)
     {
         var wasRhythmEchoUnlocked = IsModeUnlocked(DrillMode.RhythmEcho);
+        var wasWrittenMeasureUnlocked = IsModeUnlocked(DrillMode.WrittenMeasureTwoFour);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(result.IsSuccessful)
             : progress.DrillProgress;
@@ -215,6 +216,16 @@ public partial class Home
             feedbackKey = "LevelUnlockedFeedback";
             feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.RhythmEcho)]];
             await AwardUnlock(DrillMode.RhythmEcho);
+        }
+
+        if (practiceMode == PracticeMode.LearningPath &&
+            result.IsSuccessful &&
+            !wasWrittenMeasureUnlocked &&
+            IsModeUnlocked(DrillMode.WrittenMeasureTwoFour))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.WrittenMeasureTwoFour)]];
+            await AwardUnlock(DrillMode.WrittenMeasureTwoFour);
         }
 
         await ProgressStore.SaveAsync(progress);

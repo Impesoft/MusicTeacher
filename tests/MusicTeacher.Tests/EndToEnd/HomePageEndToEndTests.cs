@@ -54,7 +54,7 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await Assertions.Expect(modeNavigation.Locator(".mode-group-basics .mode-button")).ToHaveTextAsync(
             ["Name", "Place", "Hear: play", "Hear: place"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-melody .mode-button")).ToHaveTextAsync(
-            ["Melody echo", "Long melody echo", "Read notes"]);
+            ["Melody echo", "Long melody echo", "Read notes", "Play a 2/4 measure"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-rhythm .mode-button")).ToHaveTextAsync(
             ["Tap the beat", "Hold the sound", "Rhythm echo"]);
         await Assertions.Expect(modeNavigation.Locator(".mode-group-accidentals .mode-button")).ToHaveTextAsync(
@@ -165,6 +165,57 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
         await page.Locator($"button.piano-white-key[data-pitch='{pitches[1]}']").ClickAsync();
 
         await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("You read the whole note pattern!");
+        await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
+    }
+
+    [E2EFact]
+    public async Task TwoFourMeasureScoresPitchAndHoldButIgnoresGapBetweenNotes()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'staff-phrase-pitch': { Attempts: 5, CorrectAnswers: 5, Streak: 5, BestStreak: 5 },
+                        'hold-duration': { Attempts: 3, CorrectAnswers: 3, Streak: 3, BestStreak: 3 }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Play a 2/4 measure", Exact = true });
+        await Assertions.Expect(modeButton).ToBeEnabledAsync();
+        await modeButton.ClickAsync();
+
+        var staff = page.Locator(".music-staff");
+        await Assertions.Expect(staff).ToHaveAttributeAsync("data-time-signature", "2/4");
+        var notes = staff.Locator(".staff-phrase-note[data-pitch]");
+        await Assertions.Expect(notes).ToHaveCountAsync(2);
+        var pitches = await notes.EvaluateAllAsync<string[]>(
+            "items => items.map(item => item.getAttribute('data-pitch'))");
+
+        var firstKey = page.Locator($"button.piano-white-key[data-pitch='{pitches[0]}']");
+        await firstKey.DispatchEventAsync("pointerdown");
+        await page.WaitForTimeoutAsync(650);
+        await firstKey.DispatchEventAsync("pointerup");
+
+        await page.WaitForTimeoutAsync(1_100);
+
+        var secondKey = page.Locator($"button.piano-white-key[data-pitch='{pitches[1]}']");
+        await secondKey.DispatchEventAsync("pointerdown");
+        await page.WaitForTimeoutAsync(650);
+        await secondKey.DispatchEventAsync("pointerup");
+
+        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("You completed the 2/4 measure!");
         await Assertions.Expect(page.GetByText("1 correct")).ToBeVisibleAsync();
     }
 

@@ -57,6 +57,7 @@ public partial class Home
         new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
         new(DrillMode.StaffPhrasePitch, "staff-phrase-pitch", "BadgeStaffPhraseTitle", "BadgeStaffPhraseDescription", "𝄞"),
+        new(DrillMode.WrittenMeasureTwoFour, "written-measure-two-four", "BadgeWrittenMeasureTitle", "BadgeWrittenMeasureDescription", "2/4"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
         new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
@@ -173,7 +174,21 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (change.IsPressed && mode == DrillMode.RhythmEcho)
+        if (mode == DrillMode.WrittenMeasureTwoFour)
+        {
+            if (IsMidiNoteInVisibleRange(change.MidiNote))
+            {
+                if (change.IsPressed)
+                {
+                    await InvokeAsync(() => StartWrittenMeasureNote(change.MidiNote));
+                }
+                else
+                {
+                    await InvokeAsync(() => EndWrittenMeasureNote(change.MidiNote));
+                }
+            }
+        }
+        else if (change.IsPressed && mode == DrillMode.RhythmEcho)
         {
             await InvokeAsync(RegisterRhythmTap);
         }
@@ -397,6 +412,7 @@ public partial class Home
         MelodyEcho,
         MelodyEchoLong,
         StaffPhrasePitch,
+        WrittenMeasureTwoFour,
         HearAccidentalPlay,
         HearNotePlace
     }
