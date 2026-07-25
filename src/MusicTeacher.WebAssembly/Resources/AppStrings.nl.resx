@@ -530,7 +530,7 @@
   <data name="MidiInvitationManageAction" xml:space="preserve"><value>Beheren</value></data>
   <data name="MidiConnectShort" xml:space="preserve"><value>MIDI-keyboard verbinden</value></data>
   <data name="MidiConnectedShort" xml:space="preserve"><value>MIDI-keyboard verbonden</value></data>
-  <data name="MelodyEchoMode" xml:space="preserve"><value>Melodie nazeggen</value></data>
+  <data name="MelodyEchoMode" xml:space="preserve"><value>Melodie herhalen</value></data>
   <data name="MelodyEchoTitle" xml:space="preserve"><value>Speel de melodie na</value></data>
   <data name="MelodyEchoPrompt" xml:space="preserve"><value>Luister en speel daarna de noten in dezelfde volgorde.</value></data>
   <data name="MelodyEchoReplay" xml:space="preserve"><value>Melodie opnieuw horen</value></data>
@@ -544,14 +544,14 @@
   <data name="MelodyEchoProgress" xml:space="preserve"><value>{0} van {1}</value></data>
   <data name="BadgeMelodyEchoTitle" xml:space="preserve"><value>Melodiegeheugen</value></data>
   <data name="BadgeMelodyEchoDescription" xml:space="preserve"><value>Korte melodieën naspelen ontgrendeld.</value></data>
-  <data name="MelodyEchoLongMode" xml:space="preserve"><value>Lange melodie nazeggen</value></data>
+  <data name="MelodyEchoLongMode" xml:space="preserve"><value>Lange melodie herhalen</value></data>
   <data name="MelodyEchoLongTitle" xml:space="preserve"><value>Onthoud een langere melodie</value></data>
   <data name="MelodyEchoLongPrompt" xml:space="preserve"><value>Luister naar alle vier of vijf noten en speel ze daarna in volgorde.</value></data>
   <data name="BadgeMelodyEchoLongTitle" xml:space="preserve"><value>Melodie-ontdekker</value></data>
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>
   <data name="DurationHoldMode" xml:space="preserve"><value>Houd de klank aan</value></data>
-  <data name="RhythmEchoMode" xml:space="preserve"><value>Ritme nazeggen</value></data>
+  <data name="RhythmEchoMode" xml:space="preserve"><value>Ritme herhalen</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Houd een vaste tel</value></data>
   <data name="DurationHoldTitle" xml:space="preserve"><value>Laat de klank duren</value></data>
   <data name="RhythmEchoTitle" xml:space="preserve"><value>Herhaal het ritme</value></data>
@@ -576,11 +576,11 @@
   <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Juiste lengtes: {0}/{1}. De toonhoogte telt niet mee in deze ritme-oefening.</value></data>
   <data name="RhythmEchoLearningGoal" xml:space="preserve"><value>Perfecte ritmes: {0}/{1}. De melodie telt hier nog niet mee.</value></data>
   <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Ritmepatroon van vier tellen met klanken en rusten</value></data>
-  <data name="RhythmEchoStart" xml:space="preserve"><value>Luister en zeg na</value></data>
+  <data name="RhythmEchoStart" xml:space="preserve"><value>Luister en herhaal</value></data>
   <data name="RhythmEchoListening" xml:space="preserve"><value>Luister en kijk naar de vier tellen…</value></data>
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tik!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
-  <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent om het ritme te horen.</value></data>
+  <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent om naar het ritme te luisteren.</value></data>
   <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Maak je klaar: {0}</value></data>
   <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Luister: klank of rust?</value></data>
   <data name="RhythmEchoYourCountInFeedback" xml:space="preserve"><value>Jouw aftelling: {0}</value></data>
@@ -609,7 +609,7 @@
   <data name="BadgeHoldDurationTitle" xml:space="preserve"><value>Klankrekker</value></data>
   <data name="BadgeHoldDurationDescription" xml:space="preserve"><value>Aangehouden klanken van één, twee en vier tellen ontgrendeld.</value></data>
   <data name="BadgeRhythmEchoTitle" xml:space="preserve"><value>Ritmeherhaler</value></data>
-  <data name="BadgeRhythmEchoDescription" xml:space="preserve"><value>Patronen met klanken en rusten nazeggen ontgrendeld.</value></data>
+  <data name="BadgeRhythmEchoDescription" xml:space="preserve"><value>Patronen met klanken en rusten herhalen ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>
