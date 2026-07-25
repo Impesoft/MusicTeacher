@@ -2046,19 +2046,19 @@ h1:focus {
 
 .duration-hold-ruler {
     background: var(--surface-muted-strong);
-    border: 3px solid var(--border-strong);
     border-radius: 10px;
     display: grid;
+    gap: 0.3rem;
     grid-template-columns: repeat(4, 1fr);
     max-width: 34rem;
     min-height: 3.5rem;
-    overflow: hidden;
     position: relative;
     width: 100%;
 }
 
 .duration-hold-ruler > span {
-    background: var(--accent);
+    background: color-mix(in srgb, var(--accent) 60%, transparent);
+    border-radius: 7px;
     bottom: 0;
     left: 0;
     position: absolute;
@@ -2068,7 +2068,9 @@ h1:focus {
 
 .duration-hold-ruler i {
     align-items: center;
-    border-right: 1px dashed var(--border-soft);
+    background: color-mix(in srgb, var(--surface-strong) 78%, transparent);
+    border: 2px dashed var(--border-soft);
+    border-radius: 7px;
     color: var(--ink);
     display: flex;
     font-style: normal;
@@ -2078,8 +2080,10 @@ h1:focus {
     z-index: 1;
 }
 
-.duration-hold-ruler i:last-child {
-    border-right: 0;
+.duration-hold-ruler i.is-expected {
+    background: color-mix(in srgb, var(--accent) 20%, var(--surface-strong));
+    border-color: var(--border-strong);
+    border-style: solid;
 }
 
 .duration-hold-button {

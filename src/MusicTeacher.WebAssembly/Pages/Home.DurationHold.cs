@@ -22,20 +22,17 @@ public partial class Home
     {
         get
         {
-            var targetMilliseconds = BeatInterval.TotalMilliseconds * requestedDurationBeats;
-            var percent = targetMilliseconds <= 0
+            var rulerMilliseconds = BeatInterval.TotalMilliseconds * 4;
+            var percent = rulerMilliseconds <= 0
                 ? 0
-                : Math.Clamp(currentHeldDuration.TotalMilliseconds / targetMilliseconds * 100, 0, 100);
+                : Math.Clamp(currentHeldDuration.TotalMilliseconds / rulerMilliseconds * 100, 0, 100);
             return FormattableString.Invariant($"width: {percent:0.#}%;");
         }
     }
 
     private string DurationProgressBeats
         => FormattableString.Invariant(
-            $"{Math.Min(currentHeldDuration.TotalMilliseconds / BeatInterval.TotalMilliseconds, requestedDurationBeats):0.##}");
-
-    private string DurationRulerStyle
-        => FormattableString.Invariant($"grid-template-columns: repeat({requestedDurationBeats}, 1fr);");
+            $"{Math.Min(currentHeldDuration.TotalMilliseconds / BeatInterval.TotalMilliseconds, 4):0.##}");
 
     private void PrepareDurationRound()
     {

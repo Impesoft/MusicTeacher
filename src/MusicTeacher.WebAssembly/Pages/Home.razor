@@ -482,16 +482,16 @@ else
                         <strong>@Localizer.Format("DurationHoldTarget", requestedDurationBeats)</strong>
                     </div>
                     <div class="duration-hold-ruler"
-                         style="@DurationRulerStyle"
                          role="progressbar"
                          aria-valuemin="0"
-                         aria-valuemax="@requestedDurationBeats"
+                         aria-valuemax="4"
                          aria-valuenow="@DurationProgressBeats"
                          aria-label="@Localizer["DurationHoldProgressLabel"]">
                         <span style="@DurationProgressStyle"></span>
-                        @for (var beat = 1; beat <= requestedDurationBeats; beat++)
+                        @for (var beat = 1; beat <= 4; beat++)
                         {
-                            <i aria-hidden="true">@beat</i>
+                            <i class="@(beat <= requestedDurationBeats ? "is-expected" : "is-resting")"
+                               aria-hidden="true">@beat</i>
                         }
                     </div>
                     @if (!isDurationReadyToHold)
