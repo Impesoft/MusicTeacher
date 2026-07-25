@@ -185,6 +185,7 @@ public partial class Home
 
     private async Task RecordDurationResult(HeldDurationResult result)
     {
+        var wasRhythmEchoUnlocked = IsModeUnlocked(DrillMode.RhythmEcho);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(result.IsSuccessful)
             : progress.DrillProgress;
@@ -205,6 +206,17 @@ public partial class Home
         };
         feedbackArguments = [requestedDurationBeats];
         feedbackClass = result.IsSuccessful ? "feedback is-correct" : "feedback is-missed";
+
+        if (practiceMode == PracticeMode.LearningPath &&
+            result.IsSuccessful &&
+            !wasRhythmEchoUnlocked &&
+            IsModeUnlocked(DrillMode.RhythmEcho))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.RhythmEcho)]];
+            await AwardUnlock(DrillMode.RhythmEcho);
+        }
+
         await ProgressStore.SaveAsync(progress);
     }
 }

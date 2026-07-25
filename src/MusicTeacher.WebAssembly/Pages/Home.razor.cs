@@ -53,6 +53,7 @@ public partial class Home
         new(DrillMode.HearNotePlay, "ear-training", "BadgeEarTrainingTitle", "BadgeEarTrainingDescription", "♪"),
         new(DrillMode.BeatTap, "steady-beat", "BadgeSteadyBeatTitle", "BadgeSteadyBeatDescription", "●"),
         new(DrillMode.HoldDuration, "hold-duration", "BadgeHoldDurationTitle", "BadgeHoldDurationDescription", "▬"),
+        new(DrillMode.RhythmEcho, "rhythm-echo", "BadgeRhythmEchoTitle", "BadgeRhythmEchoDescription", "◌"),
         new(DrillMode.MelodyEcho, "melody-echo", "BadgeMelodyEchoTitle", "BadgeMelodyEchoDescription", "♫"),
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
@@ -171,7 +172,11 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (mode == DrillMode.HoldDuration)
+        if (change.IsPressed && mode == DrillMode.RhythmEcho)
+        {
+            await InvokeAsync(RegisterRhythmTap);
+        }
+        else if (mode == DrillMode.HoldDuration)
         {
             if (change.IsPressed)
             {
@@ -257,6 +262,7 @@ public partial class Home
         melodyDemonstrationVersion++;
         beatRoundVersion++;
         durationHoldVersion++;
+        rhythmEchoVersion++;
         _ = Audio.StopSustainedNoteAsync();
         isDemonstratingMelody = false;
         teacherDemonstratedMidiNote = null;
@@ -386,6 +392,7 @@ public partial class Home
         HearNotePlay,
         BeatTap,
         HoldDuration,
+        RhythmEcho,
         MelodyEcho,
         MelodyEchoLong,
         HearAccidentalPlay,

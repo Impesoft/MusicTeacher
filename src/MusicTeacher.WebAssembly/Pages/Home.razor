@@ -363,6 +363,12 @@ else
                         @onclick="() => SetMode(DrillMode.HoldDuration)">
                     @Localizer["DurationHoldMode"]
                 </button>
+                <button class="@GetModeClass(DrillMode.RhythmEcho)"
+                        type="button"
+                        disabled="@IsModeLocked(DrillMode.RhythmEcho)"
+                        @onclick="() => SetMode(DrillMode.RhythmEcho)">
+                    @Localizer["RhythmEchoMode"]
+                </button>
                 <button class="@GetModeClass(DrillMode.MelodyEcho)"
                         type="button"
                         disabled="@IsModeLocked(DrillMode.MelodyEcho)"
@@ -552,6 +558,43 @@ else
                                 @onkeydown:preventDefault>
                             @(isHoldingDuration ? Localizer["DurationHoldReleaseButton"] : Localizer["DurationHoldPressButton"])
                             <small>@Localizer["DurationHoldInputHint"]</small>
+                        </button>
+                    }
+                </div>
+            }
+
+            @if (IsRhythmEchoMode)
+            {
+                <div class="rhythm-echo-stage">
+                    <div class="rhythm-echo-pattern"
+                         role="group"
+                         aria-label="@Localizer["RhythmEchoPatternLabel"]">
+                        @for (var beat = 0; beat < 4; beat++)
+                        {
+                            var isSoundBeat = rhythmPattern.Contains(beat);
+                            <div class="rhythm-echo-beat @(isSoundBeat ? "is-sound" : "is-rest") @(rhythmActiveBeat == beat + 1 ? "is-active" : null)"
+                                 data-beat="@(beat + 1)"
+                                 data-sound="@isSoundBeat.ToString().ToLowerInvariant()">
+                                <strong>@(beat + 1)</strong>
+                                <span>@(isSoundBeat ? Localizer["TheoryRestSoundLabel"] : Localizer["TheoryRestSilenceLabel"])</span>
+                            </div>
+                        }
+                    </div>
+                    @if (!isDemonstratingRhythm && !isRhythmInputActive)
+                    {
+                        <button class="rhythm-echo-start-button" type="button" @onclick="DemonstrateRhythmPattern">
+                            @Localizer["RhythmEchoStart"]
+                        </button>
+                    }
+                    else if (isDemonstratingRhythm)
+                    {
+                        <div class="rhythm-echo-listening">@Localizer["RhythmEchoListening"]</div>
+                    }
+                    else
+                    {
+                        <button class="rhythm-echo-tap-button" type="button" @onclick="RegisterRhythmTap">
+                            @Localizer["RhythmEchoTap"]
+                            <small>@Localizer["RhythmEchoInputHint"]</small>
                         </button>
                     }
                 </div>

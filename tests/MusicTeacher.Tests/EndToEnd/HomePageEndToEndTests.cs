@@ -176,6 +176,47 @@ public sealed class HomePageEndToEndTests : IAsyncLifetime
     }
 
     [E2EFact]
+    public async Task RhythmEchoUnlocksAndAcceptsSpaceOnSoundBeats()
+    {
+        await page!.GotoAsync(baseUrl);
+        await page.EvaluateAsync(
+            """
+            () => {
+                localStorage.clear();
+                localStorage.setItem('music-teacher-culture', 'en');
+                localStorage.setItem('music-teacher-progress:treble-clef-start', JSON.stringify({
+                    LessonId: 'treble-clef-start',
+                    Attempts: 0,
+                    CorrectAnswers: 0,
+                    Streak: 0,
+                    DrillProgress: {
+                        'hear-note-play': { Attempts: 5, CorrectAnswers: 5, Streak: 5, BestStreak: 5 },
+                        'beat-tap': { Attempts: 3, CorrectAnswers: 3, Streak: 3, BestStreak: 3 },
+                        'hold-duration': { Attempts: 3, CorrectAnswers: 3, Streak: 3, BestStreak: 3 }
+                    }
+                }));
+            }
+            """);
+        await page.ReloadAsync();
+        await page.GetByRole(AriaRole.Button, new() { Name = "Learning path" }).ClickAsync();
+
+        var modeButton = page.GetByRole(AriaRole.Button, new() { Name = "Rhythm echo", Exact = true });
+        await Assertions.Expect(modeButton).ToBeEnabledAsync();
+        await modeButton.ClickAsync();
+
+        var pattern = page.GetByRole(AriaRole.Group, new() { Name = "Four-beat rhythm pattern showing sound and rest beats" });
+        await Assertions.Expect(pattern.Locator("[data-beat]")).ToHaveCountAsync(4);
+        Assert.Contains(await pattern.Locator("[data-sound='true']").CountAsync(), new[] { 2, 3 });
+        await page.GetByRole(AriaRole.Button, new() { Name = "Listen, then repeat" }).ClickAsync();
+
+        var tap = page.GetByRole(AriaRole.Button, new() { NameRegex = new Regex("^Tap!") });
+        await Assertions.Expect(tap).ToBeVisibleAsync(new() { Timeout = 9_000 });
+        await Assertions.Expect(pattern.Locator("[data-beat='1'].is-active")).ToBeVisibleAsync();
+        await tap.PressAsync("Space");
+        await Assertions.Expect(page.Locator(".feedback")).ToContainTextAsync("Right on the beat!");
+    }
+
+    [E2EFact]
     public async Task DutchPlacementTargetsKeepValidSvgCoordinates()
     {
         await StartFreeExploreAsync("nl", "Vrij oefenen");

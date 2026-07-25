@@ -551,10 +551,13 @@
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Langere melodieën naspelen ontgrendeld.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tik de tel</value></data>
   <data name="DurationHoldMode" xml:space="preserve"><value>Houd de klank aan</value></data>
+  <data name="RhythmEchoMode" xml:space="preserve"><value>Ritme nazeggen</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Houd een vaste tel</value></data>
   <data name="DurationHoldTitle" xml:space="preserve"><value>Laat de klank duren</value></data>
+  <data name="RhythmEchoTitle" xml:space="preserve"><value>Herhaal het ritme</value></data>
   <data name="BeatTapPrompt" xml:space="preserve"><value>Luister naar het aftellen en blijf daarna even snel tikken.</value></data>
   <data name="DurationHoldPrompt" xml:space="preserve"><value>Druk en houd {0} tellen vast. Laat daarna los.</value></data>
+  <data name="RhythmEchoPrompt" xml:space="preserve"><value>Luister naar het patroon van vier tellen en tik daarna alleen op de tellen met klank.</value></data>
   <data name="BeatTapStart" xml:space="preserve"><value>Start aftellen</value></data>
   <data name="BeatTapCountIn" xml:space="preserve"><value>Luister…</value></data>
   <data name="BeatTapButton" xml:space="preserve"><value>Tik!</value></data>
@@ -571,6 +574,22 @@
   <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Goed geprobeerd! Luister naar het aftellen en maak de tijd tussen je tikken gelijkmatiger.</value></data>
   <data name="BeatTapLearningGoal" xml:space="preserve"><value>Vaste rondes: {0}/{1}. Dit ritmepad groeit los van de melodie-oefeningen.</value></data>
   <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Juiste lengtes: {0}/{1}. De toonhoogte telt niet mee in deze ritme-oefening.</value></data>
+  <data name="RhythmEchoLearningGoal" xml:space="preserve"><value>Perfecte ritmes: {0}/{1}. De melodie telt hier nog niet mee.</value></data>
+  <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Ritmepatroon van vier tellen met klanken en rusten</value></data>
+  <data name="RhythmEchoStart" xml:space="preserve"><value>Luister en zeg na</value></data>
+  <data name="RhythmEchoListening" xml:space="preserve"><value>Luister en kijk naar de vier tellen…</value></data>
+  <data name="RhythmEchoTap" xml:space="preserve"><value>Tik!</value></data>
+  <data name="RhythmEchoInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
+  <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent om het ritme te horen.</value></data>
+  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Maak je klaar: {0}</value></data>
+  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Luister: klank of rust?</value></data>
+  <data name="RhythmEchoYourCountInFeedback" xml:space="preserve"><value>Jouw aftelling: {0}</value></data>
+  <data name="RhythmEchoYourTurnFeedback" xml:space="preserve"><value>Jij bent aan de beurt—tik op de tellen met klank!</value></data>
+  <data name="RhythmEchoEarlyFeedback" xml:space="preserve"><value>Een beetje te vroeg. Blijf de tel volgen.</value></data>
+  <data name="RhythmEchoLateFeedback" xml:space="preserve"><value>Een beetje te laat. Blijf de tel volgen.</value></data>
+  <data name="RhythmEchoOnBeatFeedback" xml:space="preserve"><value>Precies op de tel!</value></data>
+  <data name="RhythmEchoCompleteFeedback" xml:space="preserve"><value>Uitstekend ritme!</value></data>
+  <data name="RhythmEchoTryAgainFeedback" xml:space="preserve"><value>Goed geprobeerd. Luister op welke tellen je een klank hoort en probeer opnieuw.</value></data>
   <data name="DurationHoldTarget" xml:space="preserve"><value>Klank van {0} tellen</value></data>
   <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Aangehouden klanklengte in tellen</value></data>
   <data name="DurationHoldStartCountIn" xml:space="preserve"><value>Start aftellen van 4 tellen</value></data>
@@ -589,6 +608,8 @@
   <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Oefenen met een vaste tel ontgrendeld.</value></data>
   <data name="BadgeHoldDurationTitle" xml:space="preserve"><value>Klankrekker</value></data>
   <data name="BadgeHoldDurationDescription" xml:space="preserve"><value>Aangehouden klanken van één, twee en vier tellen ontgrendeld.</value></data>
+  <data name="BadgeRhythmEchoTitle" xml:space="preserve"><value>Ritmeherhaler</value></data>
+  <data name="BadgeRhythmEchoDescription" xml:space="preserve"><value>Patronen met klanken en rusten nazeggen ontgrendeld.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lager</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
 </root>

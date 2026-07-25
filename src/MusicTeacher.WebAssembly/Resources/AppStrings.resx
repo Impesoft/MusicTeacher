@@ -551,10 +551,13 @@
   <data name="BadgeMelodyEchoLongDescription" xml:space="preserve"><value>Unlocked repeating longer melodies.</value></data>
   <data name="BeatTapMode" xml:space="preserve"><value>Tap the beat</value></data>
   <data name="DurationHoldMode" xml:space="preserve"><value>Hold the sound</value></data>
+  <data name="RhythmEchoMode" xml:space="preserve"><value>Rhythm echo</value></data>
   <data name="BeatTapTitle" xml:space="preserve"><value>Keep a steady beat</value></data>
   <data name="DurationHoldTitle" xml:space="preserve"><value>Make the sound last</value></data>
+  <data name="RhythmEchoTitle" xml:space="preserve"><value>Repeat the rhythm</value></data>
   <data name="BeatTapPrompt" xml:space="preserve"><value>Listen to the count-in, then keep tapping at the same speed.</value></data>
   <data name="DurationHoldPrompt" xml:space="preserve"><value>Press and hold for {0} beats, then release.</value></data>
+  <data name="RhythmEchoPrompt" xml:space="preserve"><value>Listen to the four-beat pattern, then tap only on its sound beats.</value></data>
   <data name="BeatTapStart" xml:space="preserve"><value>Start count-in</value></data>
   <data name="BeatTapCountIn" xml:space="preserve"><value>Listen…</value></data>
   <data name="BeatTapButton" xml:space="preserve"><value>Tap!</value></data>
@@ -571,6 +574,22 @@
   <data name="BeatTapTryAgainFeedback" xml:space="preserve"><value>Good try! Listen to the count-in and make the spaces between taps more even.</value></data>
   <data name="BeatTapLearningGoal" xml:space="preserve"><value>Steady rounds: {0}/{1}. This rhythm path grows separately from melody practice.</value></data>
   <data name="DurationHoldLearningGoal" xml:space="preserve"><value>Accurate holds: {0}/{1}. Pitch does not matter in this rhythm exercise.</value></data>
+  <data name="RhythmEchoLearningGoal" xml:space="preserve"><value>Perfect rhythm echoes: {0}/{1}. Melody still does not matter here.</value></data>
+  <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Four-beat rhythm pattern showing sound and rest beats</value></data>
+  <data name="RhythmEchoStart" xml:space="preserve"><value>Listen, then repeat</value></data>
+  <data name="RhythmEchoListening" xml:space="preserve"><value>Listen and watch the four beats…</value></data>
+  <data name="RhythmEchoTap" xml:space="preserve"><value>Tap!</value></data>
+  <data name="RhythmEchoInputHint" xml:space="preserve"><value>Click, touch, press Space, or play any MIDI key</value></data>
+  <data name="RhythmEchoReadyFeedback" xml:space="preserve"><value>Start when you are ready to hear the rhythm.</value></data>
+  <data name="RhythmEchoCountInFeedback" xml:space="preserve"><value>Get ready: {0}</value></data>
+  <data name="RhythmEchoListenFeedback" xml:space="preserve"><value>Listen: sound or rest?</value></data>
+  <data name="RhythmEchoYourCountInFeedback" xml:space="preserve"><value>Your count-in: {0}</value></data>
+  <data name="RhythmEchoYourTurnFeedback" xml:space="preserve"><value>Your turn—tap the sound beats!</value></data>
+  <data name="RhythmEchoEarlyFeedback" xml:space="preserve"><value>A little early. Keep following the beat.</value></data>
+  <data name="RhythmEchoLateFeedback" xml:space="preserve"><value>A little late. Keep following the beat.</value></data>
+  <data name="RhythmEchoOnBeatFeedback" xml:space="preserve"><value>Right on the beat!</value></data>
+  <data name="RhythmEchoCompleteFeedback" xml:space="preserve"><value>Excellent rhythm echo!</value></data>
+  <data name="RhythmEchoTryAgainFeedback" xml:space="preserve"><value>Good try. Listen for which beats have sound and try again.</value></data>
   <data name="DurationHoldTarget" xml:space="preserve"><value>{0}-beat sound</value></data>
   <data name="DurationHoldProgressLabel" xml:space="preserve"><value>Held sound duration in beats</value></data>
   <data name="DurationHoldStartCountIn" xml:space="preserve"><value>Start 4-beat count-in</value></data>
@@ -589,6 +608,8 @@
   <data name="BadgeSteadyBeatDescription" xml:space="preserve"><value>Unlocked steady-beat practice.</value></data>
   <data name="BadgeHoldDurationTitle" xml:space="preserve"><value>Sound Stretcher</value></data>
   <data name="BadgeHoldDurationDescription" xml:space="preserve"><value>Unlocked one-, two-, and four-beat held sounds.</value></data>
+  <data name="BadgeRhythmEchoTitle" xml:space="preserve"><value>Rhythm Repeater</value></data>
+  <data name="BadgeRhythmEchoDescription" xml:space="preserve"><value>Unlocked repeating sound-and-rest patterns.</value></data>
   <data name="MidiLowerKeys" xml:space="preserve"><value>{0} lower</value></data>
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
 </root>
