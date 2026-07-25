@@ -40,4 +40,20 @@ public sealed class PitchTests
         Assert.Equal("d♭4", flat.DisplayName);
         Assert.Equal("re♭", flat.FixedDoName);
     }
+
+    [Theory]
+    [InlineData(NoteLetter.A, 4, Accidental.Sharp, NoteLetter.B, 4, Accidental.Flat, true)]
+    [InlineData(NoteLetter.C, 4, Accidental.Sharp, NoteLetter.D, 4, Accidental.Flat, true)]
+    [InlineData(NoteLetter.F, 4, Accidental.Sharp, NoteLetter.G, 4, Accidental.Flat, true)]
+    [InlineData(NoteLetter.C, 4, Accidental.Natural, NoteLetter.D, 4, Accidental.Natural, false)]
+    public void IsEnharmonicEquivalentToMatchesMidiNotes(
+        NoteLetter letter1, int octave1, Accidental accidental1,
+        NoteLetter letter2, int octave2, Accidental accidental2,
+        bool expected)
+    {
+        var pitch1 = new Pitch(letter1, octave1, accidental1);
+        var pitch2 = new Pitch(letter2, octave2, accidental2);
+
+        Assert.Equal(expected, pitch1.IsEnharmonicEquivalentTo(pitch2));
+    }
 }

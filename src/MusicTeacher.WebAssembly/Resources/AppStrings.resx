@@ -168,6 +168,9 @@
   <data name="CorrectFeedback" xml:space="preserve">
     <value>That fits.</value>
   </data>
+  <data name="EnharmonicCorrectFeedback" xml:space="preserve">
+    <value>That sounds the same! On the staff, {0} was requested instead of {1}.</value>
+  </data>
   <data name="LevelUnlockedFeedback" xml:space="preserve">
     <value>Level unlocked: {0}.</value>
   </data>

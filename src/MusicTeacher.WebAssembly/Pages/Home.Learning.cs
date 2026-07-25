@@ -62,7 +62,7 @@ public partial class Home
         previousPitch = null;
         NextRound();
         feedbackKey = "ProgressResetFeedback";
-        feedbackArgument = null;
+        feedbackArguments = [];
         feedbackClass = "feedback";
         await PlayAssignmentNoteIfNeeded();
     }

@@ -168,6 +168,9 @@
   <data name="CorrectFeedback" xml:space="preserve">
     <value>Dat klopt.</value>
   </data>
+  <data name="EnharmonicCorrectFeedback" xml:space="preserve">
+    <value>Dat klinkt hetzelfde! Op de notenbalk werd {0} gevraagd in plaats van {1}.</value>
+  </data>
   <data name="LevelUnlockedFeedback" xml:space="preserve">
     <value>Level ontgrendeld: {0}.</value>
   </data>

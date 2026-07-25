@@ -1516,15 +1516,22 @@ h1:focus {
 
 .midi-practice-shortcut {
     background: var(--sun);
-    border: 2px solid var(--ink);
+    border: 2px solid #17212b;
     border-radius: 999px;
-    color: var(--ink);
+    color: #17212b;
     cursor: pointer;
     font: inherit;
     font-size: 0.8rem;
     font-weight: 900;
     margin-left: 0.5rem;
     padding: 0.35rem 0.75rem;
+    -webkit-text-fill-color: #17212b;
+}
+
+.midi-practice-shortcut:hover,
+.midi-practice-shortcut:focus-visible {
+    box-shadow: 0 3px 0 #17212b;
+    transform: translateY(-1px);
 }
 
 .piano-keyboard-shell {

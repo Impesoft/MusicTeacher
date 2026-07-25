@@ -9,9 +9,9 @@ public partial class Home
         .Distinct()
         .ToArray();
 
-    private string FeedbackText => feedbackArgument is null
+    private string FeedbackText => feedbackArguments.Length == 0
         ? Localizer[feedbackKey]
-        : Localizer.Format(feedbackKey, feedbackArgument);
+        : Localizer.Format(feedbackKey, feedbackArguments);
 
     private bool IsPlacementMode => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
@@ -121,12 +121,15 @@ public partial class Home
     {
         selectedStep = step;
         var placedPitch = TrebleClef.GetPitchFromStaffStep(step) with { Accidental = selectedAccidental };
-        var isCorrect = step == TrebleClef.GetStaffStep(currentPitch) && placedPitch.Accidental == currentPitch.Accidental;
+        var isExactMatch = step == TrebleClef.GetStaffStep(currentPitch) && placedPitch.Accidental == currentPitch.Accidental;
+        var isEnharmonicMatch = placedPitch.IsEnharmonicEquivalentTo(currentPitch);
+        var isCorrect = isEnharmonicMatch;
+
         await PlayClickCue(isCorrect, currentPitch);
-        await RecordAnswer(isCorrect);
+        await RecordAnswer(isCorrect, isExactMatch ? null : placedPitch);
     }
 
-    private async Task RecordAnswer(bool isCorrect)
+    private async Task RecordAnswer(bool isCorrect, Pitch? placedPitch = null)
     {
         var wasNextModeUnlocked = GetNextMode(mode) is { } nextMode && IsModeUnlocked(nextMode);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
@@ -142,9 +145,26 @@ public partial class Home
             DrillProgress = updatedDrillProgress
         };
 
-        feedbackKey = isCorrect ? "CorrectFeedback" : "MissedFeedback";
-        feedbackArgument = null;
-        feedbackClass = isCorrect ? "feedback is-correct" : "feedback is-missed";
+        if (isCorrect)
+        {
+            if (placedPitch is not null)
+            {
+                feedbackKey = "EnharmonicCorrectFeedback";
+                feedbackArguments = [GetPromptName(currentPitch), GetPromptName(placedPitch.Value)];
+            }
+            else
+            {
+                feedbackKey = "CorrectFeedback";
+                feedbackArguments = [];
+            }
+            feedbackClass = "feedback is-correct";
+        }
+        else
+        {
+            feedbackKey = "MissedFeedback";
+            feedbackArguments = [];
+            feedbackClass = "feedback is-missed";
+        }
 
         if (practiceMode == PracticeMode.LearningPath &&
             isCorrect &&
@@ -153,7 +173,7 @@ public partial class Home
             IsModeUnlocked(unlockedMode))
         {
             feedbackKey = "LevelUnlockedFeedback";
-            feedbackArgument = Localizer[GetModeLabelKey(unlockedMode)];
+            feedbackArguments = [Localizer[GetModeLabelKey(unlockedMode)]];
             await AwardUnlock(unlockedMode);
         }
 
@@ -161,7 +181,16 @@ public partial class Home
 
         if (isCorrect)
         {
+            var activeFeedbackKey = feedbackKey;
+            var activeFeedbackArguments = feedbackArguments;
+            var activeFeedbackClass = feedbackClass;
+
             NextRound();
+
+            feedbackKey = activeFeedbackKey;
+            feedbackArguments = activeFeedbackArguments;
+            feedbackClass = activeFeedbackClass;
+
             await PlayAssignmentNoteIfNeeded();
         }
     }
@@ -190,7 +219,7 @@ public partial class Home
             DrillMode.HearNotePlace => "PickHeardStaffFeedback",
             _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
         };
-        feedbackArgument = null;
+        feedbackArguments = [];
         feedbackClass = "feedback";
     }
 

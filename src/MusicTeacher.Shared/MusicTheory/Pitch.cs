@@ -6,6 +6,8 @@ public readonly record struct Pitch(NoteLetter Letter, int Octave, Accidental Ac
 
     public int MidiNote => (Octave + 1) * 12 + SemitoneFromC + (int)Accidental;
 
+    public bool IsEnharmonicEquivalentTo(Pitch other) => MidiNote == other.MidiNote;
+
     public double FrequencyHz
     {
         get

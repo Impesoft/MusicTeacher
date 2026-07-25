@@ -67,7 +67,7 @@ public partial class Home
     private int? selectedStep;
     private Accidental selectedAccidental = Accidental.Natural;
     private string feedbackKey = "Ready";
-    private string? feedbackArgument;
+    private object[] feedbackArguments = [];
     private string feedbackClass = "feedback";
     private UnlockToastViewModel? unlockToast;
     private HashSet<string> earnedBadgeIds = [];
