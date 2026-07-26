@@ -86,6 +86,26 @@ public partial class Home
         : GuidedSongMeasureIndex;
     private IReadOnlyList<Pitch> GuidedSongPitches
         => CurrentGuidedSongMeasure.WrittenMeasure.Notes.Select(note => note.Pitch).ToArray();
+    private bool ShowsGuidedSongScore
+        => IsGuidedSongSectionStage || IsGuidedSongFullStage;
+    private IReadOnlyList<SongMeasure> GuidedSongScoreMeasures
+        => ShowsGuidedSongScore ? GuidedSongPerformanceMeasures : [];
+
+    private int GetGuidedSongScorePosition(int measureIndex)
+    {
+        var overallPosition = guidedSongTimedEvaluator?.Position ?? 0;
+        var measureStart = measureIndex * 4;
+        if (overallPosition < measureStart) return -1;
+        if (overallPosition >= measureStart + 4) return 4;
+        return overallPosition - measureStart;
+    }
+
+    private string GetGuidedSongScoreMeasureClass(int measureIndex)
+        => measureIndex == GuidedSongPerformanceMeasureOffset
+            ? "guided-song-score-measure is-current"
+            : GetGuidedSongScorePosition(measureIndex) >= 4
+                ? "guided-song-score-measure is-complete"
+                : "guided-song-score-measure";
 
     private void PrepareGuidedSongMeasure()
     {

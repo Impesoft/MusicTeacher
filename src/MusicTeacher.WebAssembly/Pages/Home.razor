@@ -520,16 +520,35 @@ else
 
             @if (ShowsStaff)
             {
-                <MusicStaff DisplayedPitch="@DisplayedPitch"
-                            IsPlacementMode="@IsPlacementMode"
-                            SelectableSteps="@SelectableSteps"
-                            SelectedStep="@selectedStep"
-                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : IsTimedWrittenMeasureMode ? TimedMeasurePitches : IsGuidedSongMode ? GuidedSongPitches : Array.Empty<Pitch>())"
-                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : IsTimedWrittenMeasureMode ? timedWrittenMeasure.TimeSignature : IsGuidedSongMode ? CurrentGuidedSongMeasure.WrittenMeasure.TimeSignature : null)"
-                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : IsTimedWrittenMeasureMode ? TimedMeasurePosition : IsGuidedSongMode ? GuidedSongPosition : StaffPhrasePosition)"
-                            UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
-                            OnStepPreviewed="PreviewStaffStep"
-                            OnStepSelected="SelectStaffStep" />
+                @if (ShowsGuidedSongScore)
+                {
+                    <div class="guided-song-score" aria-label="@Localizer["GuidedSongScoreLabel"]">
+                        @for (var scoreMeasureIndex = 0; scoreMeasureIndex < GuidedSongScoreMeasures.Count; scoreMeasureIndex++)
+                        {
+                            var scoreMeasure = GuidedSongScoreMeasures[scoreMeasureIndex];
+                            <div class="@GetGuidedSongScoreMeasureClass(scoreMeasureIndex)">
+                                <strong>@Localizer.Format("GuidedSongScoreMeasure", scoreMeasureIndex + 1, GuidedSongScoreMeasures.Count)</strong>
+                                <MusicStaff PhrasePitches="@scoreMeasure.WrittenMeasure.Notes.Select(note => note.Pitch).ToArray()"
+                                            PhraseTimeSignature="@scoreMeasure.WrittenMeasure.TimeSignature"
+                                            CurrentPhraseIndex="@GetGuidedSongScorePosition(scoreMeasureIndex)"
+                                            UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <MusicStaff DisplayedPitch="@DisplayedPitch"
+                                IsPlacementMode="@IsPlacementMode"
+                                SelectableSteps="@SelectableSteps"
+                                SelectedStep="@selectedStep"
+                                PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : IsTimedWrittenMeasureMode ? TimedMeasurePitches : IsGuidedSongMode ? GuidedSongPitches : Array.Empty<Pitch>())"
+                                PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : IsTimedWrittenMeasureMode ? timedWrittenMeasure.TimeSignature : IsGuidedSongMode ? CurrentGuidedSongMeasure.WrittenMeasure.TimeSignature : null)"
+                                CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : IsTimedWrittenMeasureMode ? TimedMeasurePosition : IsGuidedSongMode ? GuidedSongPosition : StaffPhrasePosition)"
+                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
+                                OnStepPreviewed="PreviewStaffStep"
+                                OnStepSelected="SelectStaffStep" />
+                }
             }
 
             @if (IsBeatTapMode)

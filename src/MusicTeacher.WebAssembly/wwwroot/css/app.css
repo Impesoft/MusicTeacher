@@ -2361,6 +2361,47 @@ h1:focus {
     padding: 0.85rem 1rem;
 }
 
+.guided-song-score {
+    display: grid;
+    gap: 0.85rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-bottom: 1rem;
+}
+
+.guided-song-score-measure {
+    border: 3px solid transparent;
+    border-radius: 14px;
+    opacity: 0.72;
+    padding: 0.35rem;
+    transition: border-color 120ms ease, opacity 120ms ease;
+}
+
+.guided-song-score-measure > strong {
+    display: block;
+    margin: 0 0 0.3rem 0.35rem;
+}
+
+.guided-song-score-measure .music-staff {
+    display: block;
+    width: 100%;
+}
+
+.guided-song-score-measure.is-current {
+    border-color: var(--sun);
+    opacity: 1;
+}
+
+.guided-song-score-measure.is-complete {
+    border-color: var(--success-border);
+    opacity: 0.82;
+}
+
+@media (max-width: 720px) {
+    .guided-song-score {
+        grid-template-columns: 1fr;
+    }
+}
+
 .guided-song-progress > div:first-child {
     display: flex;
     justify-content: space-between;

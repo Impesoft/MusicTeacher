@@ -714,6 +714,8 @@
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · timed rehearsal</value></data>
   <data name="GuidedSongSectionStageLabel" xml:space="preserve"><value>{0} · two joined measures</value></data>
   <data name="GuidedSongFullStageLabel" xml:space="preserve"><value>Final performance · four joined measures</value></data>
+  <data name="GuidedSongScoreLabel" xml:space="preserve"><value>Complete written score for this performance</value></data>
+  <data name="GuidedSongScoreMeasure" xml:space="preserve"><value>Measure {0}/{1}</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Pitch and timed rehearsals complete</value></data>
   <data name="CurrentPathComplete" xml:space="preserve"><value>Path complete</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level Complete!</value></data>

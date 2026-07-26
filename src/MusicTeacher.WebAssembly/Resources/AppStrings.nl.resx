@@ -714,6 +714,8 @@
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · op de tel oefenen</value></data>
   <data name="GuidedSongSectionStageLabel" xml:space="preserve"><value>{0} · twee verbonden maten</value></data>
   <data name="GuidedSongFullStageLabel" xml:space="preserve"><value>Laatste uitvoering · vier verbonden maten</value></data>
+  <data name="GuidedSongScoreLabel" xml:space="preserve"><value>Volledige partituur voor deze uitvoering</value></data>
+  <data name="GuidedSongScoreMeasure" xml:space="preserve"><value>Maat {0}/{1}</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Toonhoogtes en getimede oefeningen voltooid</value></data>
   <data name="CurrentPathComplete" xml:space="preserve"><value>Leerpad voltooid</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level voltooid!</value></data>
