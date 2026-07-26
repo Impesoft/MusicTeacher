@@ -49,6 +49,34 @@ public sealed class TimedWrittenMeasureEvaluatorTests
         Assert.Equal(1, evaluator.Mistakes);
     }
 
+    [Fact]
+    public void BeginnerMouseTimingAllowsTimeToReleaseAndTravelToTheNextKey()
+    {
+        var oneSecondBeat = TimeSpan.FromSeconds(1);
+        var evaluator = new TimedWrittenMeasureEvaluator(
+            [
+                new(60, 1),
+                new(62, 1)
+            ],
+            oneSecondBeat,
+            TimeSpan.FromMilliseconds(450),
+            TimeSpan.FromMilliseconds(600));
+
+        Assert.Equal(
+            TimedMeasureStartResult.OnBeat,
+            evaluator.StartNote(60, TimeSpan.FromMilliseconds(1_350)).Result);
+        Assert.Equal(
+            TimedMeasureEndResult.OnTarget,
+            evaluator.EndNote(60, TimeSpan.FromMilliseconds(450)).Result);
+        Assert.Equal(
+            TimedMeasureStartResult.OnBeat,
+            evaluator.StartNote(62, TimeSpan.FromMilliseconds(2_250)).Result);
+        Assert.Equal(
+            TimedMeasureEndResult.OnTarget,
+            evaluator.EndNote(62, TimeSpan.FromMilliseconds(500)).Result);
+        Assert.Equal(0, evaluator.Mistakes);
+    }
+
     private static TimedWrittenMeasureEvaluator CreateEvaluator()
         => new(
             [

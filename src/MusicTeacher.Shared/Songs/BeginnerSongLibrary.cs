@@ -15,7 +15,7 @@ public static class BeginnerSongLibrary
     public static readonly SongDefinition LevelComplete = new(
         "level-complete",
         "SongLevelCompleteTitle",
-        100,
+        60,
         [LearningSkill.WrittenMeasureFourFour],
         [
             new(

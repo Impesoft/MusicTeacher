@@ -658,14 +658,14 @@
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} hoger</value></data>
   <data name="TimedMeasureMode" xml:space="preserve"><value>Speel een maat in 4/4</value></data>
   <data name="TimedMeasureTitle" xml:space="preserve"><value>Speel een maat in 4/4 op de tel</value></data>
-  <data name="TimedMeasurePrompt" xml:space="preserve"><value>Speel na vier afteltikken elke geschreven kwartnoot op de tel en houd ze aan tot de volgende tel.</value></data>
+  <data name="TimedMeasurePrompt" xml:space="preserve"><value>Volg de trage puls van 60 BPM. Start elke geschreven noot rond de tel, houd ze duidelijk aan en ga dan naar de volgende toets.</value></data>
   <data name="TimedMeasureReadyFeedback" xml:space="preserve"><value>Start wanneer je klaar bent. De metronoom blijft de hele maat doortikken.</value></data>
   <data name="TimedMeasureCountInFeedback" xml:space="preserve"><value>Tel mee: {0}</value></data>
   <data name="TimedMeasurePlayFeedback" xml:space="preserve"><value>Speel de vier noten op de tel!</value></data>
   <data name="TimedMeasureWrongPitchFeedback" xml:space="preserve"><value>Kijk opnieuw naar geschreven noot {0}. Blijf de tel volgen.</value></data>
   <data name="TimedMeasureEarlyFeedback" xml:space="preserve"><value>Een beetje te vroeg—blijf de metronoom volgen.</value></data>
   <data name="TimedMeasureLateFeedback" xml:space="preserve"><value>Een beetje te laat—blijf de metronoom volgen.</value></data>
-  <data name="TimedMeasureOnBeatFeedback" xml:space="preserve"><value>Precies op de tel—houd aan tot de volgende!</value></data>
+  <data name="TimedMeasureOnBeatFeedback" xml:space="preserve"><value>Precies op de tel—houd duidelijk aan en bereid de volgende noot voor!</value></data>
   <data name="TimedMeasureTooShortFeedback" xml:space="preserve"><value>Die noot stopte te vroeg. Speel verder op de tel.</value></data>
   <data name="TimedMeasureTooLongFeedback" xml:space="preserve"><value>Die noot duurde te lang. Speel verder op de tel.</value></data>
   <data name="TimedMeasureProgressFeedback" xml:space="preserve"><value>Goed: {0}/{1} kwartnoten gespeeld.</value></data>

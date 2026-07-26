@@ -6,6 +6,10 @@ namespace MusicTeacher.WebAssembly.Pages;
 
 public partial class Home
 {
+    private static readonly TimeSpan BeginnerPerformanceBeatInterval = TimeSpan.FromSeconds(1);
+    private static readonly TimeSpan BeginnerPerformanceOnsetTolerance = TimeSpan.FromMilliseconds(450);
+    private static readonly TimeSpan BeginnerPerformanceDurationTolerance = TimeSpan.FromMilliseconds(600);
+
     private static readonly IReadOnlyList<WrittenMeasure> BeginnerFourFourMeasures =
     [
         FourFour(new(NoteLetter.C, 4), new(NoteLetter.D, 4), new(NoteLetter.E, 4), new(NoteLetter.C, 4)),
@@ -62,7 +66,9 @@ public partial class Home
             timedWrittenMeasure.Notes
                 .Select(note => new WrittenNoteTarget(note.Pitch.MidiNote, note.DurationBeats))
                 .ToArray(),
-            BeatInterval);
+            BeginnerPerformanceBeatInterval,
+            BeginnerPerformanceOnsetTolerance,
+            BeginnerPerformanceDurationTolerance);
         feedbackClass = "feedback";
 
         for (var count = 1; count <= 4; count++)
@@ -81,7 +87,7 @@ public partial class Home
             }
 
             await InvokeAsync(StateHasChanged);
-            await Task.Delay(BeatInterval);
+            await Task.Delay(BeginnerPerformanceBeatInterval);
         }
 
         if (!IsCurrentTimedMeasure(version)) return;
@@ -97,14 +103,14 @@ public partial class Home
         while (IsCurrentTimedMeasure(version) && isTimedMeasureInputActive)
         {
             var elapsed = Stopwatch.GetElapsedTime(timedMeasureStartedTimestamp);
-            if (nextBeat <= 5 && elapsed >= BeatInterval * nextBeat)
+            if (nextBeat <= 5 && elapsed >= BeginnerPerformanceBeatInterval * nextBeat)
             {
                 timedMeasureActiveBeat = nextBeat <= 4 ? nextBeat : 0;
                 nextBeat++;
                 await Audio.PlayMidiNoteAsync(84);
             }
 
-            if (elapsed >= BeatInterval * 5 + TimeSpan.FromMilliseconds(300))
+            if (elapsed >= BeginnerPerformanceBeatInterval * 5 + TimeSpan.FromMilliseconds(400))
             {
                 await CompleteTimedMeasure(false);
                 return;

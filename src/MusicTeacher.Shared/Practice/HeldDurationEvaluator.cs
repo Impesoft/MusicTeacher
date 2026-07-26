@@ -5,7 +5,8 @@ public static class HeldDurationEvaluator
     public static HeldDurationResult Evaluate(
         int requestedBeats,
         TimeSpan heldDuration,
-        TimeSpan? beatInterval = null)
+        TimeSpan? beatInterval = null,
+        TimeSpan? acceptedTolerance = null)
     {
         if (requestedBeats is not (1 or 2 or 4))
         {
@@ -14,7 +15,8 @@ public static class HeldDurationEvaluator
 
         var interval = beatInterval ?? TimeSpan.FromMilliseconds(600);
         var target = interval * requestedBeats;
-        var tolerance = TimeSpan.FromMilliseconds(Math.Min(350, 140 + requestedBeats * 70));
+        var tolerance = acceptedTolerance ??
+            TimeSpan.FromMilliseconds(Math.Min(350, 140 + requestedBeats * 70));
         var minimum = target - tolerance;
         var maximum = target + tolerance;
         var guidance = heldDuration < minimum

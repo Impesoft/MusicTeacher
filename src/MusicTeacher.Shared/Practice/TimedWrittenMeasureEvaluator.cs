@@ -3,7 +3,8 @@ namespace MusicTeacher.Shared.Practice;
 public sealed class TimedWrittenMeasureEvaluator(
     IReadOnlyList<WrittenNoteTarget> targets,
     TimeSpan beatInterval,
-    TimeSpan? onsetTolerance = null)
+    TimeSpan? onsetTolerance = null,
+    TimeSpan? durationTolerance = null)
 {
     private readonly TimeSpan tolerance = onsetTolerance ?? TimeSpan.FromMilliseconds(240);
     private int? heldMidiNote;
@@ -56,7 +57,8 @@ public sealed class TimedWrittenMeasureEvaluator(
         var duration = HeldDurationEvaluator.Evaluate(
             targets[Position].DurationBeats,
             heldDuration,
-            beatInterval);
+            beatInterval,
+            durationTolerance);
         var result = duration.Guidance switch
         {
             HeldDurationGuidance.TooShort => TimedMeasureEndResult.TooShort,

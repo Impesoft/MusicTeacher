@@ -658,14 +658,14 @@
   <data name="MidiHigherKeys" xml:space="preserve"><value>{0} higher</value></data>
   <data name="TimedMeasureMode" xml:space="preserve"><value>Play in 4/4 time</value></data>
   <data name="TimedMeasureTitle" xml:space="preserve"><value>Keep a 4/4 measure moving</value></data>
-  <data name="TimedMeasurePrompt" xml:space="preserve"><value>After four count-in beats, play each written quarter note on its beat and hold it until the next beat.</value></data>
+  <data name="TimedMeasurePrompt" xml:space="preserve"><value>Follow the slow 60 BPM pulse. Start each written note near its beat, hold it clearly, then move to the next key.</value></data>
   <data name="TimedMeasureReadyFeedback" xml:space="preserve"><value>Start when you are ready. The metronome keeps going through the whole measure.</value></data>
   <data name="TimedMeasureCountInFeedback" xml:space="preserve"><value>Count in: {0}</value></data>
   <data name="TimedMeasurePlayFeedback" xml:space="preserve"><value>Play the four notes with the beat!</value></data>
   <data name="TimedMeasureWrongPitchFeedback" xml:space="preserve"><value>Look again at written note {0}. Keep following the beat.</value></data>
   <data name="TimedMeasureEarlyFeedback" xml:space="preserve"><value>A little early—keep following the metronome.</value></data>
   <data name="TimedMeasureLateFeedback" xml:space="preserve"><value>A little late—keep following the metronome.</value></data>
-  <data name="TimedMeasureOnBeatFeedback" xml:space="preserve"><value>Right on the beat—hold until the next one!</value></data>
+  <data name="TimedMeasureOnBeatFeedback" xml:space="preserve"><value>Right on the beat—hold it clearly, then prepare the next note!</value></data>
   <data name="TimedMeasureTooShortFeedback" xml:space="preserve"><value>That note ended early. Keep going with the beat.</value></data>
   <data name="TimedMeasureTooLongFeedback" xml:space="preserve"><value>That note lasted too long. Keep going with the beat.</value></data>
   <data name="TimedMeasureProgressFeedback" xml:space="preserve"><value>Good: {0}/{1} quarter notes played.</value></data>
