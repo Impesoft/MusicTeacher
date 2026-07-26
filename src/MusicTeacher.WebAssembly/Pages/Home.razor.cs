@@ -176,7 +176,8 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (mode is DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour)
+        if (mode is DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour ||
+            IsGuidedSongTimedStage)
         {
             if (IsMidiNoteInVisibleRange(change.MidiNote))
             {

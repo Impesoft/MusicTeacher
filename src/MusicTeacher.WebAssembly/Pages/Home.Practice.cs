@@ -43,7 +43,7 @@ public partial class Home
 
     private Pitch? KeyboardHighlightedPitch => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental ? currentPitch : null;
 
-    private IReadOnlySet<int> KeyboardPressedNotes => (writtenMeasureHeldMidiNote ?? timedMeasureHeldMidiNote) is { } heldNote
+    private IReadOnlySet<int> KeyboardPressedNotes => (writtenMeasureHeldMidiNote ?? timedMeasureHeldMidiNote ?? guidedSongHeldMidiNote) is { } heldNote
         ? pressedMidiNotes.Append(heldNote).ToHashSet()
         : pressedMidiNotes;
 
@@ -87,7 +87,11 @@ public partial class Home
         DrillMode.StaffPhrasePitch => Localizer["StaffPhrasePrompt"],
         DrillMode.WrittenMeasureTwoFour => Localizer["WrittenMeasurePrompt"],
         DrillMode.WrittenMeasureFourFour => Localizer["TimedMeasurePrompt"],
-        DrillMode.GuidedSong => Localizer["GuidedSongPrompt"],
+        DrillMode.GuidedSong => IsGuidedSongTimedStage
+            ? Localizer["GuidedSongTimedPrompt"]
+            : IsGuidedSongComplete
+                ? Localizer["GuidedSongCompletePrompt"]
+                : Localizer["GuidedSongPrompt"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
         DrillMode.HearNotePlace => Localizer["HearPlacePrompt"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")

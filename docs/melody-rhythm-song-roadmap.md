@@ -290,4 +290,5 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] First 2/4 measure with two pitch-and-duration-assessed quarter notes.
 - [x] 4/4 written measure and continuous timing layer.
 - [x] Reusable song/section/measure content model and persistent pitch-rehearsal checkpoints.
-- [ ] Timed song-measure rehearsal and joined section progression.
+- [x] Timed song-measure rehearsal with persistent checkpoints.
+- [ ] Joined section progression and complete-song performance.

@@ -764,16 +764,50 @@ else
                              role="progressbar"
                              aria-valuemin="0"
                              aria-valuemax="@GuidedSong.Measures.Count"
-                             aria-valuenow="@GuidedSongProgress.PitchMeasuresCompleted"
+                             aria-valuenow="@(IsGuidedSongTimedStage || IsGuidedSongComplete ? GuidedSongProgress.TimedMeasuresCompleted : GuidedSongProgress.PitchMeasuresCompleted)"
                              aria-label="@Localizer["GuidedSongProgressLabel"]">
                             @for (var measureIndex = 0; measureIndex < GuidedSong.Measures.Count; measureIndex++)
                             {
-                                <span class="@(measureIndex < GuidedSongProgress.PitchMeasuresCompleted ? "is-complete" : measureIndex == GuidedSongMeasureIndex ? "is-current" : null)">
+                                var completedMeasures = IsGuidedSongTimedStage || IsGuidedSongComplete
+                                    ? GuidedSongProgress.TimedMeasuresCompleted
+                                    : GuidedSongProgress.PitchMeasuresCompleted;
+                                <span class="@(measureIndex < completedMeasures ? "is-complete" : measureIndex == GuidedSongMeasureIndex && !IsGuidedSongComplete ? "is-current" : null)">
                                     @(measureIndex + 1)
                                 </span>
                             }
                         </div>
-                        <small>@Localizer.Format("GuidedSongMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count)</small>
+                        <small>
+                            @(IsGuidedSongComplete
+                                ? Localizer["GuidedSongCompleteStageLabel"]
+                                : IsGuidedSongTimedStage
+                                    ? Localizer.Format("GuidedSongTimedMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count)
+                                    : Localizer.Format("GuidedSongMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count))
+                        </small>
+                        @if (IsGuidedSongTimedStage)
+                        {
+                            <div class="timed-measure-beats"
+                                 role="group"
+                                 aria-label="@Localizer["TimedMeasureProgressLabel"]">
+                                @for (var beat = 1; beat <= 4; beat++)
+                                {
+                                    <span class="@(beat <= GuidedSongPosition ? "is-complete" : null) @(guidedSongActiveBeat == beat ? "is-active" : null)">
+                                        <strong>@beat</strong>
+                                        <small>♩</small>
+                                    </span>
+                                }
+                            </div>
+                            <button class="rhythm-echo-action-button"
+                                    type="button"
+                                    disabled="@(guidedSongCountIn > 0 || isGuidedSongTimedInputActive)"
+                                    @onclick="StartGuidedSongCountIn">
+                                @(guidedSongCountIn > 0
+                                    ? Localizer.Format("TimedMeasureCountInButton", guidedSongCountIn)
+                                    : isGuidedSongTimedInputActive
+                                        ? Localizer["TimedMeasurePlaying"]
+                                        : Localizer["TimedMeasureStart"])
+                                <small>@Localizer["TimedMeasureInputHint"]</small>
+                            </button>
+                        }
                     </div>
                 }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"

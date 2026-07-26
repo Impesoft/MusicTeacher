@@ -30,7 +30,8 @@ public partial class Home
     private long timedMeasureHoldStartedTimestamp;
 
     private bool IsTimedWrittenMeasureMode => mode == DrillMode.WrittenMeasureFourFour;
-    private bool UsesWrittenMeasureInput => IsWrittenMeasureMode || IsTimedWrittenMeasureMode;
+    private bool UsesWrittenMeasureInput
+        => IsWrittenMeasureMode || IsTimedWrittenMeasureMode || IsGuidedSongTimedStage;
     private int TimedMeasurePosition => timedMeasureEvaluator?.Position ?? 0;
     private IReadOnlyList<Pitch> TimedMeasurePitches
         => timedWrittenMeasure.Notes.Select(note => note.Pitch).ToArray();
@@ -132,6 +133,12 @@ public partial class Home
             return;
         }
 
+        if (IsGuidedSongTimedStage)
+        {
+            await StartGuidedSongTimedNote(midiNote);
+            return;
+        }
+
         if (!IsTimedWrittenMeasureMode || !isTimedMeasureInputActive || timedMeasureEvaluator is null)
         {
             return;
@@ -177,6 +184,12 @@ public partial class Home
         if (IsWrittenMeasureMode)
         {
             await EndWrittenMeasureNote(midiNote);
+            return;
+        }
+
+        if (IsGuidedSongTimedStage)
+        {
+            await EndGuidedSongTimedNote(midiNote);
             return;
         }
 
