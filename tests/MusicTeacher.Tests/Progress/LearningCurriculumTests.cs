@@ -64,6 +64,17 @@ public sealed class LearningCurriculumTests
     }
 
     [Fact]
+    public void GuidedSongUnlocksAfterTimedFourFourMeasures()
+    {
+        var streaks = new Dictionary<string, int>
+        {
+            ["written-measure-four-four"] = 3
+        };
+
+        Assert.True(IsUnlocked("guided-song", streaks));
+    }
+
+    [Fact]
     public void AccidentalsAdvanceWithoutDependingOnMelodySkills()
     {
         var streaks = new Dictionary<string, int>

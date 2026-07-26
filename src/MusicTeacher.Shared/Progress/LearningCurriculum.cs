@@ -11,6 +11,7 @@ public enum LearningSkill
     StaffPhrasePitch,
     WrittenMeasureTwoFour,
     WrittenMeasureFourFour,
+    GuidedSongPitch,
     SteadyBeat,
     DurationBasic,
     RhythmEcho,
@@ -48,6 +49,11 @@ public static class LearningCurriculum
             3,
             LearningSkill.WrittenMeasureTwoFour,
             LearningSkill.RhythmEcho),
+        Activity(
+            "guided-song",
+            LearningSkill.GuidedSongPitch,
+            1,
+            LearningSkill.WrittenMeasureFourFour),
 
         Activity("beat-tap", LearningSkill.SteadyBeat, 3, LearningSkill.SingleNoteEarPlay),
         Activity("hold-duration", LearningSkill.DurationBasic, 3, LearningSkill.SteadyBeat),

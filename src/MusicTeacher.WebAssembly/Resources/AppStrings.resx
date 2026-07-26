@@ -679,4 +679,21 @@
   <data name="TimedMeasureLearningGoal" xml:space="preserve"><value>Perfect 4/4 measures: {0}/{1}. Pitch, start time, and note length all count.</value></data>
   <data name="BadgeTimedMeasureTitle" xml:space="preserve"><value>Time keeper</value></data>
   <data name="BadgeTimedMeasureDescription" xml:space="preserve"><value>Playing a complete 4/4 measure with the metronome unlocked.</value></data>
+  <data name="GuidedSongMode" xml:space="preserve"><value>Learn a song</value></data>
+  <data name="GuidedSongTitle" xml:space="preserve"><value>Learn your first song</value></data>
+  <data name="GuidedSongPrompt" xml:space="preserve"><value>First learn this measure’s pitches. Timing does not count in this rehearsal.</value></data>
+  <data name="GuidedSongLearningGoal" xml:space="preserve"><value>Pitch rehearsals completed: {0}/{1} measures.</value></data>
+  <data name="GuidedSongReadyFeedback" xml:space="preserve"><value>Section measure {0}/{1}: read and play the four notes in order.</value></data>
+  <data name="GuidedSongWrongPitchFeedback" xml:space="preserve"><value>Look again at note {0}. The measure stays here so you can correct it.</value></data>
+  <data name="GuidedSongProgressFeedback" xml:space="preserve"><value>Good: {0}/{1} pitches.</value></data>
+  <data name="GuidedSongRetryMeasureFeedback" xml:space="preserve"><value>Almost. Repeat the same measure and correct the missed pitch.</value></data>
+  <data name="GuidedSongMeasureCompleteFeedback" xml:space="preserve"><value>Measure learned! Moving to the next checkpoint.</value></data>
+  <data name="GuidedSongAllMeasuresCompleteFeedback" xml:space="preserve"><value>You learned every pitch in Level Complete!</value></data>
+  <data name="GuidedSongProgressLabel" xml:space="preserve"><value>Song measure checkpoints</value></data>
+  <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · pitch rehearsal</value></data>
+  <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level Complete!</value></data>
+  <data name="SongSectionLaunch" xml:space="preserve"><value>Launch</value></data>
+  <data name="SongSectionVictory" xml:space="preserve"><value>Victory</value></data>
+  <data name="BadgeGuidedSongTitle" xml:space="preserve"><value>Song starter</value></data>
+  <data name="BadgeGuidedSongDescription" xml:space="preserve"><value>Learning a song measure by measure unlocked.</value></data>
 </root>

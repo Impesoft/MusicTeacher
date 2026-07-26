@@ -2351,6 +2351,45 @@ h1:focus {
     border-style: solid;
 }
 
+.guided-song-progress {
+    background: var(--surface-strong);
+    border: 2px solid var(--border-soft);
+    border-radius: 12px;
+    display: grid;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    padding: 0.85rem 1rem;
+}
+
+.guided-song-progress > div:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+.guided-song-checkpoints {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.guided-song-checkpoints span {
+    border: 2px dashed var(--border-medium);
+    border-radius: 0.65rem;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.guided-song-checkpoints span.is-current {
+    background: var(--paper-deep);
+    border-style: solid;
+}
+
+.guided-song-checkpoints span.is-complete {
+    background: var(--success-bg);
+    border-color: var(--success-border);
+    border-style: solid;
+}
+
 .rhythm-echo-pattern {
     display: grid;
     gap: 0.5rem;

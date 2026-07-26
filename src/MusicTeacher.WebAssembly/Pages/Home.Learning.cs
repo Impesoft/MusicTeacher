@@ -42,6 +42,11 @@ public partial class Home
                 "TimedMeasureLearningGoal",
                 CurrentLevelProgress.BestStreak,
                 CurrentLearningActivity.RequiredStreak)
+        : mode == DrillMode.GuidedSong
+            ? Localizer.Format(
+                "GuidedSongLearningGoal",
+                Math.Min(GuidedSongProgress.PitchMeasuresCompleted, GuidedSong.Measures.Count),
+                GuidedSong.Measures.Count)
         : mode is DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho
             ? Localizer.Format(
                 mode switch
@@ -141,6 +146,7 @@ public partial class Home
             DrillMode.MelodyEchoLong => DrillMode.StaffPhrasePitch,
             DrillMode.StaffPhrasePitch => DrillMode.WrittenMeasureTwoFour,
             DrillMode.WrittenMeasureTwoFour => DrillMode.WrittenMeasureFourFour,
+            DrillMode.WrittenMeasureFourFour => DrillMode.GuidedSong,
             DrillMode.NameAccidental => DrillMode.PlaceAccidental,
             DrillMode.PlaceAccidental => DrillMode.HearAccidentalPlay,
             _ => null
@@ -179,6 +185,7 @@ public partial class Home
             DrillMode.StaffPhrasePitch => "staff-phrase-pitch",
             DrillMode.WrittenMeasureTwoFour => "written-measure-two-four",
             DrillMode.WrittenMeasureFourFour => "written-measure-four-four",
+            DrillMode.GuidedSong => "guided-song",
             DrillMode.HearAccidentalPlay => "hear-accidental-play",
             DrillMode.HearNotePlace => "hear-note-place",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -200,6 +207,7 @@ public partial class Home
             DrillMode.StaffPhrasePitch => "StaffPhraseMode",
             DrillMode.WrittenMeasureTwoFour => "WrittenMeasureMode",
             DrillMode.WrittenMeasureFourFour => "TimedMeasureMode",
+            DrillMode.GuidedSong => "GuidedSongMode",
             DrillMode.HearAccidentalPlay => "HearAccidentalPlayMode",
             DrillMode.HearNotePlace => "HearPlaceMode",
             _ => throw new InvalidOperationException($"Unsupported drill mode {drillMode}.")
@@ -221,6 +229,7 @@ public partial class Home
             "staff-phrase-pitch" => DrillMode.StaffPhrasePitch,
             "written-measure-two-four" => DrillMode.WrittenMeasureTwoFour,
             "written-measure-four-four" => DrillMode.WrittenMeasureFourFour,
+            "guided-song" => DrillMode.GuidedSong,
             "hear-accidental-play" => DrillMode.HearAccidentalPlay,
             "hear-note-place" => DrillMode.HearNotePlace,
             _ => throw new InvalidOperationException($"Unsupported activity '{activityId}'.")

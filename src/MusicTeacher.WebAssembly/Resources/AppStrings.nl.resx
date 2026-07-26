@@ -679,4 +679,21 @@
   <data name="TimedMeasureLearningGoal" xml:space="preserve"><value>Perfecte maten in 4/4: {0}/{1}. Toonhoogte, startmoment en nootlengte tellen allemaal mee.</value></data>
   <data name="BadgeTimedMeasureTitle" xml:space="preserve"><value>Maatvast</value></data>
   <data name="BadgeTimedMeasureDescription" xml:space="preserve"><value>Een volledige maat in 4/4 met de metronoom spelen ontgrendeld.</value></data>
+  <data name="GuidedSongMode" xml:space="preserve"><value>Leer een lied</value></data>
+  <data name="GuidedSongTitle" xml:space="preserve"><value>Leer je eerste lied</value></data>
+  <data name="GuidedSongPrompt" xml:space="preserve"><value>Leer eerst de toonhoogtes van deze maat. Timing telt nog niet mee in deze oefening.</value></data>
+  <data name="GuidedSongLearningGoal" xml:space="preserve"><value>Toonhoogtes geoefend: {0}/{1} maten.</value></data>
+  <data name="GuidedSongReadyFeedback" xml:space="preserve"><value>Maat {0}/{1} van dit deel: lees en speel de vier noten in volgorde.</value></data>
+  <data name="GuidedSongWrongPitchFeedback" xml:space="preserve"><value>Kijk opnieuw naar noot {0}. Dezelfde maat blijft staan zodat je ze kunt verbeteren.</value></data>
+  <data name="GuidedSongProgressFeedback" xml:space="preserve"><value>Goed: {0}/{1} toonhoogtes.</value></data>
+  <data name="GuidedSongRetryMeasureFeedback" xml:space="preserve"><value>Bijna. Herhaal dezelfde maat en verbeter de gemiste toonhoogte.</value></data>
+  <data name="GuidedSongMeasureCompleteFeedback" xml:space="preserve"><value>Maat geleerd! Op naar het volgende controlepunt.</value></data>
+  <data name="GuidedSongAllMeasuresCompleteFeedback" xml:space="preserve"><value>Je kent alle toonhoogtes van Level Complete!</value></data>
+  <data name="GuidedSongProgressLabel" xml:space="preserve"><value>Controlepunten van het lied</value></data>
+  <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · toonhoogtes oefenen</value></data>
+  <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level voltooid!</value></data>
+  <data name="SongSectionLaunch" xml:space="preserve"><value>Lancering</value></data>
+  <data name="SongSectionVictory" xml:space="preserve"><value>Overwinning</value></data>
+  <data name="BadgeGuidedSongTitle" xml:space="preserve"><value>Liedstarter</value></data>
+  <data name="BadgeGuidedSongDescription" xml:space="preserve"><value>Een lied maat per maat leren ontgrendeld.</value></data>
 </root>

@@ -208,6 +208,7 @@ public partial class Home
     private async Task CompleteTimedMeasure(bool isPerfect)
     {
         timedMeasureVersion++;
+        var wasGuidedSongUnlocked = IsModeUnlocked(DrillMode.GuidedSong);
         isTimedMeasureInputActive = false;
         timedMeasureCountIn = 0;
         timedMeasureHeldMidiNote = null;
@@ -225,6 +226,15 @@ public partial class Home
         feedbackKey = isPerfect ? "TimedMeasureCompleteFeedback" : "TimedMeasureTryAgainFeedback";
         feedbackArguments = [];
         feedbackClass = isPerfect ? "feedback is-correct" : "feedback is-missed";
+        if (practiceMode == PracticeMode.LearningPath &&
+            isPerfect &&
+            !wasGuidedSongUnlocked &&
+            IsModeUnlocked(DrillMode.GuidedSong))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.GuidedSong)]];
+            await AwardUnlock(DrillMode.GuidedSong);
+        }
         await ProgressStore.SaveAsync(progress);
         await InvokeAsync(StateHasChanged);
         await Task.Delay(1_200);

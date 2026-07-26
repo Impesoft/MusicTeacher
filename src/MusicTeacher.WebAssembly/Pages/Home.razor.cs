@@ -59,6 +59,7 @@ public partial class Home
         new(DrillMode.StaffPhrasePitch, "staff-phrase-pitch", "BadgeStaffPhraseTitle", "BadgeStaffPhraseDescription", "𝄞"),
         new(DrillMode.WrittenMeasureTwoFour, "written-measure-two-four", "BadgeWrittenMeasureTitle", "BadgeWrittenMeasureDescription", "2/4"),
         new(DrillMode.WrittenMeasureFourFour, "written-measure-four-four", "BadgeTimedMeasureTitle", "BadgeTimedMeasureDescription", "4/4"),
+        new(DrillMode.GuidedSong, "guided-song", "BadgeGuidedSongTitle", "BadgeGuidedSongDescription", "★"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
         new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
@@ -415,6 +416,7 @@ public partial class Home
         StaffPhrasePitch,
         WrittenMeasureTwoFour,
         WrittenMeasureFourFour,
+        GuidedSong,
         HearAccidentalPlay,
         HearNotePlace
     }

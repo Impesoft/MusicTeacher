@@ -384,6 +384,12 @@ else
                                 @onclick="() => SetMode(DrillMode.WrittenMeasureFourFour)">
                             @Localizer["TimedMeasureMode"]
                         </button>
+                        <button class="@GetModeClass(DrillMode.GuidedSong)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.GuidedSong)"
+                                @onclick="() => SetMode(DrillMode.GuidedSong)">
+                            @Localizer["GuidedSongMode"]
+                        </button>
                     </div>
                 </section>
 
@@ -509,9 +515,9 @@ else
                             IsPlacementMode="@IsPlacementMode"
                             SelectableSteps="@SelectableSteps"
                             SelectedStep="@selectedStep"
-                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : IsTimedWrittenMeasureMode ? TimedMeasurePitches : Array.Empty<Pitch>())"
-                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : IsTimedWrittenMeasureMode ? timedWrittenMeasure.TimeSignature : null)"
-                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : IsTimedWrittenMeasureMode ? TimedMeasurePosition : StaffPhrasePosition)"
+                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : IsTimedWrittenMeasureMode ? TimedMeasurePitches : IsGuidedSongMode ? GuidedSongPitches : Array.Empty<Pitch>())"
+                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : IsTimedWrittenMeasureMode ? timedWrittenMeasure.TimeSignature : IsGuidedSongMode ? CurrentGuidedSongMeasure.WrittenMeasure.TimeSignature : null)"
+                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : IsTimedWrittenMeasureMode ? TimedMeasurePosition : IsGuidedSongMode ? GuidedSongPosition : StaffPhrasePosition)"
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
@@ -745,6 +751,29 @@ else
                                     : Localizer["TimedMeasureStart"])
                             <small>@Localizer["TimedMeasureInputHint"]</small>
                         </button>
+                    </div>
+                }
+                else if (IsGuidedSongMode)
+                {
+                    <div class="guided-song-progress">
+                        <div>
+                            <strong>@Localizer[GuidedSong.TitleKey]</strong>
+                            <span>@Localizer[CurrentGuidedSongSection.TitleKey]</span>
+                        </div>
+                        <div class="guided-song-checkpoints"
+                             role="progressbar"
+                             aria-valuemin="0"
+                             aria-valuemax="@GuidedSong.Measures.Count"
+                             aria-valuenow="@GuidedSongProgress.PitchMeasuresCompleted"
+                             aria-label="@Localizer["GuidedSongProgressLabel"]">
+                            @for (var measureIndex = 0; measureIndex < GuidedSong.Measures.Count; measureIndex++)
+                            {
+                                <span class="@(measureIndex < GuidedSongProgress.PitchMeasuresCompleted ? "is-complete" : measureIndex == GuidedSongMeasureIndex ? "is-current" : null)">
+                                    @(measureIndex + 1)
+                                </span>
+                            }
+                        </div>
+                        <small>@Localizer.Format("GuidedSongMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count)</small>
                     </div>
                 }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"
