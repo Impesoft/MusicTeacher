@@ -291,4 +291,4 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] 4/4 written measure and continuous timing layer.
 - [x] Reusable song/section/measure content model and persistent pitch-rehearsal checkpoints.
 - [x] Timed song-measure rehearsal with persistent checkpoints.
-- [ ] Joined section progression and complete-song performance.
+- [x] Joined two-measure section progression and complete four-measure performance.

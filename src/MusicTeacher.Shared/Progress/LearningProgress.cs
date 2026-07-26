@@ -19,4 +19,6 @@ public sealed record DrillLevelProgress(
 
 public sealed record SongLearningProgress(
     int PitchMeasuresCompleted = 0,
-    int TimedMeasuresCompleted = 0);
+    int TimedMeasuresCompleted = 0,
+    int SectionsCompleted = 0,
+    bool CompleteSongCompleted = false);

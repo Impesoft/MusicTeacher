@@ -44,15 +44,21 @@ public partial class Home
                 CurrentLearningActivity.RequiredStreak)
         : mode == DrillMode.GuidedSong
             ? Localizer.Format(
-                IsGuidedSongPitchComplete
-                    ? "GuidedSongTimedLearningGoal"
-                    : "GuidedSongLearningGoal",
-                Math.Min(
-                    IsGuidedSongPitchComplete
-                        ? GuidedSongProgress.TimedMeasuresCompleted
-                        : GuidedSongProgress.PitchMeasuresCompleted,
-                    GuidedSong.Measures.Count),
-                GuidedSong.Measures.Count)
+                IsGuidedSongComplete
+                    ? "GuidedSongCompleteLearningGoal"
+                    : IsGuidedSongFullStage
+                        ? "GuidedSongFullLearningGoal"
+                        : IsGuidedSongSectionStage
+                            ? "GuidedSongSectionLearningGoal"
+                            : IsGuidedSongPitchComplete
+                                ? "GuidedSongTimedLearningGoal"
+                                : "GuidedSongLearningGoal",
+                IsGuidedSongSectionStage
+                    ? GuidedSongProgress.SectionsCompleted
+                    : IsGuidedSongPitchComplete
+                        ? Math.Min(GuidedSongProgress.TimedMeasuresCompleted, GuidedSong.Measures.Count)
+                        : Math.Min(GuidedSongProgress.PitchMeasuresCompleted, GuidedSong.Measures.Count),
+                IsGuidedSongSectionStage ? GuidedSong.Sections.Count : GuidedSong.Measures.Count)
         : mode is DrillMode.BeatTap or DrillMode.HoldDuration or DrillMode.RhythmEcho
             ? Localizer.Format(
                 mode switch

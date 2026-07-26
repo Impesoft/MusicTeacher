@@ -772,23 +772,24 @@ else
                         <div class="guided-song-checkpoints"
                              role="progressbar"
                              aria-valuemin="0"
-                             aria-valuemax="@GuidedSong.Measures.Count"
-                             aria-valuenow="@(IsGuidedSongTimedStage || IsGuidedSongComplete ? GuidedSongProgress.TimedMeasuresCompleted : GuidedSongProgress.PitchMeasuresCompleted)"
+                             aria-valuemax="@GuidedSongCheckpointCount"
+                             aria-valuenow="@GuidedSongCompletedCheckpoints"
                              aria-label="@Localizer["GuidedSongProgressLabel"]">
-                            @for (var measureIndex = 0; measureIndex < GuidedSong.Measures.Count; measureIndex++)
+                            @for (var checkpointIndex = 0; checkpointIndex < GuidedSongCheckpointCount; checkpointIndex++)
                             {
-                                var completedMeasures = IsGuidedSongTimedStage || IsGuidedSongComplete
-                                    ? GuidedSongProgress.TimedMeasuresCompleted
-                                    : GuidedSongProgress.PitchMeasuresCompleted;
-                                <span class="@(measureIndex < completedMeasures ? "is-complete" : measureIndex == GuidedSongMeasureIndex && !IsGuidedSongComplete ? "is-current" : null)">
-                                    @(measureIndex + 1)
+                                <span class="@(checkpointIndex < GuidedSongCompletedCheckpoints ? "is-complete" : checkpointIndex == GuidedSongCurrentCheckpoint && !IsGuidedSongComplete ? "is-current" : null)">
+                                    @(checkpointIndex + 1)
                                 </span>
                             }
                         </div>
                         <small>
                             @(IsGuidedSongComplete
                                 ? Localizer["GuidedSongCompleteStageLabel"]
-                                : IsGuidedSongTimedStage
+                                : IsGuidedSongFullStage
+                                    ? Localizer["GuidedSongFullStageLabel"]
+                                    : IsGuidedSongSectionStage
+                                        ? Localizer.Format("GuidedSongSectionStageLabel", Localizer[CurrentGuidedSongSection.TitleKey])
+                                : IsGuidedSongTimedMeasureStage
                                     ? Localizer.Format("GuidedSongTimedMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count)
                                     : Localizer.Format("GuidedSongMeasureLabel", GuidedSongMeasureInSection, CurrentGuidedSongSection.Measures.Count))
                         </small>

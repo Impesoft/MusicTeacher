@@ -88,7 +88,11 @@ public partial class Home
         DrillMode.WrittenMeasureTwoFour => Localizer["WrittenMeasurePrompt"],
         DrillMode.WrittenMeasureFourFour => Localizer["TimedMeasurePrompt"],
         DrillMode.GuidedSong => IsGuidedSongTimedStage
-            ? Localizer["GuidedSongTimedPrompt"]
+            ? IsGuidedSongFullStage
+                ? Localizer["GuidedSongFullPrompt"]
+                : IsGuidedSongSectionStage
+                    ? Localizer["GuidedSongSectionPrompt"]
+                    : Localizer["GuidedSongTimedPrompt"]
             : IsGuidedSongComplete
                 ? Localizer["GuidedSongCompletePrompt"]
                 : Localizer["GuidedSongPrompt"],

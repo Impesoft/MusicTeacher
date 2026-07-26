@@ -683,9 +683,14 @@
   <data name="GuidedSongTitle" xml:space="preserve"><value>Learn your first song</value></data>
   <data name="GuidedSongPrompt" xml:space="preserve"><value>First learn this measure’s pitches. Timing does not count in this rehearsal.</value></data>
   <data name="GuidedSongTimedPrompt" xml:space="preserve"><value>Now perform the same song measure by measure at a slow 60 BPM.</value></data>
+  <data name="GuidedSongSectionPrompt" xml:space="preserve"><value>Join both measures of this section without stopping between them.</value></data>
+  <data name="GuidedSongFullPrompt" xml:space="preserve"><value>Join all four measures and perform the complete song.</value></data>
   <data name="GuidedSongCompletePrompt" xml:space="preserve"><value>You completed both the pitch and timed versions of the song.</value></data>
   <data name="GuidedSongLearningGoal" xml:space="preserve"><value>Pitch rehearsals completed: {0}/{1} measures.</value></data>
   <data name="GuidedSongTimedLearningGoal" xml:space="preserve"><value>Timed rehearsals completed: {0}/{1} measures.</value></data>
+  <data name="GuidedSongSectionLearningGoal" xml:space="preserve"><value>Joined sections completed: {0}/{1}.</value></data>
+  <data name="GuidedSongFullLearningGoal" xml:space="preserve"><value>Final challenge: perform all four measures without stopping.</value></data>
+  <data name="GuidedSongCompleteLearningGoal" xml:space="preserve"><value>Pitch, timing, sections, and complete-song performance mastered.</value></data>
   <data name="GuidedSongReadyFeedback" xml:space="preserve"><value>Section measure {0}/{1}: read and play the four notes in order.</value></data>
   <data name="GuidedSongWrongPitchFeedback" xml:space="preserve"><value>Look again at note {0}. The measure stays here so you can correct it.</value></data>
   <data name="GuidedSongProgressFeedback" xml:space="preserve"><value>Good: {0}/{1} pitches.</value></data>
@@ -693,15 +698,22 @@
   <data name="GuidedSongMeasureCompleteFeedback" xml:space="preserve"><value>Measure learned! Moving to the next checkpoint.</value></data>
   <data name="GuidedSongAllMeasuresCompleteFeedback" xml:space="preserve"><value>You learned every pitch in Level Complete!</value></data>
   <data name="GuidedSongTimedReadyFeedback" xml:space="preserve"><value>Timed measure {0}/{1}: start the count-in when you are ready.</value></data>
+  <data name="GuidedSongSectionReadyFeedback" xml:space="preserve"><value>Join the two measures of {0}. The staff changes at the barline.</value></data>
+  <data name="GuidedSongFullReadyFeedback" xml:space="preserve"><value>Final performance: all four measures with one count-in.</value></data>
   <data name="GuidedSongTimedCountInFeedback" xml:space="preserve"><value>Song count-in: {0}</value></data>
   <data name="GuidedSongTimedPlayFeedback" xml:space="preserve"><value>Play this measure with the metronome!</value></data>
+  <data name="GuidedSongSectionPlayFeedback" xml:space="preserve"><value>Keep going—the next measure appears at the barline!</value></data>
+  <data name="GuidedSongFullPlayFeedback" xml:space="preserve"><value>Play the complete song—four measures without stopping!</value></data>
   <data name="GuidedSongTimedProgressFeedback" xml:space="preserve"><value>Good: {0}/{1} timed notes.</value></data>
   <data name="GuidedSongTimedRetryFeedback" xml:space="preserve"><value>Repeat this same measure and follow the slow pulse.</value></data>
   <data name="GuidedSongTimedMeasureCompleteFeedback" xml:space="preserve"><value>Timed measure complete! Moving to the next checkpoint.</value></data>
+  <data name="GuidedSongSectionCompleteFeedback" xml:space="preserve"><value>Section complete! Both measures stayed connected.</value></data>
   <data name="GuidedSongCompleteFeedback" xml:space="preserve"><value>Level Complete! You played every measure with the metronome.</value></data>
   <data name="GuidedSongProgressLabel" xml:space="preserve"><value>Song measure checkpoints</value></data>
   <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · pitch rehearsal</value></data>
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · timed rehearsal</value></data>
+  <data name="GuidedSongSectionStageLabel" xml:space="preserve"><value>{0} · two joined measures</value></data>
+  <data name="GuidedSongFullStageLabel" xml:space="preserve"><value>Final performance · four joined measures</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Pitch and timed rehearsals complete</value></data>
   <data name="CurrentPathComplete" xml:space="preserve"><value>Path complete</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level Complete!</value></data>

@@ -6,6 +6,17 @@ namespace MusicTeacher.Tests.Progress;
 public sealed class LearningProgressTests
 {
     [Fact]
+    public void ExistingSongCheckpointsDefaultToUnfinishedJoinedPerformances()
+    {
+        var checkpoint = new SongLearningProgress(
+            PitchMeasuresCompleted: 4,
+            TimedMeasuresCompleted: 4);
+
+        Assert.Equal(0, checkpoint.SectionsCompleted);
+        Assert.False(checkpoint.CompleteSongCompleted);
+    }
+
+    [Fact]
     public void OldSavedProgressWithoutDrillProgressStillDeserializes()
     {
         const string json = """

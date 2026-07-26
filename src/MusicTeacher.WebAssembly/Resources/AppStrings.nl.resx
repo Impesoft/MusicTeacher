@@ -683,9 +683,14 @@
   <data name="GuidedSongTitle" xml:space="preserve"><value>Leer je eerste lied</value></data>
   <data name="GuidedSongPrompt" xml:space="preserve"><value>Leer eerst de toonhoogtes van deze maat. Timing telt nog niet mee in deze oefening.</value></data>
   <data name="GuidedSongTimedPrompt" xml:space="preserve"><value>Speel nu hetzelfde lied maat per maat op een rustig tempo van 60 BPM.</value></data>
+  <data name="GuidedSongSectionPrompt" xml:space="preserve"><value>Verbind beide maten van dit deel zonder ertussen te stoppen.</value></data>
+  <data name="GuidedSongFullPrompt" xml:space="preserve"><value>Verbind alle vier maten en speel het volledige lied.</value></data>
   <data name="GuidedSongCompletePrompt" xml:space="preserve"><value>Je voltooide zowel de toonhoogtes als de getimede versie van het lied.</value></data>
   <data name="GuidedSongLearningGoal" xml:space="preserve"><value>Toonhoogtes geoefend: {0}/{1} maten.</value></data>
   <data name="GuidedSongTimedLearningGoal" xml:space="preserve"><value>Getimede maten voltooid: {0}/{1}.</value></data>
+  <data name="GuidedSongSectionLearningGoal" xml:space="preserve"><value>Verbonden delen voltooid: {0}/{1}.</value></data>
+  <data name="GuidedSongFullLearningGoal" xml:space="preserve"><value>Laatste uitdaging: speel alle vier maten zonder te stoppen.</value></data>
+  <data name="GuidedSongCompleteLearningGoal" xml:space="preserve"><value>Toonhoogte, timing, delen en het volledige lied beheerst.</value></data>
   <data name="GuidedSongReadyFeedback" xml:space="preserve"><value>Maat {0}/{1} van dit deel: lees en speel de vier noten in volgorde.</value></data>
   <data name="GuidedSongWrongPitchFeedback" xml:space="preserve"><value>Kijk opnieuw naar noot {0}. Dezelfde maat blijft staan zodat je ze kunt verbeteren.</value></data>
   <data name="GuidedSongProgressFeedback" xml:space="preserve"><value>Goed: {0}/{1} toonhoogtes.</value></data>
@@ -693,15 +698,22 @@
   <data name="GuidedSongMeasureCompleteFeedback" xml:space="preserve"><value>Maat geleerd! Op naar het volgende controlepunt.</value></data>
   <data name="GuidedSongAllMeasuresCompleteFeedback" xml:space="preserve"><value>Je kent alle toonhoogtes van Level Complete!</value></data>
   <data name="GuidedSongTimedReadyFeedback" xml:space="preserve"><value>Getimede maat {0}/{1}: start de aftelling wanneer je klaar bent.</value></data>
+  <data name="GuidedSongSectionReadyFeedback" xml:space="preserve"><value>Verbind de twee maten van {0}. De notenbalk wisselt bij de maatstreep.</value></data>
+  <data name="GuidedSongFullReadyFeedback" xml:space="preserve"><value>Laatste uitvoering: alle vier maten na één aftelling.</value></data>
   <data name="GuidedSongTimedCountInFeedback" xml:space="preserve"><value>Tel af voor het lied: {0}</value></data>
   <data name="GuidedSongTimedPlayFeedback" xml:space="preserve"><value>Speel deze maat met de metronoom!</value></data>
+  <data name="GuidedSongSectionPlayFeedback" xml:space="preserve"><value>Blijf doorspelen—de volgende maat verschijnt bij de maatstreep!</value></data>
+  <data name="GuidedSongFullPlayFeedback" xml:space="preserve"><value>Speel het volledige lied—vier maten zonder te stoppen!</value></data>
   <data name="GuidedSongTimedProgressFeedback" xml:space="preserve"><value>Goed: {0}/{1} noten op de tel.</value></data>
   <data name="GuidedSongTimedRetryFeedback" xml:space="preserve"><value>Herhaal dezelfde maat en volg de trage puls.</value></data>
   <data name="GuidedSongTimedMeasureCompleteFeedback" xml:space="preserve"><value>Getimede maat voltooid! Op naar het volgende controlepunt.</value></data>
+  <data name="GuidedSongSectionCompleteFeedback" xml:space="preserve"><value>Deel voltooid! Beide maten bleven verbonden.</value></data>
   <data name="GuidedSongCompleteFeedback" xml:space="preserve"><value>Level voltooid! Je speelde elke maat met de metronoom.</value></data>
   <data name="GuidedSongProgressLabel" xml:space="preserve"><value>Controlepunten van het lied</value></data>
   <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · toonhoogtes oefenen</value></data>
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · op de tel oefenen</value></data>
+  <data name="GuidedSongSectionStageLabel" xml:space="preserve"><value>{0} · twee verbonden maten</value></data>
+  <data name="GuidedSongFullStageLabel" xml:space="preserve"><value>Laatste uitvoering · vier verbonden maten</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Toonhoogtes en getimede oefeningen voltooid</value></data>
   <data name="CurrentPathComplete" xml:space="preserve"><value>Leerpad voltooid</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level voltooid!</value></data>
