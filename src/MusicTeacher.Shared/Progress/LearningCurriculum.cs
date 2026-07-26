@@ -10,6 +10,7 @@ public enum LearningSkill
     MelodyEchoLong,
     StaffPhrasePitch,
     WrittenMeasureTwoFour,
+    WrittenMeasureFourFour,
     SteadyBeat,
     DurationBasic,
     RhythmEcho,
@@ -41,6 +42,12 @@ public static class LearningCurriculum
             3,
             LearningSkill.StaffPhrasePitch,
             LearningSkill.DurationBasic),
+        Activity(
+            "written-measure-four-four",
+            LearningSkill.WrittenMeasureFourFour,
+            3,
+            LearningSkill.WrittenMeasureTwoFour,
+            LearningSkill.RhythmEcho),
 
         Activity("beat-tap", LearningSkill.SteadyBeat, 3, LearningSkill.SingleNoteEarPlay),
         Activity("hold-duration", LearningSkill.DurationBasic, 3, LearningSkill.SteadyBeat),

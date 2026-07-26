@@ -139,6 +139,7 @@ public partial class Home
 
     private async Task CompleteWrittenMeasure(bool isPerfect)
     {
+        var wasTimedMeasureUnlocked = IsModeUnlocked(DrillMode.WrittenMeasureFourFour);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(isPerfect)
             : progress.DrillProgress;
@@ -154,6 +155,15 @@ public partial class Home
             : "WrittenMeasureCompleteWithMistakesFeedback";
         feedbackArguments = [];
         feedbackClass = isPerfect ? "feedback is-correct" : "feedback";
+        if (practiceMode == PracticeMode.LearningPath &&
+            isPerfect &&
+            !wasTimedMeasureUnlocked &&
+            IsModeUnlocked(DrillMode.WrittenMeasureFourFour))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.WrittenMeasureFourFour)]];
+            await AwardUnlock(DrillMode.WrittenMeasureFourFour);
+        }
         await ProgressStore.SaveAsync(progress);
         await InvokeAsync(StateHasChanged);
         await Task.Delay(1_000);

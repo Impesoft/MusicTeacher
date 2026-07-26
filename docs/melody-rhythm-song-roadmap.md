@@ -288,5 +288,5 @@ should declare prerequisites instead of inferring availability from a drill enum
 - [x] Explicit skill/prerequisite unlock model for current activities and theory.
 - [x] Staff-read pitch phrases with timing ignored.
 - [x] First 2/4 measure with two pitch-and-duration-assessed quarter notes.
-- [ ] 4/4 written measure and continuous timing layer.
+- [x] 4/4 written measure and continuous timing layer.
 - [ ] Song content and section progression.

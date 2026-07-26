@@ -49,6 +49,21 @@ public sealed class LearningCurriculumTests
     }
 
     [Fact]
+    public void FourFourMeasureRequiresPitchDurationAndRhythmBranches()
+    {
+        var streaks = new Dictionary<string, int>
+        {
+            ["written-measure-two-four"] = 3
+        };
+
+        Assert.False(IsUnlocked("written-measure-four-four", streaks));
+
+        streaks["rhythm-echo"] = 3;
+
+        Assert.True(IsUnlocked("written-measure-four-four", streaks));
+    }
+
+    [Fact]
     public void AccidentalsAdvanceWithoutDependingOnMelodySkills()
     {
         var streaks = new Dictionary<string, int>

@@ -58,6 +58,7 @@ public partial class Home
         new(DrillMode.MelodyEchoLong, "melody-echo-long", "BadgeMelodyEchoLongTitle", "BadgeMelodyEchoLongDescription", "♬"),
         new(DrillMode.StaffPhrasePitch, "staff-phrase-pitch", "BadgeStaffPhraseTitle", "BadgeStaffPhraseDescription", "𝄞"),
         new(DrillMode.WrittenMeasureTwoFour, "written-measure-two-four", "BadgeWrittenMeasureTitle", "BadgeWrittenMeasureDescription", "2/4"),
+        new(DrillMode.WrittenMeasureFourFour, "written-measure-four-four", "BadgeTimedMeasureTitle", "BadgeTimedMeasureDescription", "4/4"),
         new(DrillMode.HearAccidentalPlay, "black-keys", "BadgeBlackKeysTitle", "BadgeBlackKeysDescription", "●"),
         new(DrillMode.HearNotePlace, "staff-master", "BadgeStaffMasterTitle", "BadgeStaffMasterDescription", "★")
     ];
@@ -174,17 +175,17 @@ public partial class Home
 
         await InvokeAsync(StateHasChanged);
 
-        if (mode == DrillMode.WrittenMeasureTwoFour)
+        if (mode is DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour)
         {
             if (IsMidiNoteInVisibleRange(change.MidiNote))
             {
                 if (change.IsPressed)
                 {
-                    await InvokeAsync(() => StartWrittenMeasureNote(change.MidiNote));
+                    await InvokeAsync(() => StartPracticeMeasureNote(change.MidiNote));
                 }
                 else
                 {
-                    await InvokeAsync(() => EndWrittenMeasureNote(change.MidiNote));
+                    await InvokeAsync(() => EndPracticeMeasureNote(change.MidiNote));
                 }
             }
         }
@@ -413,6 +414,7 @@ public partial class Home
         MelodyEchoLong,
         StaffPhrasePitch,
         WrittenMeasureTwoFour,
+        WrittenMeasureFourFour,
         HearAccidentalPlay,
         HearNotePlace
     }

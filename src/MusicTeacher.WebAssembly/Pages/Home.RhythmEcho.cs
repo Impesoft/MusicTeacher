@@ -154,6 +154,7 @@ public partial class Home
     private async Task CompleteRhythmEchoRound(bool isSuccessful)
     {
         rhythmEchoVersion++;
+        var wasTimedMeasureUnlocked = IsModeUnlocked(DrillMode.WrittenMeasureFourFour);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(isSuccessful)
             : progress.DrillProgress;
@@ -167,6 +168,15 @@ public partial class Home
         feedbackKey = isSuccessful ? "RhythmEchoCompleteFeedback" : "RhythmEchoTryAgainFeedback";
         feedbackArguments = [];
         feedbackClass = isSuccessful ? "feedback is-correct" : "feedback is-missed";
+        if (practiceMode == PracticeMode.LearningPath &&
+            isSuccessful &&
+            !wasTimedMeasureUnlocked &&
+            IsModeUnlocked(DrillMode.WrittenMeasureFourFour))
+        {
+            feedbackKey = "LevelUnlockedFeedback";
+            feedbackArguments = [Localizer[GetModeLabelKey(DrillMode.WrittenMeasureFourFour)]];
+            await AwardUnlock(DrillMode.WrittenMeasureFourFour);
+        }
         await ProgressStore.SaveAsync(progress);
         await InvokeAsync(StateHasChanged);
         await Task.Delay(1_200);

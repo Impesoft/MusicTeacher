@@ -23,9 +23,9 @@ public partial class Home
 
     private bool IsRhythmEchoMode => mode == DrillMode.RhythmEcho;
 
-    private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour;
+    private bool ShowsStaff => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlace or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour;
 
-    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour or DrillMode.HearAccidentalPlay;
+    private bool ShowsKeyboard => mode is DrillMode.NameNote or DrillMode.PlaceNote or DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour or DrillMode.HearAccidentalPlay;
 
     private bool ShowsAccidentalSelector => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental or DrillMode.HearNotePlace;
 
@@ -42,7 +42,7 @@ public partial class Home
 
     private Pitch? KeyboardHighlightedPitch => mode is DrillMode.PlaceNote or DrillMode.PlaceAccidental ? currentPitch : null;
 
-    private IReadOnlySet<int> KeyboardPressedNotes => writtenMeasureHeldMidiNote is { } heldNote
+    private IReadOnlySet<int> KeyboardPressedNotes => (writtenMeasureHeldMidiNote ?? timedMeasureHeldMidiNote) is { } heldNote
         ? pressedMidiNotes.Append(heldNote).ToHashSet()
         : pressedMidiNotes;
 
@@ -64,6 +64,7 @@ public partial class Home
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongTitle"],
         DrillMode.StaffPhrasePitch => Localizer["StaffPhraseTitle"],
         DrillMode.WrittenMeasureTwoFour => Localizer["WrittenMeasureTitle"],
+        DrillMode.WrittenMeasureFourFour => Localizer["TimedMeasureTitle"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayTitle"],
         DrillMode.HearNotePlace => Localizer["HearPlaceTitle"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
@@ -83,6 +84,7 @@ public partial class Home
         DrillMode.MelodyEchoLong => Localizer["MelodyEchoLongPrompt"],
         DrillMode.StaffPhrasePitch => Localizer["StaffPhrasePrompt"],
         DrillMode.WrittenMeasureTwoFour => Localizer["WrittenMeasurePrompt"],
+        DrillMode.WrittenMeasureFourFour => Localizer["TimedMeasurePrompt"],
         DrillMode.HearAccidentalPlay => Localizer["HearAccidentalPlayPrompt"],
         DrillMode.HearNotePlace => Localizer["HearPlacePrompt"],
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
@@ -91,7 +93,7 @@ public partial class Home
     private IReadOnlyList<Pitch> CurrentNotes => mode switch
     {
         DrillMode.NameAccidental or DrillMode.PlaceAccidental or DrillMode.HearAccidentalPlay => TrebleClef.BeginnerAccidentalNotes,
-        DrillMode.NameNote or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour => TrebleClef.BeginnerReadingNotes,
+        DrillMode.NameNote or DrillMode.HearNotePlay or DrillMode.MelodyEcho or DrillMode.MelodyEchoLong or DrillMode.StaffPhrasePitch or DrillMode.WrittenMeasureTwoFour or DrillMode.WrittenMeasureFourFour => TrebleClef.BeginnerReadingNotes,
         DrillMode.PlaceNote or DrillMode.HearNotePlace => TrebleClef.BeginnerPlacementNotes,
         _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")
     };
@@ -110,6 +112,7 @@ public partial class Home
         beatRoundVersion++;
         durationHoldVersion++;
         rhythmEchoVersion++;
+        timedMeasureVersion++;
         await Audio.StopSustainedNoteAsync();
         previousPitch = null;
         NextRound();
@@ -257,6 +260,7 @@ public partial class Home
         beatRoundVersion++;
         durationHoldVersion++;
         rhythmEchoVersion++;
+        timedMeasureVersion++;
         await Audio.StopSustainedNoteAsync();
         NextRound();
         if (IsMelodyEchoMode)
@@ -307,6 +311,12 @@ public partial class Home
             return;
         }
 
+        if (IsTimedWrittenMeasureMode)
+        {
+            PrepareTimedWrittenMeasure();
+            return;
+        }
+
         var notes = CurrentNotes;
         currentPitch = PickRandomPitch(notes);
         previousPitch = currentPitch;
@@ -323,6 +333,7 @@ public partial class Home
             DrillMode.MelodyEchoLong => "MelodyEchoListenFeedback",
             DrillMode.StaffPhrasePitch => "StaffPhraseReadyFeedback",
             DrillMode.WrittenMeasureTwoFour => "WrittenMeasureReadyFeedback",
+            DrillMode.WrittenMeasureFourFour => "TimedMeasureReadyFeedback",
             DrillMode.HearAccidentalPlay => "PickHeardBlackKeyFeedback",
             DrillMode.HearNotePlace => "PickHeardStaffFeedback",
             _ => throw new InvalidOperationException($"Unsupported drill mode {mode}.")

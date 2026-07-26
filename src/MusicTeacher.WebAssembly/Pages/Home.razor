@@ -378,6 +378,12 @@ else
                                 @onclick="() => SetMode(DrillMode.WrittenMeasureTwoFour)">
                             @Localizer["WrittenMeasureMode"]
                         </button>
+                        <button class="@GetModeClass(DrillMode.WrittenMeasureFourFour)"
+                                type="button"
+                                disabled="@IsModeLocked(DrillMode.WrittenMeasureFourFour)"
+                                @onclick="() => SetMode(DrillMode.WrittenMeasureFourFour)">
+                            @Localizer["TimedMeasureMode"]
+                        </button>
                     </div>
                 </section>
 
@@ -503,9 +509,9 @@ else
                             IsPlacementMode="@IsPlacementMode"
                             SelectableSteps="@SelectableSteps"
                             SelectedStep="@selectedStep"
-                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : Array.Empty<Pitch>())"
-                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : null)"
-                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : StaffPhrasePosition)"
+                            PhrasePitches="@(IsStaffPhraseMode ? staffPhrase.Pitches : IsWrittenMeasureMode ? WrittenMeasurePitches : IsTimedWrittenMeasureMode ? TimedMeasurePitches : Array.Empty<Pitch>())"
+                            PhraseTimeSignature="@(IsWrittenMeasureMode ? writtenMeasure.TimeSignature : IsTimedWrittenMeasureMode ? timedWrittenMeasure.TimeSignature : null)"
+                            CurrentPhraseIndex="@(IsWrittenMeasureMode ? WrittenMeasurePosition : IsTimedWrittenMeasureMode ? TimedMeasurePosition : StaffPhrasePosition)"
                             UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                             OnStepPreviewed="PreviewStaffStep"
                             OnStepSelected="SelectStaffStep" />
@@ -708,17 +714,48 @@ else
                         <small>@Localizer.Format("WrittenMeasureProgress", WrittenMeasurePosition, writtenMeasure.Notes.Count)</small>
                     </div>
                 }
+                else if (IsTimedWrittenMeasureMode)
+                {
+                    <div class="timed-measure-stage">
+                        <div class="timed-measure-beats"
+                             role="progressbar"
+                             aria-valuemin="0"
+                             aria-valuemax="4"
+                             aria-valuenow="@TimedMeasurePosition"
+                             aria-label="@Localizer["TimedMeasureProgressLabel"]">
+                            @for (var beat = 1; beat <= 4; beat++)
+                            {
+                                <span class="@(beat <= TimedMeasurePosition ? "is-complete" : null) @(timedMeasureActiveBeat == beat ? "is-active" : null)"
+                                      data-beat="@beat">
+                                    <strong>@beat</strong>
+                                    <small>♩</small>
+                                </span>
+                            }
+                        </div>
+                        @if (!isTimedMeasureInputActive)
+                        {
+                            <button class="rhythm-echo-start-button"
+                                    type="button"
+                                    disabled="@(timedMeasureCountIn > 0)"
+                                    @onclick="StartTimedMeasureCountIn">
+                                @(timedMeasureCountIn > 0
+                                    ? Localizer.Format("TimedMeasureCountInButton", timedMeasureCountIn)
+                                    : Localizer["TimedMeasureStart"])
+                            </button>
+                        }
+                    </div>
+                }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"
                                HighlightedPitch="@KeyboardHighlightedPitch"
                                PressedMidiNotes="@KeyboardPressedNotes"
                                DemonstratedMidiNote="@teacherDemonstratedMidiNote"
                                IsDisabled="@KeyboardInputDisabled"
-                               UsePressReleaseInput="@IsWrittenMeasureMode"
+                               UsePressReleaseInput="@UsesWrittenMeasureInput"
                                UseAlphabeticalNoteNames="@UseAlphabeticalNoteNames"
                                OnPitchPreviewed="PreviewPitch"
                                OnPitchSelected="SelectKeyboardPitch"
-                               OnPitchPressed="StartWrittenMeasureNote"
-                               OnPitchReleased="EndWrittenMeasureNote" />
+                               OnPitchPressed="StartPracticeMeasureNote"
+                               OnPitchReleased="EndPracticeMeasureNote" />
             }
 
             <div class="@feedbackClass" aria-live="polite">@FeedbackText</div>
