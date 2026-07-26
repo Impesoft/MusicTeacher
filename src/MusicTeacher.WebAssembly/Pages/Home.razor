@@ -628,13 +628,17 @@ else
                             type="button"
                             disabled="@isDemonstratingRhythm"
                             @onclick="HandleRhythmAction">
-                        @(isDemonstratingRhythm
-                            ? Localizer["RhythmEchoListening"]
+                        @(rhythmPlayerCountIn > 0
+                            ? Localizer.Format("RhythmEchoTapCountIn", rhythmPlayerCountIn)
+                            : isDemonstratingRhythm
+                                ? Localizer["RhythmEchoListening"]
                             : isRhythmInputActive
                                 ? Localizer["RhythmEchoTap"]
                                 : Localizer["RhythmEchoStart"])
                         <small>
-                            @(isRhythmInputActive
+                            @(rhythmPlayerCountIn > 0
+                                ? Localizer["RhythmEchoTapWaitHint"]
+                                : isRhythmInputActive
                                 ? Localizer["RhythmEchoInputHint"]
                                 : Localizer["RhythmEchoStartHint"])
                         </small>

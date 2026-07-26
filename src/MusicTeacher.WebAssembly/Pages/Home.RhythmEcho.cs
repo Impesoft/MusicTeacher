@@ -19,6 +19,7 @@ public partial class Home
     private long rhythmStartedTimestamp;
     private int rhythmEchoVersion;
     private int rhythmActiveBeat;
+    private int rhythmPlayerCountIn;
     private bool isDemonstratingRhythm;
     private bool isRhythmInputActive;
 
@@ -28,6 +29,7 @@ public partial class Home
         isDemonstratingRhythm = false;
         isRhythmInputActive = false;
         rhythmActiveBeat = 0;
+        rhythmPlayerCountIn = 0;
         rhythmEvaluator = null;
 
         if (chooseNewPattern)
@@ -79,28 +81,30 @@ public partial class Home
         {
             if (!IsCurrentRhythmVersion(version)) return;
             rhythmActiveBeat = 0;
+            rhythmPlayerCountIn = count;
             feedbackKey = "RhythmEchoYourCountInFeedback";
             feedbackArguments = [count];
             await Audio.PlayMidiNoteAsync(84);
 
             if (count == 4)
             {
-                isDemonstratingRhythm = false;
-                isRhythmInputActive = true;
                 rhythmEvaluator = new RhythmPatternEvaluator(
                     rhythmPattern.Select(beat => beat + 1).ToArray(),
                     BeatInterval);
                 rhythmStartedTimestamp = Stopwatch.GetTimestamp();
-                _ = TrackRhythmAttempt(version);
             }
 
             await InvokeAsync(StateHasChanged);
             await Task.Delay(BeatInterval);
         }
 
-        if (!IsCurrentRhythmVersion(version) || !isRhythmInputActive) return;
+        if (!IsCurrentRhythmVersion(version)) return;
+        isDemonstratingRhythm = false;
+        isRhythmInputActive = true;
+        rhythmPlayerCountIn = 0;
         feedbackKey = "RhythmEchoYourTurnFeedback";
         feedbackArguments = [];
+        _ = TrackRhythmAttempt(version);
         await InvokeAsync(StateHasChanged);
     }
 
@@ -169,6 +173,7 @@ public partial class Home
     private async Task CompleteRhythmEchoRound(bool isSuccessful)
     {
         rhythmEchoVersion++;
+        rhythmPlayerCountIn = 0;
         var wasTimedMeasureUnlocked = IsModeUnlocked(DrillMode.WrittenMeasureFourFour);
         var updatedDrillProgress = practiceMode == PracticeMode.LearningPath
             ? UpdateCurrentDrillProgress(isSuccessful)

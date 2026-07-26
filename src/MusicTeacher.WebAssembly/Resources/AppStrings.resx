@@ -619,6 +619,8 @@
   <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Four-beat rhythm pattern showing sound and rest beats</value></data>
   <data name="RhythmEchoStart" xml:space="preserve"><value>Listen, then repeat</value></data>
   <data name="RhythmEchoStartHint" xml:space="preserve"><value>First listen to the example; your tap control stays here.</value></data>
+  <data name="RhythmEchoTapCountIn" xml:space="preserve"><value>Tap! Get ready… {0}</value></data>
+  <data name="RhythmEchoTapWaitHint" xml:space="preserve"><value>This button becomes active after count 4</value></data>
   <data name="RhythmEchoListening" xml:space="preserve"><value>Listen and watch the four beats…</value></data>
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tap!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Click, touch, press Space, or play any MIDI key</value></data>

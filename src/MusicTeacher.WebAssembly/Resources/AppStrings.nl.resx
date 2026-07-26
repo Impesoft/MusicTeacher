@@ -619,6 +619,8 @@
   <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Ritmepatroon van vier tellen met klanken en rusten</value></data>
   <data name="RhythmEchoStart" xml:space="preserve"><value>Luister en herhaal</value></data>
   <data name="RhythmEchoStartHint" xml:space="preserve"><value>Luister eerst naar het voorbeeld; de tikknop blijft hier staan.</value></data>
+  <data name="RhythmEchoTapCountIn" xml:space="preserve"><value>Tik! Maak je klaar… {0}</value></data>
+  <data name="RhythmEchoTapWaitHint" xml:space="preserve"><value>Deze knop wordt actief na tel 4</value></data>
   <data name="RhythmEchoListening" xml:space="preserve"><value>Luister en kijk naar de vier tellen…</value></data>
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tik!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
