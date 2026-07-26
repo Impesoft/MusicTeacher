@@ -703,6 +703,7 @@
   <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · toonhoogtes oefenen</value></data>
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Maat {0} van {1} in dit deel · op de tel oefenen</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Toonhoogtes en getimede oefeningen voltooid</value></data>
+  <data name="CurrentPathComplete" xml:space="preserve"><value>Leerpad voltooid</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level voltooid!</value></data>
   <data name="SongSectionLaunch" xml:space="preserve"><value>Lancering</value></data>
   <data name="SongSectionVictory" xml:space="preserve"><value>Overwinning</value></data>

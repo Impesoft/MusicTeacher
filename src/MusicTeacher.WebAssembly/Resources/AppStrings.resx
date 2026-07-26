@@ -703,6 +703,7 @@
   <data name="GuidedSongMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · pitch rehearsal</value></data>
   <data name="GuidedSongTimedMeasureLabel" xml:space="preserve"><value>Measure {0} of {1} in this section · timed rehearsal</value></data>
   <data name="GuidedSongCompleteStageLabel" xml:space="preserve"><value>Pitch and timed rehearsals complete</value></data>
+  <data name="CurrentPathComplete" xml:space="preserve"><value>Path complete</value></data>
   <data name="SongLevelCompleteTitle" xml:space="preserve"><value>Level Complete!</value></data>
   <data name="SongSectionLaunch" xml:space="preserve"><value>Launch</value></data>
   <data name="SongSectionVictory" xml:space="preserve"><value>Victory</value></data>

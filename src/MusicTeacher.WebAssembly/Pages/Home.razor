@@ -505,7 +505,16 @@ else
                             @Localizer["MelodyEchoReplay"]
                         </button>
                     }
-                    <button class="next-button" type="button" @onclick="AdvanceRound" aria-label="@Localizer["NextNote"]">@Localizer["Next"]</button>
+                    @if (IsGuidedSongMode && IsGuidedSongComplete)
+                    {
+                        <button class="next-button" type="button" disabled>
+                            @Localizer["CurrentPathComplete"]
+                        </button>
+                    }
+                    else
+                    {
+                        <button class="next-button" type="button" @onclick="AdvanceRound" aria-label="@Localizer["NextNote"]">@Localizer["Next"]</button>
+                    }
                 </div>
             </div>
 

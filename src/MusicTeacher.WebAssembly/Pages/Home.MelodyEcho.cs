@@ -37,7 +37,9 @@ public partial class Home
     private int melodyDemonstrationVersion;
 
     private bool IsMelodyEchoMode => mode is DrillMode.MelodyEcho or DrillMode.MelodyEchoLong;
-    private bool KeyboardInputDisabled => IsMelodyEchoMode && isDemonstratingMelody;
+    private bool KeyboardInputDisabled
+        => IsMelodyEchoMode && isDemonstratingMelody ||
+            IsGuidedSongMode && IsGuidedSongComplete;
     private int MelodyPosition => melodyEvaluator?.Position ?? 0;
     private int MelodyLength => melodyEvaluator?.ExpectedMidiNotes.Count ?? 0;
 

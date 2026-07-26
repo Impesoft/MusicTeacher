@@ -55,7 +55,7 @@ public partial class Home
             : new PitchSequenceEvaluator(
                 CurrentGuidedSongMeasure.WrittenMeasure.Notes.Select(note => note.Pitch.MidiNote).ToArray());
         feedbackKey = IsGuidedSongComplete
-            ? "GuidedSongAllMeasuresCompleteFeedback"
+            ? "GuidedSongCompleteFeedback"
             : IsGuidedSongTimedStage
                 ? "GuidedSongTimedReadyFeedback"
             : "GuidedSongReadyFeedback";
