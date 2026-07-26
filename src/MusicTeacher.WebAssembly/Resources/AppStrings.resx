@@ -618,6 +618,7 @@
   <data name="RhythmEchoLearningGoal" xml:space="preserve"><value>Perfect rhythm echoes: {0}/{1}. Melody still does not matter here.</value></data>
   <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Four-beat rhythm pattern showing sound and rest beats</value></data>
   <data name="RhythmEchoStart" xml:space="preserve"><value>Listen, then repeat</value></data>
+  <data name="RhythmEchoStartHint" xml:space="preserve"><value>First listen to the example; your tap control stays here.</value></data>
   <data name="RhythmEchoListening" xml:space="preserve"><value>Listen and watch the four beats…</value></data>
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tap!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Click, touch, press Space, or play any MIDI key</value></data>
@@ -670,6 +671,8 @@
   <data name="TimedMeasureTryAgainFeedback" xml:space="preserve"><value>Measure finished. Try another and let the metronome carry you.</value></data>
   <data name="TimedMeasureProgressLabel" xml:space="preserve"><value>Four-four measure progress</value></data>
   <data name="TimedMeasureStart" xml:space="preserve"><value>Count in and play</value></data>
+  <data name="TimedMeasurePlaying" xml:space="preserve"><value>Play with the metronome</value></data>
+  <data name="TimedMeasureInputHint" xml:space="preserve"><value>Use the piano below or your MIDI keyboard</value></data>
   <data name="TimedMeasureCountInButton" xml:space="preserve"><value>Count in: {0}</value></data>
   <data name="TimedMeasureLearningGoal" xml:space="preserve"><value>Perfect 4/4 measures: {0}/{1}. Pitch, start time, and note length all count.</value></data>
   <data name="BadgeTimedMeasureTitle" xml:space="preserve"><value>Time keeper</value></data>

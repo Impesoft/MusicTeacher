@@ -2391,7 +2391,8 @@ h1:focus {
 }
 
 .rhythm-echo-start-button,
-.rhythm-echo-tap-button {
+.rhythm-echo-tap-button,
+.rhythm-echo-action-button {
     background: var(--accent);
     border: 3px solid var(--border-strong);
     border-radius: 12px;
@@ -2406,10 +2407,16 @@ h1:focus {
     width: min(100%, 26rem);
 }
 
-.rhythm-echo-tap-button small {
+.rhythm-echo-tap-button small,
+.rhythm-echo-action-button small {
     display: block;
     font-size: 0.75rem;
     margin-top: 0.3rem;
+}
+
+.rhythm-echo-action-button:disabled {
+    cursor: wait;
+    opacity: 0.78;
 }
 
 .midi-device-select {

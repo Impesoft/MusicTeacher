@@ -624,23 +624,21 @@ else
                             </div>
                         }
                     </div>
-                    @if (!isDemonstratingRhythm && !isRhythmInputActive)
-                    {
-                        <button class="rhythm-echo-start-button" type="button" @onclick="DemonstrateRhythmPattern">
-                            @Localizer["RhythmEchoStart"]
-                        </button>
-                    }
-                    else if (isDemonstratingRhythm)
-                    {
-                        <div class="rhythm-echo-listening">@Localizer["RhythmEchoListening"]</div>
-                    }
-                    else
-                    {
-                        <button class="rhythm-echo-tap-button" type="button" @onclick="RegisterRhythmTap">
-                            @Localizer["RhythmEchoTap"]
-                            <small>@Localizer["RhythmEchoInputHint"]</small>
-                        </button>
-                    }
+                    <button class="rhythm-echo-action-button @(isRhythmInputActive ? "is-input-active" : null)"
+                            type="button"
+                            disabled="@isDemonstratingRhythm"
+                            @onclick="HandleRhythmAction">
+                        @(isDemonstratingRhythm
+                            ? Localizer["RhythmEchoListening"]
+                            : isRhythmInputActive
+                                ? Localizer["RhythmEchoTap"]
+                                : Localizer["RhythmEchoStart"])
+                        <small>
+                            @(isRhythmInputActive
+                                ? Localizer["RhythmEchoInputHint"]
+                                : Localizer["RhythmEchoStartHint"])
+                        </small>
+                    </button>
                 </div>
             }
 
@@ -732,17 +730,17 @@ else
                                 </span>
                             }
                         </div>
-                        @if (!isTimedMeasureInputActive)
-                        {
-                            <button class="rhythm-echo-start-button"
-                                    type="button"
-                                    disabled="@(timedMeasureCountIn > 0)"
-                                    @onclick="StartTimedMeasureCountIn">
-                                @(timedMeasureCountIn > 0
-                                    ? Localizer.Format("TimedMeasureCountInButton", timedMeasureCountIn)
+                        <button class="rhythm-echo-action-button"
+                                type="button"
+                                disabled="@(timedMeasureCountIn > 0 || isTimedMeasureInputActive)"
+                                @onclick="StartTimedMeasureCountIn">
+                            @(timedMeasureCountIn > 0
+                                ? Localizer.Format("TimedMeasureCountInButton", timedMeasureCountIn)
+                                : isTimedMeasureInputActive
+                                    ? Localizer["TimedMeasurePlaying"]
                                     : Localizer["TimedMeasureStart"])
-                            </button>
-                        }
+                            <small>@Localizer["TimedMeasureInputHint"]</small>
+                        </button>
                     </div>
                 }
                 <PianoKeyboard Pitches="@CurrentKeyboardPitches"

@@ -31,7 +31,7 @@ public partial class Home
     private IReadOnlyList<Pitch> TimedMeasurePitches
         => timedWrittenMeasure.Notes.Select(note => note.Pitch).ToArray();
 
-    private void PrepareTimedWrittenMeasure()
+    private void PrepareTimedWrittenMeasure(bool chooseNewMeasure = true)
     {
         timedMeasureVersion++;
         timedMeasureCountIn = 0;
@@ -39,13 +39,16 @@ public partial class Home
         isTimedMeasureInputActive = false;
         timedMeasureHeldMidiNote = null;
         timedMeasureEvaluator = null;
-        var candidates = BeginnerFourFourMeasures
-            .Where(measure =>
-                previousTimedWrittenMeasure is null ||
-                !measure.Notes.SequenceEqual(previousTimedWrittenMeasure.Notes))
-            .ToArray();
-        timedWrittenMeasure = candidates[Random.Shared.Next(candidates.Length)];
-        previousTimedWrittenMeasure = timedWrittenMeasure;
+        if (chooseNewMeasure)
+        {
+            var candidates = BeginnerFourFourMeasures
+                .Where(measure =>
+                    previousTimedWrittenMeasure is null ||
+                    !measure.Notes.SequenceEqual(previousTimedWrittenMeasure.Notes))
+                .ToArray();
+            timedWrittenMeasure = candidates[Random.Shared.Next(candidates.Length)];
+            previousTimedWrittenMeasure = timedWrittenMeasure;
+        }
         feedbackKey = "TimedMeasureReadyFeedback";
         feedbackArguments = [];
         feedbackClass = "feedback";
@@ -228,7 +231,7 @@ public partial class Home
 
         if (IsTimedWrittenMeasureMode)
         {
-            PrepareTimedWrittenMeasure();
+            PrepareTimedWrittenMeasure(isPerfect);
             await InvokeAsync(StateHasChanged);
         }
     }

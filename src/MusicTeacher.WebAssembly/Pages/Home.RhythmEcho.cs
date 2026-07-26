@@ -22,7 +22,7 @@ public partial class Home
     private bool isDemonstratingRhythm;
     private bool isRhythmInputActive;
 
-    private void PrepareRhythmEchoRound()
+    private void PrepareRhythmEchoRound(bool chooseNewPattern = true)
     {
         rhythmEchoVersion++;
         isDemonstratingRhythm = false;
@@ -30,11 +30,14 @@ public partial class Home
         rhythmActiveBeat = 0;
         rhythmEvaluator = null;
 
-        var choices = BeginnerRhythmPatterns
-            .Where(pattern => previousRhythmPattern is null || !pattern.SequenceEqual(previousRhythmPattern))
-            .ToArray();
-        rhythmPattern = choices[Random.Shared.Next(choices.Length)];
-        previousRhythmPattern = rhythmPattern;
+        if (chooseNewPattern)
+        {
+            var choices = BeginnerRhythmPatterns
+                .Where(pattern => previousRhythmPattern is null || !pattern.SequenceEqual(previousRhythmPattern))
+                .ToArray();
+            rhythmPattern = choices[Random.Shared.Next(choices.Length)];
+            previousRhythmPattern = rhythmPattern;
+        }
         feedbackKey = "RhythmEchoReadyFeedback";
         feedbackArguments = [];
         feedbackClass = "feedback";
@@ -151,6 +154,18 @@ public partial class Home
         }
     }
 
+    private async Task HandleRhythmAction()
+    {
+        if (isRhythmInputActive)
+        {
+            await RegisterRhythmTap();
+        }
+        else if (!isDemonstratingRhythm)
+        {
+            await DemonstrateRhythmPattern();
+        }
+    }
+
     private async Task CompleteRhythmEchoRound(bool isSuccessful)
     {
         rhythmEchoVersion++;
@@ -183,7 +198,7 @@ public partial class Home
 
         if (mode == DrillMode.RhythmEcho)
         {
-            PrepareRhythmEchoRound();
+            PrepareRhythmEchoRound(isSuccessful);
             await InvokeAsync(StateHasChanged);
         }
     }

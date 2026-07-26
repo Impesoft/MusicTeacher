@@ -618,6 +618,7 @@
   <data name="RhythmEchoLearningGoal" xml:space="preserve"><value>Perfecte ritmes: {0}/{1}. De melodie telt hier nog niet mee.</value></data>
   <data name="RhythmEchoPatternLabel" xml:space="preserve"><value>Ritmepatroon van vier tellen met klanken en rusten</value></data>
   <data name="RhythmEchoStart" xml:space="preserve"><value>Luister en herhaal</value></data>
+  <data name="RhythmEchoStartHint" xml:space="preserve"><value>Luister eerst naar het voorbeeld; de tikknop blijft hier staan.</value></data>
   <data name="RhythmEchoListening" xml:space="preserve"><value>Luister en kijk naar de vier tellen…</value></data>
   <data name="RhythmEchoTap" xml:space="preserve"><value>Tik!</value></data>
   <data name="RhythmEchoInputHint" xml:space="preserve"><value>Klik, tik, druk op Spatie of speel een MIDI-toets</value></data>
@@ -670,6 +671,8 @@
   <data name="TimedMeasureTryAgainFeedback" xml:space="preserve"><value>Maat voltooid. Probeer opnieuw en laat de metronoom je meenemen.</value></data>
   <data name="TimedMeasureProgressLabel" xml:space="preserve"><value>Voortgang van de maat in 4/4</value></data>
   <data name="TimedMeasureStart" xml:space="preserve"><value>Tel af en speel</value></data>
+  <data name="TimedMeasurePlaying" xml:space="preserve"><value>Speel mee met de metronoom</value></data>
+  <data name="TimedMeasureInputHint" xml:space="preserve"><value>Gebruik de piano hieronder of je MIDI-keyboard</value></data>
   <data name="TimedMeasureCountInButton" xml:space="preserve"><value>Tel mee: {0}</value></data>
   <data name="TimedMeasureLearningGoal" xml:space="preserve"><value>Perfecte maten in 4/4: {0}/{1}. Toonhoogte, startmoment en nootlengte tellen allemaal mee.</value></data>
   <data name="BadgeTimedMeasureTitle" xml:space="preserve"><value>Maatvast</value></data>

@@ -28,15 +28,18 @@ public partial class Home
     private IReadOnlyList<Pitch> WrittenMeasurePitches
         => writtenMeasure.Notes.Select(note => note.Pitch).ToArray();
 
-    private void StartNewWrittenMeasure()
+    private void StartNewWrittenMeasure(bool chooseNewMeasure = true)
     {
-        var candidates = BeginnerTwoFourMeasures
-            .Where(measure =>
-                previousWrittenMeasure is null ||
-                !measure.Notes.SequenceEqual(previousWrittenMeasure.Notes))
-            .ToArray();
-        writtenMeasure = candidates[Random.Shared.Next(candidates.Length)];
-        previousWrittenMeasure = writtenMeasure;
+        if (chooseNewMeasure)
+        {
+            var candidates = BeginnerTwoFourMeasures
+                .Where(measure =>
+                    previousWrittenMeasure is null ||
+                    !measure.Notes.SequenceEqual(previousWrittenMeasure.Notes))
+                .ToArray();
+            writtenMeasure = candidates[Random.Shared.Next(candidates.Length)];
+            previousWrittenMeasure = writtenMeasure;
+        }
         writtenMeasureEvaluator = writtenMeasure.CreateEvaluator(BeatInterval);
         writtenMeasureHeldMidiNote = null;
         writtenMeasureHoldVersion++;
@@ -170,7 +173,7 @@ public partial class Home
 
         if (IsWrittenMeasureMode)
         {
-            StartNewWrittenMeasure();
+            StartNewWrittenMeasure(isPerfect);
             await InvokeAsync(StateHasChanged);
         }
     }
